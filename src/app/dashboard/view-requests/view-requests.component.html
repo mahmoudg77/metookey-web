@@ -1,0 +1,46 @@
+<section >
+    <h1>{{ "Requests" | translate }}</h1>
+        <hr/>
+        <div class="row mb-3">
+        <div class="form-group col-sm-4" >
+            <label class="col-sm-6">{{ "From Date" | translate }}</label>
+            <input type="date" name="fromDate" placeholder=""  [(ngModel)]="fromDate" class="form-control col-sm-6">
+        </div>
+        <div class="form-group col-sm-4" >
+            <label class="col-sm-6">{{ "To Date" | translate }}</label>
+            <input type="date" name="toDate" placeholder=""  [(ngModel)]="toDate" class="form-control col-sm-6">
+        </div>
+        <div class="form-group col-sm-12" >
+            <input type="button" name="submit" class="btn btn-primary" value="Filter" (click)="loadData()">
+        </div>
+        </div>
+    <div class="table-responsive-sm" style="overflow: auto;">
+        <table datatable [dtOptions]="dtOptions" #table class="table table-middle table-striped table-hover">
+             <!-- <thead>
+                <tr class="ng-tns-c13-12">
+                    
+                    <td class="ng-tns-c13-12">Main Category</td>
+                    <td class="ng-tns-c13-12">Parent Category</td>
+                    <td class="ng-tns-c13-12">Category</td>
+                    <td class="ng-tns-c13-12">Note</td>
+                    <td class="ng-tns-c13-12">Price</td>
+                    <td class="ng-tns-c13-12">Account</td>
+                    <td class="ng-tns-c13-12">Mobile</td>
+                    <td class="ng-tns-c13-12">Email</td>
+                    <td class="ng-tns-c13-12">Date Of Birth</td>
+                    <td class="ng-tns-c13-12">Phone</td>
+                    <td class="ng-tns-c13-12">Date</td>
+                 
+                </tr>
+            </thead> -->
+           <!-- <tbody>
+                <tr class="ng-tns-c13-12" *ngFor="let item of reqs" >
+                    <td class="ng-tns-c13-12">{{item.requestText}}</td>
+                    <td class="ng-tns-c13-12">{{item.created_date | date: 'yyyy-MM-dd hh:mm a'}}</td>
+                </tr> 
+                 
+            </tbody> -->
+        </table>
+    </div>
+
+</section>

@@ -1,0 +1,36 @@
+
+<!--Categories Modal-->
+<ng-template #categorySelector   let-c="close" let-d="dismiss" >
+        <!-- Modal body -->
+        <div class="row modal-body">
+            <div class="searchCategory col col-12">
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngFor="let category of categories" (click)="toggleSelectedCategories(category)">
+                        <div class="cat-block text-center">
+                                <a href="javascript:;">
+                            <div class="cat-top" *ngIf="check(category)"  >
+                                     <i class="fa fa-check-circle"></i>
+                              </div>
+                            
+                                <img src="{{global.host}}/{{category.image}}" class="cat-middle img-fluid" alt="{{category.name}}"/>
+                            <div class="cat-bottom">{{category.name}}</div>
+                                     
+                                </a>
+                        </div>
+                    </li>
+                </ul>
+                <hr/>
+                <div class="row">
+                    <div class="col col-xs-12 text-center" >
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="c('Close click')">
+                          {{"Add Selected Categories"|translate}}</button>
+                  </div>
+            </div>
+            
+            </div>
+            
+            
+        </div>
+        <!-- Modal footer -->
+      
+  </ng-template>

@@ -1,0 +1,46 @@
+<app-modal (modalClose)="modalClose($event)" #modal="modal" size="md">
+    <h2 modal-header-title> {{ "Contact Us" | translate }}</h2>
+    <i class="fa fa-users" modal-header-icon></i>
+    <p modal-header-slogan>{{ "View Contact Us" | translate }}</p>
+    <div modal-body>
+        <table class="table">
+            <tr>
+                <td>
+                    <strong>{{ "Subject" | translate }} :</strong>
+                </td>
+                <td class="text-left">
+                    {{data.subject}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>{{ "Message" | translate }} :</strong>
+                </td>
+                <td class="text-left">
+                    {{data.message}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong> {{ "Account" | translate }}:</strong>
+                </td>
+                <td class="text-left">
+                    <ul>
+                        <li><strong>{{ "Name" | translate }}:</strong> {{data.acc_name}}</li>
+                        <li><strong>{{ "Email" | translate }}:</strong> <a href="mailto:{{data.acc_email}}">{{data.acc_email}}</a></li>
+                        <li><strong>{{ "Phone" | translate }}:</strong> <a href="tel:{{data.acc_phone}}">{{data.acc_phone}}</a></li>
+                        <li><strong>{{ "Mobile" | translate }}:</strong> <a  href="tel:{{data.acc_mobile}}">{{data.acc_mobile}}</a></li>
+                        <li><strong><a href="javascript:;" routerLink="/profile/{{data.created_by}}">{{ "Profile Link" | translate }}</a></strong></li>
+                    </ul>
+
+                </td>
+            </tr>
+           
+        </table>
+    </div>
+    <div modal-footer>
+        <div class="col-sm-10 text-right">
+                <button class="btn btn-primary btn-lg" (click)="modal.closeModal({submitted: true})"> {{ "Save" | translate }} </button>
+        </div>
+    </div>
+</app-modal>

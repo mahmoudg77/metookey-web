@@ -1,0 +1,224 @@
+<section class="editAccount">
+  <form id="formEditAcount" name="formEditAcount">
+      <div class="edit-user-bk"></div>
+        <div class="cont-ainer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="profile-sidebar">
+                        <div class="form-group img-profile" >
+                            <img src="{{imageUrl+CurrentAccount.image?.original}}" #profileImage alt="{{'Profile Image'|translate}}" 
+                                class="img-responsive img-thumbnail">
+                                <div class="profile-user-data">
+                                <h3>{{shared.getUser()?.name}}</h3>
+                                <!-- <p>jobe Title @ Company Name</p> -->
+                                <!-- <a href="javascript:;" class="btn btn-primary">Edit</a> -->
+                                <div class="form-group">
+                                    <label class="file-upload form-cont-rol">
+                                        <i class="fa fa-camera" aria-hidden="true"></i> Change Profile
+                                        <input type="file" (change)="onFileSelected($event)" style="display:none">
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div> 
+                        <div class="cleardix"></div>
+                        <user-password></user-password>
+                    </div>
+                </div>
+                
+                <div class="col-sm-8">
+                    <div class="profile-content" *ngIf="step==1">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group required-field" [formGroup]="firstFormGroup" >
+                                <label>{{ "First Name" | translate }} :</label>
+                                <input type="text" name="first_name" [(ngModel)]="CurrentAccount.first_name" 
+                                    formControlName="Ctrl_first_name" placeholder="{{ 'Enter First Name' | translate }}" class="form-control"
+                                    [ngStyle]="{'border-color':submitted && firstFormGroup.controls['Ctrl_first_name'].errors?'red':''}"
+                                     required>
+                                  <div *ngIf="submitted && firstFormGroup.controls['Ctrl_first_name'].errors"
+                                          class="text-danger">
+                                      <span *ngIf="firstFormGroup.controls['Ctrl_first_name'].errors.required">
+                                              {{ "First Name is required." | translate }}
+                                      </span>
+                                      <span *ngIf="firstFormGroup.controls['Ctrl_first_name'].errors.minlength">
+                                              {{ "First Name be at least 2 characters long" | translate }}
+                                      </span>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label >{{ "Second Name" | translate }} :</label>
+                                <input type="text" name="second_name" [(ngModel)]="CurrentAccount.second_name" 
+                                    placeholder="{{ 'Enter Second Name' | translate }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{ "Third Name" | translate }} :</label>
+                                <input type="text" name="third_name" [(ngModel)]=CurrentAccount.third_name 
+                                    placeholder="{{ 'Enter Third Name' | translate }}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group required-field"  [formGroup]="firstFormGroup">
+                                <label>{{ "Last Name" | translate }} :</label>
+                                <input type="text" name="last_name" [(ngModel)]="CurrentAccount.last_name" 
+                                    formControlName="Ctrl_last_name" placeholder="{{ 'Enter Last Name' | translate }}" 
+                                    class="form-control"
+                                    [ngStyle]="{'border-color':submitted && firstFormGroup.controls['Ctrl_last_name'].errors?'red':''}"
+                                    placeholder="Write here">
+                                 <div *ngIf="submitted && firstFormGroup.controls['Ctrl_last_name'].errors"
+                                    class="text-danger">
+                                <span *ngIf="firstFormGroup.controls['Ctrl_last_name'].errors.required">
+                                     {{ "Last Name is required." | translate }}
+                                </span>
+                                <span *ngIf="firstFormGroup.controls['Ctrl_last_name'].errors.minlength">
+                                     {{ "Last Name be at least 2 characters long" | translate }}
+                                </span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{ "Gender" | translate }} :</label>
+                                <select class="form-control custom-select" name="gender_id" [(ngModel)]="CurrentAccount.gender_id">
+                                    <option *ngFor="let gender of Gender_ids" value="{{gender.id}}">{{gender.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group "  >
+                                <label>{{ "Birth Date" | translate }} :</label>
+                                <input type="date" name="date_of_birth" value="{{CurrentAccount.date_of_birth|date:'yyyy-MM-dd'}}"   [ngModel]="CurrentAccount.date_of_birth|date:'yyyy-MM-dd'" 
+                                    placeholder="{{ 'Enter Birth Date' | translate }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group " >
+                                <label>{{ "Mobile" | translate }} :</label>
+                                <input type="tel" name="mobile" [(ngModel)]="CurrentAccount.mobile" 
+                                  placeholder="{{ 'Enter mobile' | translate }}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{ "Email" | translate }} :</label>
+                                <input type="email" name="email" readonly [(ngModel)]="CurrentAccount.email" 
+                                    placeholder="Enter email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{ "Country" | translate }} :</label>
+                                <select class="form-control custom-select" name="country" [(ngModel)]="CurrentAccount.country_id" (change)="loadCities(CurrentAccount.country_id)">
+                                    <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{ "City" | translate }} :</label>
+                                <select class="form-control custom-select" name="city" [(ngModel)]="CurrentAccount.city_id">
+                                    <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">{{ "Select Category" | translate }} :</label>
+                                <input type="text" class="form-control " value="{{getSelectedCategory()}}" (click)="catSelector.open()">
+                                <cat-select [(selected)]="selectedCats" #catSelector></cat-select>
+                                <small>{{ "Selec category desc" | translate }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">{{ "Facebook" | translate }} :</label>
+                                <input type="text" class="form-control " name="facebook" [(ngModel)]="CurrentAccount.facebook">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">{{ "Twitter" | translate }} :</label>
+                                <input type="text" class="form-control " name="twitter" [(ngModel)]="CurrentAccount.twitter">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">{{ "Instagram" | translate }} :</label>
+                                <input type="text" class="form-control " name="instagram" [(ngModel)]="CurrentAccount.instagram">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">{{ "Google" | translate }} :</label>
+                                <input type="text" class="form-control" name="google" [(ngModel)]="CurrentAccount.google">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <div class="btn-group text-center">
+                                <button type="submit" class="btn btn-primary btn-lg" (click)="editAccount()" 
+                                   >{{ "update" | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="profile-content" *ngIf="step==2">
+                        <div class="row">
+
+                           
+                                <div class="col-sm-12">
+                               
+                                        <span>{{ "received SMS" | translate }} <a href="javascript:;" (click)="sendVerificationCode()">{{ "Re-send" | translate }}</a></span>
+                                        <label for="shippcountry" class="col-lg">{{ "Verification Code" | translate }}</label>
+                                        <input type="text" id="mobile_vcode" name="mobile_vcode"  
+                                            [(ngModel)]="mobile_vcode" class="form-control"/>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+                                <div class="btn-group text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg" (click)="step=1" 
+                                        >{{ "Back" | translate }}</button>
+                                </div>
+                            </div>
+                                <div class="col-sm-6 text-center">
+                                    <div class="btn-group text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg" (click)="verifyMobile()" 
+                                           >{{ "Verify" | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </form>
+  </section>
+  

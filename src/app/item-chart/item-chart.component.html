@@ -1,0 +1,23 @@
+<!--component html goes here -->
+<div class="metookey-chart" style="height: 150px;">
+    <div class="start"> {{start|date:'dd MMM yyyy'}} <br/> {{start|date:'hh:mm a'}}</div>
+    <div class="brogress">
+        <div class="success-line" [ngStyle]="{'width':(orders*100/quantity)+'%'}">
+            <ul class="list-inline" >
+                <li *ngFor="let i of tooltips;last as isLast;" [ngStyle]="{'width':(100/tooltips.length)+'%'}">
+                    <a style="display:block;width:100%;text-align: right;" href="javascript:;" attr.data-toggle="{{isLast?'tooltip':'tooltip'}}" 
+                    [id]="isLast?'laststep':''" data-placement="top" title="Price: <strong>{{price*(1-(i.off/100))|number:'1.0-0'}}</strong> | Purchased:<strong>{{i.purchased}}</strong> | Left:<strong>{{i.leftQty}}</strong> | Only <strong>{{i.leftDays|number:'1.0-0'}}</strong> Days ">.</a></li>
+                <!-- <li *ngFor="let i of getOrders();last as isLast;" [ngStyle]="{'width':(100/getOrders().length)+'%'}"> | <strong>{{i.off|number:'1.0-0'}}%</strong> Off
+                    <a style="display:block;width:100%" href="javascript:;" attr.data-toggle="{{isLast?'tooltip':'tooltip'}}" 
+                    [id]="isLast?'laststep':''" data-placement="top" title="Purchased:<strong>{{i}}</strong> | Left:<strong>{{quantity-i}}</strong> | Only <strong>{{calculateLeftDays(i)|number:'1.0-0'}}</strong> Days">.</a></li> -->
+            </ul>
+        </div> 
+        <div >
+
+        </div>
+        <div class="full-line">
+
+        </div>
+    </div>
+    <div class="end"> {{end|date:'dd MMM yyyy'}} <br/> {{end|date:'hh:mm a'}}</div>
+ </div>

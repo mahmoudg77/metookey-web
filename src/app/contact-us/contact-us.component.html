@@ -1,0 +1,54 @@
+<!--Google map-->
+<div id="map-container-google-2" class="z-depth-1-half map-container-2" style="height: 100px">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.5316178347857!2d31.31532021510303!3d30.078957581869815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e4709298029%3A0x12ce28bf24f83939!2sSonesta+Hotel%2C+Tower+%26+Casino+Cairo!5e0!3m2!1sen!2seg!4v1544549299972" frameborder="0"
+      style="border:0" allowfullscreen></iframe>
+  </div>
+
+  <div class="contacusform">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4">
+                  <h4>{{"Contact" | translate}} <span>{{"Details" | translate}}</span></h4>
+                  <div class="card">
+                      <p><i class="fa fa-map-marker fa-2x"></i> {{"address_metooky" | translate}}
+                      </p>
+                      <p><i class="fa fa-envelope fa-2x"></i> {{"email_metooky" | translate}}</p>
+                  </div>
+              </div>
+              <div class="col-md-8">
+                  <h4>{{"Contact" | translate}}  <span>{{"MeTooKey Support" | translate}}</span></h4>
+                  <div class="card">
+                  
+                      <p>{{"Are you still using this email" | translate}}
+                          <a class="boald" href="#">{{shared.getUser()?.email}}</a>, {{"Contact_desc1" | translate}}
+                      <a href="#">{{"Account Settings" | translate}}</a>.</p> <p>{{"Contact_desc2" | translate}}
+                      <a href="#">{{"Help Center page" | translate}}</a>.<br/>
+                      {{"Contact_desc3" | translate}}</p>
+                  <p></p></div>
+                  <div class=" Sectionlist ">
+                      <p style="float: left;">{{"Choose section your question belong to" | translate}} : </p>
+                      <div class="dropdown" >
+                      <button class="btn  " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                        style="min-width: 200px;"> {{(sectionName==""?"Choose Section":sectionName)|translate}} 
+                          <i class="fa fa-caret-down float-right" style="padding:5px;"></i>    
+                         </button>
+
+                      <div class="dropdown-menu" >
+                          <a class="dropdown-item" *ngFor="let section of sections" href="javascript:;" 
+                            (click)="formData.section_id=section.id;sectionName=section.name">{{section.name}}</a>
+                      </div>
+                    </div>
+                  </div> 
+                  <form class="sendmsgform">
+                      <input class="col-8" type="text" name="subject" [(ngModel)]="formData.subject" placeholder="{{'Your Subject' | translate}}">
+                      <textarea rows="8" name="message"  [(ngModel)]="formData.message"  placeholder="{{'Your Message' | translate}}"></textarea>
+                      <div class="row">
+                          <div class="col text-right">
+                              <button class="se" type="button" (click)="send()" > {{"Send Message" | translate}}</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>

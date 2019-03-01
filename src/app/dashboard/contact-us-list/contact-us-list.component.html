@@ -1,0 +1,52 @@
+<section >
+    <div class="row dashboard-header" >
+        <div class="col-sm-12">
+            <h1  class="pull-left">{{ "Contact Us" | translate }}</h1>
+        </div>
+    </div>
+    <hr/>
+  <div class="table-responsive-sm">
+      <table datatable [dtOptions]="dtOptions" class="table table-middle table-striped table-hover" width="100%">
+          <thead>
+              <tr class="ng-tns-c13-12">
+                  <td class="ng-tns-c13-12">{{ "Date" | translate }}</td>
+                  <td class="ng-tns-c13-12">{{ "Account" | translate }}</td>
+                  <td class="ng-tns-c13-12">{{ "Subject" | translate }}</td>
+                  <td class="ng-tns-c13-12">{{ "Section" | translate }}</td>
+                  <td class="ng-tns-c13-12">{{ "Action" | translate }}</td>
+              </tr>
+          </thead>
+          <tbody class="ng-tns-c13-12">
+              <tr class="ng-tns-c13-12" *ngFor="let item of data" >
+                  <td class="ng-tns-c13-12">{{item.created_at}}</td>
+                  <td class="ng-tns-c13-12"><a href="javascript:;" routerLink="/profile/{{item.created_by}}">{{item.acc_name}}</a></td>
+                  <td class="ng-tns-c13-12">{{item.subject}}</td>
+                  <td class="ng-tns-c13-12">{{item.section_name}}</td>
+                  <td>
+                      <ul class="list-inline action-icon">
+                          
+                          <li class="list-inline-item">
+                              <a [routerLink]="['/',{outlets:{'modal':['contactus-view',item.id]}}]" href="javascript:;"   
+                                class="text-success" title="Edit Item">
+                                  <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                              </a>
+                            
+                          </li>
+                          <li class="list-inline-item" *ngIf = "permission.ContactUs?.Delete">
+                              <a href="javascript:;"
+                                  (click)="deleteItem(item)" class="text-danger" 
+                                  title="Delete Item"><i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                              </a>
+                          </li>
+                         
+                      </ul>
+                  </td>
+              </tr> 
+               
+          </tbody>
+      </table>
+  </div>
+      
+   
+      
+  </section>

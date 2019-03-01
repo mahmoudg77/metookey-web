@@ -1,0 +1,137 @@
+	<div class="modal-header">
+        <div class="row modal-header-content">
+          <div class="col col-xs-6">
+            <i class="fa fa-unlock-alt"></i>
+          </div>          
+          <div class="col col-xs-6">
+            <h2>{{ "Log In To Your" | translate }}</h2>
+              <p>{{ "Account In MeTooKey" | translate }}</p>
+          </div>    
+        </div>
+	  <button type="button" class="close" (click)="c('')" data-dismiss="modal">&times;</button>
+  </div>
+  <div class="modal-body">
+       <form class="login-form" action="javascript:void(0)" method="post" (submit)="loginone()" >
+            <!-- <div class="form-group">
+                <input name="fname" class="form-control form-control-lg input-square" type="text" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <input name="lname" class="form-control form-control-lg input-square" type="text" placeholder="Last Name" required>
+            </div> -->
+            <div  class="text-danger text-center" *ngIf="errorMessage!=''">{{errorMessage}}</div>
+            <div class="form-group" [formGroup]="form">
+                <label>{{ "Email Address" | translate }}</label>
+                <input type="text" (input)="resetMessage()" [(ngModel)]="username" name="username" formControlName="username"
+                    class="form-control form-control-lg input-square ng-dirty" placeholder="{{ 'Add Your Email Address' | translate }}" [class.ng-invalid]="submitted && form.controls['username'].errors" required>
+                
+                <div *ngIf="form.controls['username'].errors"
+                    class="text-danger">
+                <span *ngIf="submitted &&  form.controls['username'].errors.required">
+                     {{ "Email Address required" | translate }}
+                </span>
+                <span *ngIf="submitted &&  form.controls['username'].errors.email">
+                     {{ "Invalid email pattern" | translate }}
+                </span>
+            </div>
+            </div>
+            <div class="form-group" [formGroup]="form">
+                <label>{{ "password" | translate }}</label>
+                <input type="password" (input)="resetMessage()" [(ngModel)]="password" name="password" formControlName="password"
+                    class="form-control form-control-lg input-square ng-dirty" placeholder="{{ 'Add Your Password' | translate }}" [class.ng-invalid]="submitted && form.controls['password'].errors.required">
+                <div *ngIf="submitted && form.controls['password'].errors"
+                    class="text-danger">
+                <span *ngIf="submitted && form.controls['password'].errors.required">
+                     {{ "Password is required" | translate }}
+                </span>
+            </div>
+            </div>
+            <!-- <div class="form-group">
+                    <div class="checkbox">
+                    <label class="class="checkbox-inline""><input type="checkbox" [(ngModel)]="remember" name="remember" >Remember Me</label>
+                    </div>
+            </div> -->
+            <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="newsletter-signup" [(ngModel)]="remember" 
+                    name="remember"><label class="custom-control-label" for="newsletter-signup">{{ "Remember Me" | translate }}</label>
+            </div>
+            </div>
+            <div class="form-group">
+                <ul>
+                    <li><a href="javascript:;" [routerLink]="['/','forgot-password']" class="text-muted">{{ "Forgot Password" | translate }}</a></li>
+                    <li>{{ "you don't have account in MeTooKey" | translate }}
+                        <a [routerLink]="['/','login']" href="javascript:;" class="text-muted signUp">{{ "Sign Up Now" | translate }}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="login-meta mb-3">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0 d-flex">
+                            <input [(ngModel)]="remember" class="custom-control-input" name="remember" type="checkbox">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Remember Me</span>
+                        </label>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                        <a routerLink="/session/forgot-password" class="text-muted">Forgot Password?</a>
+                    </div>
+                </div>
+            </div> -->
+            <div class="mb-3 text-center">
+                <button type="submit" name="submit"  [disabled]="isWaiting"
+                    class="btn btn-primary btn-lg btn-square btn-login" style="cursor : pointer">
+                    <span>{{ "Sign In" | translate }}   <i class="fa fa-spin fa-refresh" *ngIf="isWaiting"></i></span>
+                </button>
+            </div>
+            <hr>
+            <!-- <div class="mb-3">
+                <a routerLink="/session/register" class="text-muted">Still no account? Please go to Register</a>
+            </div> -->
+            
+
+            <!-- <div class="login-social-icon">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-google-plus fa-lg text-warning"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-twitter fa-lg text-info"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-facebook-official fa-lg text-primary"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-instagram fa-lg text-danger"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div> -->
+            <div class="form-group" style="text-align: center !important;">
+                <button class="btn btn-primary btn-facebook" (click)="socialSignIn('facebook')">
+                    <i class="fa fa-facebook text-primary"></i> {{ "Log in with Facebook" | translate }}
+                </button>
+                    
+            </div>
+            <div class="form-group" style="text-align: center !important;">
+                <button class="btn btn-danger btn-google" (click)="socialSignIn('google')">
+                    <i class="fa fa-google-plus fa-lg text-warning"></i> {{ "Log in with Google" | translate }}
+                </button> 
+            </div>
+            <div class="form-group" style="text-align: center !important;" >
+                <button class="btn btn-info btn-twitter" (click)="socialSignIn('twitter')">
+                    <i class="icon-twitter fa-lg text-info"></i> {{ "Log in with Twitter" | translate }}
+                </button> 
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+    </div>
+   

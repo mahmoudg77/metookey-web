@@ -1,0 +1,176 @@
+<app-modal (modalClose)="modalClose($event)">
+        <h2 modal-header-title>{{ "Log In To Your" | translate }}</h2>
+        <i class="fa fa-unlock-alt" modal-header-icon></i>
+        <p modal-header-slogan>{{ "Account In MeTooKey" | translate }}</p>
+    <div modal-body>
+
+               <form class="login-form" action="javascript:;" (submit)="register()" method="post">
+                  <div class="row form-group" [formGroup]="form">
+                      <div class="col-sm-6">
+                            <label>{{ "First Name" | translate }}</label>
+                            <input name="first_name" formControlName="first_name" [(ngModel)]="model.first_name" 
+                                class="form-control form-control-lg input-square" type="text" 
+                                [ngStyle]="{'border-color':submitted && form.controls['first_name'].errors?'red':''}"
+                              placeholder="Write here" required>
+                            <div *ngIf="submitted && form.controls['first_name'].errors"
+                                    class="text-danger">
+                                <span *ngIf="form.controls['first_name'].errors.required">
+                                        {{ "First Name is required." | translate }}
+                                </span>
+                                <span *ngIf="form.controls['first_name'].errors.minlength">
+                                        {{ "First Name be at least 2 characters long" | translate }}
+                                </span>
+                            </div>
+                      </div>
+                      <div class="col-sm-6" [formGroup]="form">
+                            <label>{{ "Last Name" | translate }}</label>
+                            <input name="last_name" formControlName="last_name" [(ngModel)]="model.last_name" 
+                                class="form-control form-control-lg input-square" type="text" 
+                                [ngStyle]="{'border-color':submitted && form.controls['last_name'].errors?'red':''}"
+                               placeholder="Write here">
+                            <div *ngIf="submitted && form.controls['last_name'].errors"
+                               class="text-danger">
+                           <span *ngIf="form.controls['last_name'].errors.required">
+                                {{ "Last Name is required." | translate }}
+                           </span>
+                           <span *ngIf="form.controls['last_name'].errors.minlength">
+                                {{ "Last Name be at least 2 characters long" | translate }}
+                           </span>
+                       </div>
+                      </div>
+                    
+                  </div>
+                  <div class="form-group" [formGroup]="form">
+                        <label>{{ "Email Address" | translate }}</label>
+                     <input type="email" name="email" formControlName="email" [(ngModel)]="model.email" 
+                        class="form-control form-control-lg input-square" 
+                        [ngStyle]="{'border-color':submitted && form.controls['email'].errors?'red':''}"
+                        placeholder="Add your email address" required>
+                        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+                               class="text-danger">
+                           <span *ngIf="form.controls['email'].errors.required">
+                                {{ "Email is required" | translate }}
+                           </span>
+                           <span *ngIf="form.controls['email'].errors.email">
+                                {{ "Invalied email address" | translate }}
+                           </span>
+                       </div>
+                  </div>
+                  <div class="form-group" [formGroup]="form">
+                     <label>{{ "Password" | translate }}</label>
+                     <input type="password" name="password" formControlName="password" [(ngModel)]="model.password" 
+                        class="form-control form-control-lg input-square" 
+                        [ngStyle]="{'border-color':submitted && form.controls['password'].errors?'red':''}"
+                        placeholder="{{ 'Add your password' | translate }}" required>
+                     <div *ngIf="submitted && form.controls['password'].errors"
+                               class="text-danger">
+                           <span *ngIf="form.controls['password'].errors.required">
+                                {{ "Password is required" | translate }}
+                           </span>
+                           <span *ngIf="form.controls['password'].errors.minlength">
+                                {{ "Password be at least 8 characters long" | translate }}
+                           </span>
+                       </div>
+                     <password-strength-meter [password]="model.password" #pass></password-strength-meter>
+                     <!-- <small>
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                     </small> -->
+                  </div>
+                  <div class="form-group" [formGroup]="form">
+                     <label>{{ "Confirm Password" | translate }}</label>
+                     <input type="password" name="cpassword" formControlName="cpassword" [(ngModel)]="model.cpassword" 
+                        class="form-control form-control-lg input-square " 
+                        [ngStyle]="{'border-color':submitted && form.controls['cpassword'].errors?'red':''}"
+                        placeholder="{{ 'Confirm your password' | translate }}" required>
+                        <div *ngIf="submitted && form.controls['cpassword'].errors"
+                        class="text-danger">
+                        <span *ngIf="form.controls['cpassword'].errors.required">
+                                {{ "Confirm Password is required" | translate }}
+                        </span>
+                        <span *ngIf="this.model.password!=this.model.cpassword">
+                                {{ "Passwords not matches" | translate }}
+                        </span>                        
+                    </div> 
+                    <div *ngIf="form.controls['cpassword'].valid && this.model.password!=this.model.cpassword && (form.controls['cpassword'].dirty || form.controls['cpassword'].touched)"
+                        class="text-danger">
+                        <span *ngIf="this.model.password!=this.model.cpassword">
+                                {{ "Passwords not matches" | translate }}
+                        </span>                        
+                    </div>
+                  </div>
+
+                    <div class="custom-control custom-checkbox checkbox-cus" [formGroup]="form">
+                        <input type="checkbox" name="agree" formControlName="agree" [(ngModel)]="model.agree" 
+                        class="custom-control-input" id="newsletter-signup"
+                        [ngStyle]="{'border-color':submitted && form.controls['agree'].errors?'red':''}"
+                        >
+                        <label class="custom-control-label"  for="newsletter-signup">{{ "Accept all of" | translate }} 
+                            <a href="#">{{ "Termes Of Use" | translate }}</a> {{ "and" | translate }} <a href="#">{{ "Privacy Policy" | translate }}</a> .
+                        </label>
+                        <div *ngIf="form.controls['cpassword'].valid && this.model.password!=this.model.cpassword && (form.controls['cpassword'].dirty || form.controls['cpassword'].touched)"
+                        class="text-danger">
+                        <span *ngIf="form.controls['agree'].errors.required">
+                                {{ "You must click to agree our terms and policy!" | translate }}
+                        </span>                        
+                    </div>
+                    </div>
+                    <div class="" >
+                        <!-- <re-captcha [siteKey]="global.settings.recaptcha_site_key"
+                            formControlName="recaptcha">
+                        </re-captcha> -->
+                        <div  id="recaptcha" ></div>
+                        <span *ngIf="recaptcha_error!=''" class="text-danger">
+                                {{recaptcha_error}}
+                        </span> 
+                    </div>
+                   <div class="form-group">
+                        <ul>
+                            <li>{{ "Do you already have an account" | translate }}
+                                <a href="javascript:;" [routerLink]="['/',{outlets:{modal:['login']}}]"
+                                class="text-muted signUp">{{ "click to sign in" | translate }}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                  <div class="form-group" style="text-align: center !important;">
+                        <div  class="text-danger text-center" *ngIf="errorMessage!=''">{{errorMessage}}</div>
+
+                        <button type="submit" name="submit"  [disabled]="isWaiting"
+                        class="btn btn-primary btn-lg btn-square btn-login" style="cursor : pointer">
+                        <span>{{ "Register" | translate }}   <i class="fa fa-spin fa-refresh" *ngIf="isWaiting"></i></span>
+                    </button>
+                  </div>
+                  <hr>
+                  <div class="form-group" style="text-align: center !important;">
+                        <a href="javascript:;" class="btn btn-primary btn-facebook" (click)="socialSignIn('facebook')">
+                            <i class="fa fa-facebook text-primary"></i> {{ "Log in with Facebook" | translate }}
+                        </a>
+                          
+                    </div>
+                    <div class="form-group" style="text-align: center !important;">
+                        <a href="javascript:;" class="btn btn-danger btn-google" (click)="socialSignIn('google')">
+                            <i class="fa fa-google-plus fa-lg text-warning"></i> {{ "Log in with Google" | translate }}
+                        </a> 
+                    </div>
+                    <div class="form-group" style="text-align: center !important;">
+                        <a href="javascript:;" class="btn btn-info btn-twitter" (click)="socialSignIn('twitter')">
+                            <i class="icon-twitter fa-lg text-info"></i> {{ "Log in with Twitter" | translate }}
+                        </a> 
+                        
+                    </div>
+               </form><!-- Login Form closed -->
+            
+<div class="container">
+    
+<div class="alert alert-success" *ngIf="key!=null && confirmed==true">
+    <strong>{{ "Congeateulation" | translate }}; </strong> {{ "Your email has been confirmed" | translate }}
+</div>
+<div class="alert alert-danger" *ngIf="key!=null && confirmed==false">
+    <strong>{{ "Sorry" | translate }}; </strong> {{ "Cannot confirm your email." | translate }}
+</div>
+
+</div>
+</div>
+<div modal-footer>
+</div>
+</app-modal>

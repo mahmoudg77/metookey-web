@@ -1,0 +1,82 @@
+<!--component html goes here -->
+<section class="product-list">
+    <div class="container">
+        <!-- <div class="pull-right" style="margin-bottom:10px;" *ngIf = "permission.Country?.Add==true">
+            <a href="javascript:;" class="btn btn-primary btn-lg" [routerLink]="['/',{outlets:{'modal':['country-edit']}}]">Add New</a>
+        </div> -->
+        <h1>{{ "Product" | translate }}</h1>
+        <div class="table-responsive-sm">
+                <table datatable [dtOptions]="dtOptions" width="100%" class="table table-middle table-striped table-hover text-center" >
+                    <thead class="bg-prim-ary">
+                        <tr>
+                            <th>{{ "Featured" | translate }}</th>
+                            <th>{{ "No" | translate }}.#</th>
+                            <th>{{ "Name" | translate }}</th>
+                            <th>{{ "Categories" | translate }}</th>
+                            <th>{{ "Original Price" | translate }}</th>
+                            <th>{{ "Offer Price" | translate }}</th>
+                            <th>{{ "Quantity" | translate }}</th>
+                            <th>{{ "Start Date" | translate }}</th>
+                            <th>{{ "End Date" | translate }}</th>
+                            <th>{{ "Orders Count" | translate }}</th>
+                            <th>{{ "Metookeyr Name" | translate }}</th>
+                            <th *ngIf="status=='my-products' || status=='list'">{{ "Action" | translate }}</th>
+                        </tr>
+                    </thead>  
+                     <tbody>
+                        <tr *ngFor="let item of data" >
+                            <td>
+                                <a href="javascript:;" (click)="unFeaturedItem(item)"><i class="fa fa-star" *ngIf="item.is_featured"></i></a>
+                                <a href="javascript:;" (click)="featuredItem(item)"><i class="fa fa-star-o" *ngIf="!item.is_featured"></i></a>
+                            </td>
+                            <td>{{item.id}}</td>
+                            <td style="min-wi-dth: 220px;" class="text-left">
+                                <a href="javascript:;" routerLink="/product/details/{{item.id}}" >{{item.name}}</a></td>
+                            <td>{{item.categories}}</td>
+                            <td><span class="original_price">{{item.original_price}}</span></td>
+                            <td>{{item.offer_price}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.date_start | date}} </td>
+                            <td>{{item.date_end | date}}</td>
+                            <td><a href="javascript:;" [routerLink]="['/orders/waiting']" [queryParams]="{item_id:item.id}">{{item.orders_count}}</a></td>
+                            <td><a href="javascript:;" routerLink="/profile/{{item.created_by}}" class="redirect" >{{item.acc_name}}</a></td>
+                            <td style="min-w-idth: 200px;" *ngIf="status=='my-products' || status=='list'">
+                                
+                                <ul class="list-inline action-icon">
+                                    <li class="list-inline-item" *ngIf="permission.Item.Edit==true">
+                                        <a  href="javascript:;" routerLink="/product/edit/{{item.id}}" class="text-success" title="Edit Item">
+                                            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item" *ngIf="permission.Item.Delete==true">
+                                        <a href="javascript:;" (click)="deleteItem(item)" class="text-danger" 
+                                            title="Delete Item"><i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item" *ngIf="permission.Item.Approved==true && (item.is_approved==false || item.is_approved==null)">
+                                        <a href="javascript:;" (click)="approveItem(item)" class="text-success" 
+                                            title="Approve Item"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item" *ngIf="permission.Item.Reject==true && (item.is_approved==true || item.is_approved==null)">
+                                        <a href="javascript:;" (click)="rejectItem(item)" class="text-danger" 
+                                            title="Reject Item"><i class="fa fa-window-close fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item" *ngIf="permission.Item.Reset==true && item.is_approved!=null">
+                                        <a href="javascript:;" (click)="resetItem(item)" class="text-primary" 
+                                            title="Reset Item"><i class="fa fa-refresh fa-lg" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                   
+                                </ul>
+                            </td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+    </div>    
+</section>
+
+    
+  

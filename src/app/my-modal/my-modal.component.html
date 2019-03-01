@@ -1,0 +1,40 @@
+ 
+      <div [@dialog]="animate" class="modal-body border-{{type}}" (mouseover)="holdTimer=true" (mouseout)="holdTimer=false">
+
+            <div class="row" style="margin:auto;">
+                <div class="card card-outline-{{type}} w-100" >
+                    <div class="card-header w-100"> 
+                        <button type="button" class="close text-{{type}}" aria-label="Close"
+                            (click)="close('Cross click')">&times;
+                            </button>
+                        <div class="card-title"> 
+                           
+                            <span class="text-{{type}}">
+                                   
+                                <i class="fa fa-lg {{icon}}">
+
+                                </i>
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <div class="brogress-container">
+                            <div class="brogress brogress-{{type}}" [style.width]="brogress+'%'">
+                                
+                            </div>
+                        </div> 
+                    <div  class="card-body bg-{{type}}">
+                        <p class="text-center" style="color: #fff">
+                            <strong >{{message}}</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            
+                      
+      </div>
+      
+
+
+     

@@ -1,0 +1,71 @@
+// component css goes here
+.success-popup  {
+    transition: .3s ease all;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.card-title{
+    font-size: 60px;
+    padding-top: 30px;
+    text-align: center;
+    padding-bottom: 30px;
+    margin: auto !important;
+    color: #fff;
+}
+
+.card-header button{
+    font-size: 16px !important;
+    color:#fff;
+}
+.modal-body{
+    padding: 0px !important;
+    border-radius: 10px;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 2px;
+}
+.border-rounded{
+    border-radius: 10px;
+}
+.card{
+    margin-bottom:0px;
+}
+.card-body{
+    min-height:unset;
+}
+.modal-content{
+    border: none !important;
+    background: transparent !important;
+}
+
+.border-success{
+    border-color: #440184 !important;
+}
+.border-danger{
+    border-color: #dc3545;
+}
+.text-success{
+    color: #440184 !important;
+}
+.bg-success{
+    background-color: #440184 !important;
+}
+.card-outline--success{
+    border-color: #440184 !important;
+}
+.brogress-container{
+    background: #ccc;
+    padding: 1px 0px;
+    .brogress{
+        border-radius: 0px 1px 1px 0px;
+        padding: 2px;
+    }
+    .brogress-success{
+        background: #440184;
+    }
+    .brogress-danger{
+        background:#dc3545;
+    }
+}
+

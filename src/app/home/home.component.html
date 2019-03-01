@@ -1,0 +1,85 @@
+
+
+
+
+<div class="">
+    <div class="home-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 sidebar-home">
+                    <h1>{{ "Find Safe Marketplace" | translate }}</h1>
+                    <h3>{{ "Helps you to get WOW OFFERS with Zero Headaches" | translate }}</h3>
+                    <!-- <search-form #search></search-form> -->
+                    <!-- <h4 >{{ "New Arrivals" | translate }}</h4> -->
+                    <new-arrivals></new-arrivals>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="col find_your_price  ">
+                        <customer-leads class="row align-items-center  " style="min-height:370px" ></customer-leads>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+
+
+
+<counter-section></counter-section>
+
+
+<div class="clearfix"></div>
+<div class="row category-select">
+    <div class="container chose-cat text-center">
+        <div class="searchCategory">
+            <ul class="list-inline owl-carousel owl-theme">
+                <!-- <li class="list-inline-item">
+                    <a href="javascript:;" (click)="searchCatBack()" class="btn btn-link sear-ch-arrow-left">
+                        <i class="fa fa-chevron-left"></i></a>
+                </li> -->
+                
+                <li class="list-inline-item text-center item" *ngFor="let category of categories">
+                    <div class="cat-block ">
+                        <a href="#" routerLink="/cat/{{category.name}}">
+                        <img src="{{global.host}}/{{category.image}}" class="cat-middle img-fluid" 
+                            alt="{{category.name}}"/>
+                        
+                        </a>
+                    </div>
+                    <div class="cat-bottom">{{category.name}}</div>
+                </li>
+                
+                <!-- <li class="list-inline-item">
+                    <a href="javascript:;" (click)="searchCatNext()" class="btn btn-link sear-ch-arrow-right">
+                        <i class="fa fa-chevron-right"></i></a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<category-section *ngFor="let id of global.settings.cat_in_home.split(',');let i=index" [id]="id" [alt]="i%2>0"></category-section>
+      
+<div class="row newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3>{{ "Newsletter" | translate }}</h3>
+                <p>{{ "Subscribe to get information about new MeTooKey" | translate }}</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" style="font-size: 1.6rem" [(ngModel)]="email" placeholder="Send Request ..." name="txtRequestText" [(ngModel)]=textRequest>
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" (click)="sendRequest()" type="submit">
+                                {{ "Submit" | translate }}
+                        </button>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End .newsletter -->
+

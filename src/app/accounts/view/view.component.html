@@ -1,0 +1,94 @@
+<section class="view-account">
+    <div class="form-group row">
+        <label class="col-sm-2">Name :</label>
+        <span class="form-control col-sm-2 text-success" *ngIf = "CurrentAccount?.is_blocked == false">{{CurrentAccount.name}} 
+            <i class="fa fa-unlock text-success icon-status-block" aria-hidden="true"></i></span> 
+        <span class="form-control col-sm-2 text-danger" *ngIf = "CurrentAccount?.is_blocked == true">{{CurrentAccount.name}} 
+                <i class="fa fa-ban text-danger icon-status-block" aria-hidden="true"></i></span> 
+
+        <label class="col-sm-2">Company :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.company}}</span>
+
+        <label class="col-sm-2">City :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.city}}</span>
+    </div>
+
+    <div class="form-group row">
+            <label class="col-sm-2">Balance :</label>
+            <span class="form-control col-sm-2">{{CurrentAccount.balance}}</span>
+
+            <label class="col-sm-2">Account Type :</label>
+            <span class="form-control col-sm-2">{{CurrentAccount.acc_type_name}}</span>
+
+            <label class="col-sm-2">Account Parent :</label>
+            <span class="form-control col-sm-2">{{CurrentAccount.parent_acc_name}}</span>
+        </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2">Phone :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.phone}}</span>
+
+        <label class="col-sm-2">Address :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.address}}</span>
+
+        <label class="col-sm-2">Email :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.email}}</span>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2">Gov :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.gov_name}}</span>
+
+        <label class="col-sm-2">Company Type :</label>
+        <span class="form-control col-sm-2">{{CurrentAccount.company_type_name}}</span>
+
+        <label class="col-sm-2">Is Approvd :</label>
+        <span class="form-control col-sm-2 " *ngIf = "CurrentAccount.approved == true" >
+            <i class="text-success">Approved</i>
+        </span>
+        <span class="form-control col-sm-2 alert bg-danger" *ngIf = "CurrentAccount.approved == false" >
+                <i class="text-danger">Rejected</i>
+        </span>
+        <span class="form-control col-sm-2" *ngIf = "CurrentAccount.approved == null" >
+                <i class="text-warning">Watting ...</i>
+        </span>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2">Notes :</label>
+        <span class="form-control col-sm-7 notes">{{CurrentAccount.notes}}</span>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <label class="col-sm-2"></label>
+        <div class="col-sm-10 text-right">
+            <a [routerLink]="['/accounts/edit/', CurrentAccount.id]" class="btn btn-success btn-lg btn-square">Edit </a>
+            <a href="javascript:;" class="btn btn-primary btn-lg btn-square" (click)="backClicked()">Back </a>
+        </div>
+    </div>
+
+    <hr>
+
+    <section class="include-users">
+        <div class="ng-tns-c6-1 accordion-wrapper" aria-multiselectable="true" id="accordion-6" role="tablist">
+            <div class="basic-icon-accordion">
+
+                <div class="card border-success">
+                    <div class="card-header bg-success" id="heading-16" role="tab">
+                        <h5 class="mb-0">
+                            <a class="collapsed accordion-toggle" aria-controls="collapse-16" aria-expanded="false" 
+                                data-parent="#accordion" data-toggle="collapse" href="#collapse-16">Users </a>
+                        </h5>
+                    </div>
+                    <div class="collapse" aria-labelledby="heading-16" id="collapse-16" role="tabpanel">
+                        <div class="card-body">
+                            <accusers></accusers>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+

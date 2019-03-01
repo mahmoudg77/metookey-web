@@ -1,0 +1,133 @@
+<div class="app" dir="ltr" [ngClass]="themeSkinColor" [class.app-dark]="dark" [class.boxed]="boxed" [class.collapsed-sidebar]="collapseSidebar" [class.compact-sidebar]="compactSidebar" [class.customizer-in]="customizerIn" [class.chat-window--open]="chatWindowOpen" [class.sidebar-closed]="sidebarClosed" [class.chat-sidebar]="chatSidebar">
+<div class="d-flex flex-row-reverse">
+    <div class="page-wrapper">
+		<header class="header">
+			<div class="header-top">
+				<div class="container-fluid">
+					<div class="header-left header-dropdowns">
+                        <div class="header-dropdown dropdown-expanded">
+                            <a href="#">Links</a>
+                            <div class="header-menu">
+                                <ul>
+                                    <li><a href="my-account.html">Contact Us </a></li>
+                                </ul>
+                            </div><!-- End .header-menu -->
+                        </div><!-- End .header-dropown -->
+					</div><!-- End .header-left -->
+
+					<div class="header-right">
+                        <div class="header-dropdown">
+                            <a href="#"><img src="assets/images/flags/en.png" alt="England flag">ENGLISH</a>
+                            <div class="header-menu">
+                                <ul>
+                                    <li><a href="#"><img src="assets/images/flags/en.png" alt="England flag">ENGLISH</a></li>
+                                    <li><a href="#"><img src="assets/images/flags/fr.png" alt="France flag">FRENCH</a></li>
+                                </ul>
+                            </div><!-- End .header-menu -->
+                        </div><!-- End .header-dropown -->
+					</div><!-- End .header-right -->
+				</div><!-- End .container -->
+			</div><!-- End .header-top -->
+
+			<div class="header-middle">
+				<div class="container-fluid">
+					<div class="header-left">
+						<a href="index.html" class="logo">
+							<img src="assets/images/logo.png" alt="MeToKeey Logo">
+						</a>
+					</div><!-- End .header-left -->
+					
+                    <!-- End .headeer-center -->
+					<div class="header-right">
+                        <a href="#" class="btn btn-primary btn-sm btnlogin text-capitalize">Log In</a>
+                        <a href="#" class="btn btn-primary btn-sm btnsignup text-capitalize">Sign Up</a>
+					</div><!-- End .header-right -->
+				</div><!-- End .container -->
+			</div><!-- End .header-middle -->
+		</header><!-- End .header -->
+
+		<main class="main">
+
+            <div class="conta-iner" style="min-height: 500px;padding:10px;">
+                <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+            </div>
+		</main><!-- End .main -->
+
+		<div class="row newsletter">
+			<div class="row">
+			<div class="container">
+				<div class="col-sm-5">
+					<h3>Newsletter</h3>
+					<p>Subscribe to get information about new MeTooKey</p>
+				</div>
+				<div class="col-sm-7">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Email Address ...">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+							Subscibe
+							</button>
+						</div>
+						</div>
+				</div>
+			</div>
+			</div>
+		</div><!-- End .newsletter -->
+
+		<footer class="footer">
+			<div class="footer-middle">
+				<div class="container">
+					<!-- <div class="footer-ribbon">
+		                Get in touch
+					</div> -->
+					
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="widget">
+								<h4 class="widget-title">With MeTooKey</h4>
+								<p>Get your chance, reach your dream,<br> and start your own business here. </p>
+								<div class="social-icons">
+									<a href="#" class="social-icon" target="_blank"><i class="fa fa-facebook"></i></a>
+									<a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
+									<a href="#" class="social-icon" target="_blank"><i class="icon-linkedin"></i></a>
+								</div><!-- End .social-icons -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-lg-4 -->
+
+						<div class="col-lg-4">
+							<div class="widget widget-newsletter">
+								<h4 class="widget-title">About MeTooKee</h4>
+								<div class="row">
+									<div class="col-md-6">
+										Section 1
+									</div><!-- End .col-md-6 -->
+
+									<div class="col-md-6">
+										Section 2
+									</div><!-- End .col-md-6 -->
+								</div><!-- End .row -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-lg-4 -->
+
+						<div class="col-lg-4">
+							<div class="widget widget-newsletter">
+								<h4 class="widget-title">Download Apps</h4>
+								<div class="row">
+									<div class="col-md-12">
+										Section 1
+									</div><!-- End .col-md-6 -->
+								</div><!-- End .row -->
+							</div><!-- End .widget -->
+						</div>
+					</div><!-- End .row -->
+				</div><!-- End .container -->
+			</div><!-- End .footer-middle -->
+
+			<div class="container-flux">
+				<div class="footer-bottom">
+					<div class="footer-copyright text-center">All Rights Reserved.copyright. &copy;  2018 metookey.com | Terms Of Use | Privacy Policy</div>
+				</div><!-- End .footer-bottom -->
+			</div><!-- End .container -->
+		</footer><!-- End .footer -->
+	</div><!-- End .page-wrapper -->
+</div>

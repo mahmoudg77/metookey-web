@@ -1,0 +1,41 @@
+<!--component html goes here -->
+<section class="roles">
+    <h1>{{ "Roles" | translate }}</h1>
+    <hr/>
+    <form  style="padding:15px;" >
+        <div class="form-group row">
+            <label class="col-sm-2 label-right">{{ "Role" | translate }} :</label>
+            <select class="col-sm-6 select-right" name="role_id" [(ngModel)]="model.role_id" (change)="getMethods(model.screen,model.role_id)">
+                <option class="ng-tns-c20-74" *ngFor="let role of roles" [ngValue]="role.id" >{{role.name}}</option>
+            </select>
+        </div>
+    
+        <div class="form-group row">
+            <label class="col-sm-2 label-right">{{ "Screen" | translate }} :</label>
+            <select class="col-sm-6 select-right" name="screen" [(ngModel)]="model.screen" (change)="getMethods(model.screen,model.role_id)">
+                <option class="ng-tns-c20-74" *ngFor="let screen of screens" [ngValue]="screen"  >{{screen}}</option>
+            </select>
+         </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 label-right">{{ "Methods" | translate }} :</label>
+            <div class="col col-sm">
+                <div class="row">
+                    <div class="custom-control custom-checkbox col-sm-3" *ngFor="let method of methods">
+                            <input type="checkbox" class="custom-control-input" id="method_{{method}}" (click)="toggleSelectMethod(method)" [value]="method"  [checked]="model.methods.indexOf(method)>-1">
+                            <label class="custom-control-label" for="method_{{method}}">{{method}}</label>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    
+        <hr>
+        <div class="form-group row">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10 text-right">
+                <a href="javascript:;" class="btn btn-primary btn-lg btn-square" (click)="savePermissions()">{{ "Save" | translate }} </a>
+            </div>
+        </div>
+    </form>
+    </section>
+    

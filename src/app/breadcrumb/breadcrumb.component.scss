@@ -1,0 +1,24 @@
+// component css goes here
+
+.breadcrumb {
+    padding: 6px;
+    .fa{
+        font-size: 21px;
+        padding-right: 5px;
+    }
+    text-decoration: none;
+    :hover{
+        text-decoration: none;
+    }
+    .sub-item{
+        a{
+            color: rgb(85, 84, 84);
+            text-transform: capitalize;
+        }::before{
+            content:'» ';
+            color: #222;
+        }
+        
+    }
+}
+

@@ -1,0 +1,31 @@
+<!--component html goes here -->
+<div class="header-center" >
+        <div class="header-search">
+            <form>
+                <!-- <a href="#" class="search-toggle" role="button">{{ (cat||'All') | translate }}</a> -->
+                <div class="header-search-wrapper">
+                    <!-- <div class="select-custom">
+                        <select name="cat" [(ngModel)]="cat">
+                            <option class="select-search" selected  value="">{{ "All" | translate }}</option>
+                            <option class="select-search" *ngFor="let c of global.categories" value="{{c.name}}">{{c.name}}</option>
+                        </select>
+                    </div> -->
+                    <div class="header-dropdown">
+                        <a href="javascript:;" (click)="openMenu()">{{ (cat||'All') | translate }}</a>
+                        <div class="header-menu" id="cat-menu">
+                            <ul>
+                                <li><a href="javascript:;" (click)="catSelected('All')">{{'All'|translate}}</a></li>
+                                <li *ngFor="let c of global.categories"><a href="javascript:;" (click)="catSelected(c.name)">{{c.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- End .header-dropown -->
+
+                    <input autocomplete="off" (input)="searchBySelected()" attr.list="broducts_{{rundomID}}" (keyup)="autoCompete()" [(ngModel)]="q" type="search" class="form-control" name="q" id="q" placeholder="I'm looking for MeTooKey ..." required>
+                    <ul  class="autocomplete-list" id="broducts_{{rundomID}}"  *ngIf="products.length>0 && q!=''" >
+                            <li *ngFor="let name of products" ><a href="javascript:;" (click)="q=name;onSubmit();products=[]" >{{name}}</a></li>
+                    </ul>
+                    <button class="btn text-capitalize" type="button" (click)="onSubmit()">{{ "Search" | translate }}</button>
+                </div>
+            </form>
+        </div>
+    </div>

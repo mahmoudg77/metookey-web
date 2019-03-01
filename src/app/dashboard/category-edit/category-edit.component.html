@@ -1,0 +1,44 @@
+<!--component html goes here -->
+<app-modal (modalClose)="modalClose($event)" #modal="modal" size="md">
+    <h2 modal-header-title>{{ "Category" | translate }}</h2>
+    <i class="fa fa-users" modal-header-icon></i>
+    <p modal-header-slogan>{{ "Metookey control panel" | translate }}</p>
+    <div modal-body>
+        <form>
+                <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" *ngFor="let lang of translate.getLangs()">
+            <a class="nav-link {{clang==lang?'active':''}}"   data-toggle="tab" href="javascript:;" (click)="clang=lang">{{lang}}</a>
+            </li>
+        </ul>
+      
+        <!-- Tab panes -->
+        <div class="tab-content" >
+            <div class="tab-pane {{clang==trans.lang?'active':''}}" id="{{trans.lang}}"  *ngFor="let trans of currentItem.name">
+                <div class="form-group" >
+                    <label class="col-sm-3">{{ "Name" | translate }} {{trans.lang}}</label>
+                    <input type="text" name="{{trans.lang}}_name" placeholder="Name"  [(ngModel)]="trans.value" class="form-control col-sm-9">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" >
+                <label class="col-sm-3">{{ "Image" | translate }}</label>
+                <label class="file-upload form-control col-sm-9">
+                    <i class="fa fa-upload"></i>
+                    {{(selectedImage==null?'Select Image ....':selectedImage.name)}}
+                    <input type="file" (change)="onFileSelected($event)">
+                </label>
+
+            </div>
+        <div class="form-group" >
+            <img src="{{imageUrl}}/{{currentItem.image?.thumb}}" alt="{{'Category Image'|translate}}" class="img-responsive">
+        </div> 
+        </form>
+    </div>
+    <div modal-footer>
+        <div class="col-sm-10 text-right">
+                <button class="btn btn-primary btn-lg" (click)="modal.closeModal({submitted: true})">{{ "Save" | translate }}  </button>
+        </div>
+    </div>
+</app-modal>

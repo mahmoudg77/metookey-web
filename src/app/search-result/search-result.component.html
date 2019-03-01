@@ -1,0 +1,66 @@
+
+<!-- <div class="row background-search" [ngStyle]="{'background' : 'url(./assets/images/bk-search.jpg)','background-repeat' : 'no-repeat' , 'background-size' : 'cover'}"> -->
+<div class="row background-search">
+    <div class="col-12">
+        <h1>{{ "search_desc1" | translate }}</h1>
+        <p class="text-capitalize">{{ "search_desc2" | translate }}<br>
+            {{ "search_desc3" | translate }}
+        </p>
+    </div>
+</div>
+
+<div class="container" style="padding: 30px 10px;">
+<div class="cat-1" >
+    <div class="row cat-header">
+        <div class="col-sm-4">
+                <div class="input-group">
+                        <div class="input-group-btn search-panel"></div>
+                        <input type="hidden" name="search_param" value="all" id="search_param">         
+                        <input type="text" [(ngModel)]="sliderRequest.search.value" class="form-control input-search" 
+                            name="x" placeholder="{{ 'Search' | translate }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-search" type="button" (click)="loadItems()">
+                                <span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+        </div>
+        
+         <div class="col-sm-5">
+            <!-- <small>{{ "Low Rate MeTooKeys" | translate }} (<strong>1,500 {{ "Items" | translate }}</strong>)  |   {{ "High Rate MeTooKeys" | translate }} (<strong>1,500 {{ "Items" | translate }}</strong>)</small> -->
+        </div>
+        <div class="col-sm-3">
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-sm btn-sort dropdown-toggle" type="button" id="dropdownMenuButton" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ "Sort By" | translate }} :  {{selectedSort.name}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" 
+                    style="width: 100%;border:1px solid rgb(59, 86, 232)">
+                        <a *ngFor="let order of orders" class="dropdown-item" (click)="sort(order)" 
+                            href="javascript:;">{{order.name}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <product-card *ngFor="let item of sliderResponse.data" class="col-sm-3 cl-xs-12"
+            [id]="item.id"
+            [image]="item.image"
+            [time]="item.date_start"
+            [tags]="item.categories"
+            [rate]="item.rate_total_summary"
+            [title]="item.name"
+            [price]="item.offer_price"
+            [bprice]="item.original_price"
+            [total]="item.quantity"
+            [orders]="item.orders_count"
+        ></product-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-12 text-center">
+        <a href="javascript:;" (click)="loadMore()" *ngIf="sliderRequest.start+sliderRequest.length<=sliderResponse.recordsFiltered">{{ "Load more" | translate }} <i class="fa fa-caret-down"></i></a>
+    </div>
+</div>
+</div>

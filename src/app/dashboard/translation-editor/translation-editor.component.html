@@ -1,0 +1,33 @@
+<!--component html goes here -->
+<section >
+    <div class="row dashboard-header" >
+        <div class="col-sm-12">
+            <h1  class="pull-left">{{ "Translation Editor" | translate }}</h1>
+             
+        </div>
+    </div>
+    <hr/>
+  <div class="table-responsive-sm">
+      <table  class="table table-middle table-striped table-hover" width="100%">
+          <thead>
+              <tr class="ng-tns-c13-12">
+                  <td class="ng-tns-c13-12">{{ "Translation" | translate }}</td>
+              </tr>
+          </thead>
+          <tbody class="ng-tns-c13-12">
+              <tr class="ng-tns-c13-12" *ngFor="let key of keys;let i=index;" >
+                   <td>
+                    <input class="" style="width:100%" type="text" name="key" id="" [(ngModel)]="data[key]" >
+                  </td>
+              </tr> 
+               
+          </tbody>
+      </table>
+  </div>
+      
+   <div>
+       <hr/>
+       <input type="button" class="btn btn-primary" value="Save" (click)="saveTranslateFile()">
+   </div>
+      
+  </section>

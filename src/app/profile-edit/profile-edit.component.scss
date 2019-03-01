@@ -1,0 +1,68 @@
+.editAccount{}
+#formEditAcount{margin-bottom: 0 !important;}
+.editAccount .btn{
+    border-radius: 0px;
+    padding: 1.1rem 7.5rem;
+}
+.img-profile img{
+    width: 200px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    margin: auto;
+    position: absolute;
+    top: -70px;
+    left: 80px;
+    height: 200px;
+}
+.edit-user-bk{
+    background-color: #440184;
+    padding: 80px 10px;
+}
+.profile-sidebar{
+    box-shadow: 0 1px 1px 1px #ddd;
+    padding: 0 20px 0 40px;
+    height: 100%;
+}
+// .img-profile img:hover input[type="file"], .img-profile img:focus input[type="file"]{
+//     opacity: 1;
+//     -moz-transition: 0.5s;
+//     -o-transition: 0.5s;
+//     transition: 0.5s;
+// }
+.profile-user-data{padding-top: 150px;text-align: center}
+.profile-user-data h3{margin-bottom: 3px;}
+.profile-user-data p{font-size: 11px;}
+.profile-user-data .btn-primary{
+    width: 70px !important;
+    height: 30px;
+    line-height: 10px;
+}
+.profile-user-data input[type="file"]{
+    width: 70px;
+    font-size: 10px;
+    position: absolute;
+    top: 80px;
+    right: 180px;
+}
+.profile-content{
+    box-shadow: 0 1px 1px 1px #ddd;
+    padding:20px;
+}
+.profile-sidebar .btn-primary{width:200px;padding:10px;border-radius: 5px;}
+.profile-content .btn-primary, .profile-sidebar .btn-primary{
+    background-color: #480086 !important;
+    border-color: #480086 !important;
+}
+.file-upload{
+    color: #fff;
+    font-weight: 400;
+    background: #4700866e;
+    border-radius: 6px;
+    padding: 2px 5px;
+    position: absolute;
+    top: 70px;
+    left: 120px;
+}
+.file-upload:hover{
+    background: #470086aa;
+}

@@ -1,0 +1,402 @@
+<!--component html goes here -->
+<section class="product-details">
+<main class="main">
+        <div class="container text-center" [ngStyle]="{'display':loading?'block':'none'}">
+            <img src="assets/images/loading.gif" alt="" style="margin: auto">
+        </div>
+    <div class="container" [ngStyle]="{'display':!loading && !loaderror?'block':'none'}">
+        <div class="row" style="flex-direction: unset;">
+            <div class="col-sm-12">
+                <div class="prosuct-user">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="media bor-der p-3 prosuct-user-header" style="margin: 0 0 10px 0;">
+                                <img [src]="env.mediaServer+currentItem.acc_image" [alt]="currentItem.acc_name" 
+                                    class="mr-3 mt--3 rounded-circle img-thumbnail" style="width:100px;height:100px;">
+                                <div class="media-body" style="margin-top: 20px;">
+                                    <div class="row pro-user-title">
+                                        <div class="col col-sm-6">
+                                            <h2>{{currentItem.acc_name}}</h2>
+                                        </div>
+                                        <div class="col col-sm-6 text-right">
+                                            <div class="social-media">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item" *ngIf="true || currentItem.facebook!=null"><a href="{{currentItem.facebook}}"><i class="fa fa-facebook-square fa-2x" style="color:#3b599f"></i></a></li>
+                                                    <li class="list-inline-item" *ngIf="true || currentItem.twitter!=null"><a href="{{currentItem.twitter}}"><i class="fa fa-twitter-square fa-2x" style="color:#3c96d2"></i></a></li>
+                                                    <li class="list-inline-item" *ngIf="true || currentItem.google!=null"><a href="{{currentItem.google}}"><i class="fa fa-google-plus-square fa-2x" style="color:#e1493b"></i></a></li>
+                                                    <li class="list-inline-item" *ngIf="true || currentItem.instagram!=null"><a href="{{currentItem.instagram}}"><i class="fa fa-instagram fa-2x" style="color:#f12c74"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pro-status-bar" style="flex-direction: unset;">
+                                        <!-- <span>
+                                            <div class="star">
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star-o"></i></a>
+                                            </div>
+                                        </span>
+                                        <span>
+                                            <i class="fa fa-user-plus"></i> Flowers 70 <a href="#" class="btn-flowers">Add +</a>
+                                        </span> -->
+                                        <!-- <div class="col col-xs-6">
+                                            <span style="color: #953be8;">
+                                                <i class="fa fa-bars"></i> {{ "Categories" | translate }} <strong> {{currentItem.acc_categories}} </strong> -->
+                                                <!-- <a href="#" class="btn-flowers">check <i class="fa fa-check"></i></a> -->
+                                            <!-- </span>
+                                        </div>
+                                        <div class="col col-xs-6 text-right">
+                                            <span class="keyer-name-menu">...</span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="prod-thumbnail row" id='carousel--custom-dots'>
+                                <div class="col-3" *ngFor="let prod of accItems">
+                                    <a href="javascript:;" routerLink="/product/details/{{prod.id}}">
+                                        <img src="{{env.mediaServer+prod.image}}"/>
+                                    </a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="acc-prod-more">
+                                        <a href="javascript:;" >
+                                            <span>{{accItems.recordsFiltered}}</span>
+                                            <br/> {{ "MeTooKeys" | translate }}
+                                            <br/> {{ "Discover" | translate }} <i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-3">
+                                    <img src="assets/images/products/zoom/product-3.jpg"/>
+                                </div>
+                                <div class="col-3">
+                                    <img src="assets/images/products/zoom/product-4.jpg"/>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product-single-container product-single-default">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 product-single-gallery">
+                            <div class="row">
+                            <div class="col col-sm-2 prod-thumbnail row owl-dots" id='carousel-custom-dots'>
+                                <!-- <div class="col-12 owl-dot" *ngFor="let img of itemImages">
+                                    <img  [src]="env.mediaServer+img.thumb"/>
+                                </div> -->
+                                <div class="col-12 owl-dot">
+                                    <img class="img-owl" [src]="env.mediaServer+itemImages[0].thumb"/>
+                                </div>
+                                <div class="col-12 owl-dot">
+                                    <img class="img-owl" [src]="env.mediaServer+itemImages[1].thumb"/>
+                                </div>
+                                <div class="col-12 owl-dot">
+                                    <img class="img-owl" [src]="env.mediaServer+itemImages[2].thumb"/>
+                                </div>
+                                <div class="col-12 owl-dot">
+                                    <img class="img-owl" [src]="env.mediaServer+itemImages[3].thumb"/>
+                                </div>
+                                <div class="col-12 owl-dot">
+                                    <img class="img-owl" [src]="env.mediaServer+itemImages[4].thumb"/>
+                                </div> 
+                            </div>
+
+                            <div class="col col-sm-10 product-slider-container product-item">
+                                <div class="product-single-carousel owl-carousel owl-theme" #carousel>
+                                    <div class="product-item">
+                                            <img class="product-single-image" [src]="env.mediaServer+itemImages[0].meduim" 
+                                            [attr.data-zoom-image]="env.mediaServer+itemImages[0].large"/>
+                                    </div>
+                                    <div class="product-item">
+                                            <img class="product-single-image" [src]="env.mediaServer+itemImages[1].meduim" 
+                                            [attr.data-zoom-image]="env.mediaServer+itemImages[1].large"/>
+                                    </div>
+                                    <div class="product-item">
+                                            <img class="product-single-image" [src]="env.mediaServer+itemImages[2].meduim" 
+                                            [attr.data-zoom-image]="env.mediaServer+itemImages[2].large"/>
+                                    </div> 
+                                    <div class="product-item">
+                                            <img class="product-single-image" [src]="env.mediaServer+itemImages[3].meduim" 
+                                            [attr.data-zoom-image]="env.mediaServer+itemImages[3].large"/>
+                                    </div> 
+                                    <div class="product-item">
+                                        <img class="product-single-image" [src]="env.mediaServer+itemImages[4].meduim" 
+                                        [attr.data-zoom-image]="env.mediaServer+itemImages[4].large"/>
+                                    </div> 
+                                </div>
+                                <div class="btn-top-imgSlider">
+                                    <ul class="list-inline">
+                                        <!-- <li class="list-inline-item"><a href="javascript:;"><i class="fa fa-share"></i></a></li> -->
+                                        <li class="list-inline-item"><a href="javascript:;" (click)="like()"><i class="fa {{(MyInteractions.liked?'fa-thumbs-up':'fa-thumbs-o-up')}}" style="color:#450286"></i></a></li>
+                                        <li class="list-inline-item"><a href="javascript:;" (click)="reminder()"><i class="fa {{(MyInteractions.interested?'fa-bookmark':'fa-bookmark-o')}}" style="color:#450286"></i></a></li>
+                                    </ul>
+                                </div>
+                                <span class="btn-bottom-imgSlider prod-full-screen">
+                                    <a href="javascript:;"><i class="fa fa-search-plus"></i></a>
+                                </span>
+                                <!-- End .product-single-carousel -->
+                                <!-- <span class="prod-full-screen">
+                                    <i class="icon-plus"></i>
+                                </span> -->
+                            </div>
+                            </div>
+                        </div><!-- End .col-lg-7 -->
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                            <div class="col-lg-12 product-single-details">
+                                <h1 class="product-title">{{currentItem.name}}</h1>
+
+                                <div class="ratings-container dropdown">
+                                    <span class="product-star dropdown-toggle" data-toggle="dropdown">
+                                        <i *ngFor="let star of [] | range:5-0" class="fa fa-star{{(star<=currentItem.rate_total_summary)?'':'-o'}}"></i>
+                                        <i class="fa fa-sort-desc dropdown-star"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <!--
+                                        <h4>{{currentItem.rate_total_summary}} out of 5 star</h4>
+                                        <a class="dropdown-item" href="#">
+                                            5 Star 
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" attr.aria-valuenow="{{currentItem.rate_5_count}}"
+                                                attr.aria-valuemin="0" attr.aria-valuemax="100" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_5_count*100/currentItem.rate_total_count):0)+'%'}">
+                                                    {{(currentItem.rate_total_count>0?(currentItem.rate_5_count*100/currentItem.rate_total_count):0)}}%
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            4 Star 
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" attr.aria-valuenow="{{currentItem.rate_4_count}}"
+                                                attr.aria-valuemin="0" attr.aria-valuemax="100" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_4_count*100/currentItem.rate_total_count):0)+'%'}">
+                                                    {{(currentItem.rate_total_count>0?(currentItem.rate_4_count*100/currentItem.rate_total_count):0)}}%
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item-text" href="#">
+                                            3 Star 
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" attr.aria-valuenow="{{currentItem.rate_3_count}}"
+                                                attr.aria-valuemin="0" attr.aria-valuemax="100" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_3_count*100/currentItem.rate_total_count):0)+'%'}">
+                                                {{(currentItem.rate_total_count>0?(currentItem.rate_3_count*100/currentItem.rate_total_count):0)}}%
+                                            </div>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item-text" href="#">
+                                            2 Star 
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" attr.aria-valuenow="{{currentItem.rate_2_count}}"
+                                                attr.aria-valuemin="0" attr.aria-valuemax="100" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_2_count*100/currentItem.rate_total_count):0)+'%'}">
+                                                {{(currentItem.rate_total_count>0?(currentItem.rate_2_count*100/currentItem.rate_total_count):0)}}%
+                                            </div>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item-text" href="#">
+                                            1 Star 
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" attr.aria-valuenow="{{currentItem.rate_1_count}}"
+                                                attr.aria-valuemin="0" attr.aria-valuemax="100" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_1_count*100/currentItem.rate_total_count):0)+'%'}">
+                                                {{(currentItem.rate_total_count>0?(currentItem.rate_1_count*100/currentItem.rate_total_count):0)}}%
+                                            </div>
+                                            </div>
+                                        -->
+                                        <h5 class="dropdown-item" style="display: block;text-align: center;">{{currentItem.rate_total_summary}} out of 5 star</h5>
+                                        <a class="dropdown-item" href="javascript:;">
+                                            <span class="col-sm-3">5 Star </span>
+                                            <span class="progress"><div class="progress-bar" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_5_count*100/currentItem.rate_total_count):0)+'%'}"></div></span>
+                                            <span class="col-sm-2">{{(currentItem.rate_total_count>0?(currentItem.rate_5_count*100/currentItem.rate_total_count):0)}}</span>
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:;">
+                                            <span class="col-sm-3">4 Star </span> 
+                                            <span class="progress"><div class="progress-bar" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_4_count*100/currentItem.rate_total_count):0)+'%'}"></div></span>
+                                            <span class="col-sm-2">{{(currentItem.rate_total_count>0?(currentItem.rate_4_count*100/currentItem.rate_total_count):0)}}%</span>
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:;">
+                                            <span class="col-sm-3">3 Star </span> 
+                                            <span class="progress"><div class="progress-bar" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_3_count*100/currentItem.rate_total_count):0)+'%'}"></div></span>
+                                            <span class="col-sm-2">{{(currentItem.rate_total_count>0?(currentItem.rate_3_count*100/currentItem.rate_total_count):0)}}%</span>
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:;">
+                                            <span class="col-sm-3">2 Star </span> 
+                                            <span class="progress"><div class="progress-bar" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_2_count*100/currentItem.rate_total_count):0)+'%'}"></div></span>
+                                            <span class="col-sm-2">{{(currentItem.rate_total_count>0?(currentItem.rate_2_count*100/currentItem.rate_total_count):0)}}%</span>
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:;">
+                                            <span class="col-sm-3">1 Star </span> 
+                                            <span class="progress"><div class="progress-bar" [ngStyle]="{'width':(currentItem.rate_total_count>0?(currentItem.rate_1_count*100/currentItem.rate_total_count):0)+'%'}"></div></span>
+                                            <span class="col-sm-2">{{(currentItem.rate_total_count>0?(currentItem.rate_1_count*100/currentItem.rate_total_count):0)}}%</span>
+                                        </a>
+                                        <!-- <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" style="display: block;text-align: center;">See All 500 Reviews <i class="fa fa-caret-right"></i></a> -->
+                                    </div>
+                                    <span style="padding: 0 10px;">|</span>
+                                    <span class="product-date">
+                                        <i class="fa fa-calendar"></i> {{currentItem.date_start | timeAgo}} 
+                                    </span>
+                                    <span class="product-time">
+                                        <i class="fa fa-clock-o"></i> {{currentItem.date_start | date:"hh:mm a"}}
+                                    </span>
+                                </div><!-- End .product-container -->
+                                
+                                <div class="product-reviews">
+                                    <span><i class="fa fa-thumbs-o-up"></i> {{currentItem.likes_count}}</span>
+                                    <span><i class="fa fa-commenting"></i> {{currentItem.comments_count}}</span>
+                                    <span><i class="fa fa-eye"></i> {{currentItem.views}}</span>
+                                </div>
+                                <div class="product-categories">
+                                    {{ "Categories" | translate }} :
+                                    <span *ngFor="let tag of currentItem.categories?.split(',')">{{tag}}</span>
+                                </div>
+                                <div class="price-box">
+                                    <span class="product-price">{{currentItem.offer_price}} {{ "EGP" | translate }}</span>
+                                    <span class="old-price">{{currentItem.original_price}} {{ "EGP" | translate }}</span>
+                                </div><!-- End .price-box -->
+
+                                <div class="product-desc">
+                                    <strong>{{ "Duration_Quantity" | translate }}</strong>
+                                    <ul class="list-unstyled" style="padding: 0 15px;">
+                                        <li><i class="fa fa-circle"></i> {{ "Total Quantity" | translate }} : <strong>{{currentItem.quantity}} {{ "Items" | translate }}</strong></li>
+                                        <li><i class="fa fa-circle"></i> {{ "Quantity Left" | translate }} : <strong>{{currentItem.quantity-(currentItem.orders_count||0)}} {{ "Items" | translate }}</strong></li>
+                                        <li><i class="fa fa-circle"></i> {{ "MeTooKey Finds On" | translate }} : 
+                                            <strong><i class="fa fa-calendar fa-lg"></i> {{currentItem.date_end | date:"dd MMM yyyy"}} 
+                                            <i class="fa fa-clock-o fa-lg"></i>{{currentItem.date_end | date:"hh:mm a"}}</strong></li>
+                                        <li><i class="fa fa-circle"></i> {{ "Days Left" | translate }} :  <strong>{{ "only" | translate }} {{daysLeft|number:'1.0-0' }} {{ "Days" | translate }}</strong></li>
+                                        <li><i class="fa fa-circle"></i> {{ "Discount Offered" | translate }} : 
+                                            <span>{{(currentItem.original_price-currentItem.offer_price)/currentItem.original_price|percent}}</span> {{ "Off" | translate }}
+                                        </li>
+                                    </ul>
+                                </div><!-- End .product-desc -->
+
+                            </div><!-- End .product-single-details -->
+                            <div class="col-sm-12 col-md-12 col-lg-6 ">
+                                <!-- <div class="addthis_inline_share_toolbox"></div>  -->
+                                <!-- <div addthis-tool tool-class="addthis_inline_share_toolbox"></div> -->
+                                
+                               <share-buttons></share-buttons>
+                                
+                            </div>    
+                        <div class="col-sm-12 col-md-12 col-lg-6  requested-quan" *ngIf="remainQuantity()>0 && daysLeft>0" >
+                                <div class="form-group row " style="flex-direction: unset;">
+                                        <label class="col col-sm-7 col-form-label">{{ "Requested Quantity" | translate }}</label>
+                                        <div class="col col-sm-3">
+                                            <input type="text" class="form-control form-control-sm" minLength="1" maxLength="{{currentItem.quantity - (currentItem.orders_count||0)}}" [(ngModel)]="qty" value="1">
+                                        </div>
+                                        <span class="col col-sm-2">{{ "Items" | translate }}</span>
+                                    </div>
+            
+                                    <div>
+                                        <button style="cursor: pointer" class="btn btn-flowers btn-block text-uppercase" [disabled]="(qty||0)<=0" (click)="createNewOrder()">{{ "Get Metookey" | translate }}</button>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-flowers btn-block btn-request text-uppercase" (click)="reminder()">
+                                            <i class="fa {{MyInteractions.interested?'fa-bell-slash-o':'fa-bell-o'}} fa-lg"></i> {{MyInteractions.interested?'Stop Reminder':'Reminder me'}}</button>
+                                    </div>
+                        </div>
+                        </div>
+                    </div><!-- End .col-lg-5 -->
+                    </div><!-- End .row -->
+                </div><!-- End .product-single-container -->
+            </div>
+        </div>
+        <!-- start section tans and sidbar right-->
+        <div class="row product-nav">
+            <div class="col-sm-9">
+                <div class="product-single-tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="product-tab-Features" data-toggle="tab" 
+                                href="#product-desc-content" role="tab" aria-controls="product-Features-content" 
+                                aria-selected="true">{{ "MeTooKey Features" | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-tab-Returns" data-toggle="tab" href="#product-tags-content" 
+                            role="tab" aria-controls="product-tags-content" aria-selected="false">{{ "Returns_Exchange" | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-tab-Shipping" data-toggle="tab" href="#product-shipping-content" 
+                            role="tab" aria-controls="product-shipping-content" aria-selected="false">{{ "Shipping Option" | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-tab-comments" data-toggle="tab" href="#product-comments-content" 
+                            role="tab" aria-controls="product-comments-content" aria-selected="false">{{ "comments" | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="product-tab-Reviews" data-toggle="tab" href="#product-reviews-content" 
+                            role="tab" aria-controls="product-reviews-content" aria-selected="false">{{ "Reviews" | translate }}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" 
+                        aria-labelledby="product-tab-Features">
+                            <div class="product-desc-content">
+                                    <item-chart></item-chart>
+                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.</p> -->
+                                <ul>
+                                    <li *ngFor="let line of currentItem.features?.split('|')"><i class="icon-ok"></i>{{line}}</li>
+                                </ul>
+                                </div><!-- End .product-desc-content -->
+                        </div><!-- End .tab-pane -->
+
+                        <div class="tab-pane fade" id="product-tags-content" role="tabpanel" aria-labelledby="product-tab-Returns">
+                            <div class="product-tags-content">
+                                {{currentItem.returns_exchanges}}
+                            </div><!-- End .product-tags-content -->
+                        </div><!-- End .tab-pane -->
+
+                        <div class="tab-pane fade" id="product-shipping-content" role="tabpanel" aria-labelledby="product-tab-Shipping">
+                            <div class="product-tags-content">
+                                {{currentItem.shipping_option}}
+                            </div><!-- End .product-tags-content -->
+                        </div><!-- End .tab-pane -->
+                        <div class="tab-pane fade" id="product-comments-content" role="tabpanel" 
+                            aria-labelledby="product-tab-Comments">
+                            <comments type="comments" [itemid]="id"></comments>
+                            </div>
+                        <!-- End .tab-pane -->
+                        <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" 
+                            aria-labelledby="product-tab-Shipping">
+                                <comments type="reviews"  [itemid]="id" ></comments>
+                        </div><!-- End .tab-pane -->
+                    </div><!-- End .tab-content -->
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="requested-quan">
+                        
+                    <div class="image-requested">
+                        <div class="row" style="flex--direction: unset;">
+                            <div class="col col-xs-12">
+                                <h3>{{ "Suggested MeTooKeys" | translate }}</h3>
+                                <h5>{{ "Related To This MeTookey" | translate }}</h5>
+                            </div>
+                        </div>
+                        <div class="row" style="flex-direction: unset;">
+                            <div class="col col-sm-4 related" *ngFor="let relatedItem of related">
+                                <a href="javascript:;"  routerLink="/product/details/{{relatedItem.id}}">
+                                    <img src="{{env.mediaServer+relatedItem.image}}" class="img-responsive img-thumbnail" alt="{{relatedItem.name}}" width="110"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
+            </div>
+        </div>
+        <!-- end section tans and sidbar right-->
+
+            <div class="sidebar-overlay"></div>
+            <div class="sidebar-toggle"><i class="icon-sliders"></i></div>
+
+    </div><!-- End .container -->
+
+    <div class="container" [ngStyle]="{'display':!loading && loaderror?'block':'none'}">
+        <div class="alert alert-info">{{loaderror|translate}}</div>
+    </div>
+</main><!-- End .main -->
+</section>

@@ -1,0 +1,238 @@
+<div class="comments">
+    <div class="commenshead">
+        <div class="container">
+            <div class="row">
+                <div class="col-md commentnam">
+                    <span>{{(type=="comments"?"Comments":"Reviews") | translate}}</span>
+                    <span class="">{{sliderResponse.recordsTotal}} {{(type=="comments"?"New Comments":"New Reviews") | translate}}</span>
+                </div>
+                
+                <div class="col-md text-md-right sortbtn">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-sm btn-sort dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{"Sort By" | translate}} : {{selectedSort.name}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="border:1px solid rgb(59, 86, 232)">
+                        <a *ngFor="let order of orderList" class="dropdown-item" (click)="sort(order)" href="javascript:;">{{order.name}}</a>
+                        <!-- <a class="dropdown-item" href="#">Must Read</a>
+                        <a class="dropdown-item" href="#">liks</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="addcomment">
+        <div class="container">
+            <!-- ==================New Comments============== -->
+            <div class="row media">
+                <img class="mr-3 rounded-circle userimg" 
+                src="{{shared.getUser()==null?'assets/images/profile.png':env.mediaServer+shared.getUser().image}}" >
+                <div class="media-body  ">
+                        <div class="new-rate product-star" *ngIf="type=='reviews'">
+                            <i *ngFor="let star of [] | range:5-0"  (mouseenter)="newRate=star"  (click)="newRate=star"  
+                                class="fa fa-star{{(star<=newRate)?'':'-o'}}"></i>
+                            <button class="addbtn" (click)="addRate()">{{"Submit Review" | translate}}</button>
+                        </div>
+                        
+                    <textarea class="inputtxt" [(ngModel)]="currentComment.comment"  rows="3" type="text" name="comment"  
+                        placeholder="{{'Add Your Comment Here' | translate}}"></textarea>
+                    <div class="row"> 
+                        <div class="col-md text-md-right text">
+                        <button class="addbtn" (click)="addComment()">{{"Add Comment" | translate}}</button>
+                        </div>
+                    </div>	
+                    
+                </div>
+            </div><!-- / New Comments-->
+         
+          
+            <div class="row addcomment">     
+            <div class="commenttxt">
+                <div class="media" *ngFor="let comment of sliderResponse.data">
+                    <img class="mr-3 rounded-circle" (error)="$event.target.src='assets/images/profile.png'" src="{{env.mediaServer+comment.acc_image}}" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <div class="row">
+                            <h5 class="mt-0 col-sm">{{comment.name}}
+                                <div class="product-star"  *ngIf="type=='reviews'">
+                                    <i *ngFor="let star of [] | range:5-0" class="fa fa-star{{(star<=comment.rate)?'':'-o'}}"></i>
+                                </div>
+                            </h5>
+                            
+                            <span class="col-sm text-md-right"><i class="fa fa-calendar"></i> {{comment.created_at|timeAgo}} 
+                                <i class="fa fa-clock"></i> {{comment.created_at|date:'hh:mm a'}}</span>
+                        </div>
+                        <p >{{comment.comment}}</p>
+                        <div class="likeandrply">
+                                <a  href="javascript:;" (click)="newComment(comment.id,comment)">
+                                    <i class="fa fa-reply"></i> {{"Reply" | translate}}  <span>{{comment.childs_count}}</span> </a>
+                                <a href="javascript:;" (click)="loadMore(comment)" >...</a>
+                        </div>
+                        <div class="media  mt-3" *ngFor="let child of comment.childs">
+                            <a class="pr-3" href="#">
+                            <img src="{{env.mediaServer+child.acc_image}}" (error)="$event.target.src='assets/images/profile.png'" class="rounded-circle" alt="Generic placeholder image">
+                            </a>
+                            <div class="media-body">
+                            <div class="row">
+                                <h5 class="mt-0 col-sm">{{child.name}}  </h5>
+                                <span class="col-sm text-md-right"><i class="fa fa-calendar"></i>  {{child.created_at|timeAgo}} 
+                                    <i class="fa fa-clock"></i> {{comment.created_at|date:'hh:mm a'}}</span> 
+                                </div>
+                            <p>{{child.comment}}</p>
+                            <!-- <div class="likeandrply">
+                                    <a href="javascript:;" (click)="newComment(child.id,comment)" >
+                                        <i class="fa fa-reply"></i> {{"Reply" | translate}} </a>
+                                    <a href="javascript:;" (click)="loadMore(comment)" >...</a>
+                                </div>
+        
+                            </div> -->
+                        </div>
+                        <div >
+                            <a (click)="loadMore(comment)" class="btn btn-link" href="javascript:;" > 
+                                {{"Load More Replies" | translate}} <i class="fa fa-caret-down"></i> </a>
+                        </div>
+                        <div class="media  mt-3" *ngIf="newReply.subid==comment.id">
+                            <img class="mr-3 rounded-circle userimg" (error)="$event.target.src='assets/images/profile.png'" src="{{env.mediaServer+shared.getUser().image}}" >
+                            <div class="media-body  ">
+                                <textarea [(ngModel)]="newReply.comment" rows="1" class="inputtxt" name="comment"  
+                                    placeholder="{{'Add Your Reply Here' | translate}}"></textarea>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <button class="addbtn" (click)="addReply(comment)">{{"Add Reply" | translate}}</button>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-link" href="javascript:;" (click)="loadMore()">
+                        {{"Load More Comments" | translate}} <i class="fa fa-caret-down"></i></a>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<!-- 
+<div class="comments">
+    <div class="commenshead">
+        <div class="container">
+            <div class="row">
+                <div class="col-md commentnam">
+                    
+                    <span>Comments</span>
+                    
+                    <span class="">3 New Comments</span>
+                    
+                    
+                </div>
+                
+                <div class="col-md text-md-right sortbtn">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By : Newest Comments
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Newest Comments</a>
+                        <a class="dropdown-item" href="#">Must Read</a>
+                        <a class="dropdown-item" href="#">liks</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="addcomment">
+        <div class="container">
+               
+             <div class="row media">
+                <img class="mr-3 rounded-circle userimg" src="assets/images/profile.png" >
+                <div class="media-body  ">
+                
+                    <textarea class="inputtxt" type="text" name="comment"  placeholder="Add Your Comment Here"></textarea>
+                    <div class="row">
+                        
+                        <div class="col-md text-md-right">
+                        <button class="addbtn">Add Comment</button>
+                        </div>
+                    </div>	
+                    
+                </div>
+            </div>
+      
+       <div class="addcomment">     
+           <div class="commenttxt">
+            <div class="media  ">
+                    <img class="mr-3 rounded-circle" src="assets/images/profile.png" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <div class="row">
+                            <h5 class="mt-0 col-sm">Media heading </h5>
+                            <span class="col-sm text-md-right"><i class="fa fa-calendar"></i> 2 Daye Ago <i class="fa fa-clock"></i> 15:35 PM</span>
+                        </div>
+                    <p >Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </p>
+                    <div class="likeandrply">
+                            <a href="#"><i class="fa fa-reply"></i> Reply   <span>1 </span> </a>
+                            <a href="#">...</a>
+                    </div>
+                    <div class="media  mt-3">
+                        <a class="pr-3" href="#">
+                        <img src="assets/images/profile.png" class="rounded-circle" alt="Generic placeholder image">
+                        </a>
+                        <div class="media-body">
+                        <div class="row">
+                            <h5 class="mt-0 col-sm">Media heading  </h5>
+                            <span class="col-sm text-md-right"><i class="fa fa-calendar"></i> 2 Daye Ago <i class="fa fa-clock"></i> 15:35 PM</span> 
+                            </div>
+                        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                        <div class="likeandrply">
+                                <a href="#"><i class="fa fa-reply"></i> Reply  <span> 1</span> </a>
+                                <a href="#">...</a>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="media  mt-3">
+                            <img class="mr-3 rounded-circle userimg" src="assets/images/profile.png" >
+                            <div class="media-body  ">
+                                <div>
+                                    <textarea class="inputtxt"type="text" name="comment"  placeholder="Add Your Reply Here"></textarea>
+                                    <div class="row">
+                                        
+                                        <div class="col-md text-md-right">
+                                            <button class="addbtn">Add Reply</button>
+                                        </div>
+                                    </div>	
+                                
+                                </div>
+    
+                            </div>
+    
+                        </div>
+    
+                    </div>
+    
+    
+                </div>
+                <div class="media">
+                    <img class="mr-3 rounded-circle" src="assets/images/profile.png" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <div class="row">
+                            <h5 class="mt-0 col-sm">Media heading </h5>
+                            <span class="col-sm text-md-right"><i class="fa fa-calendar"></i> 2 Daye Ago <i class="fa fa-clock"></i> 15:35 PM</span>
+                        </div>
+                        <p >Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </p>
+                        <div class="likeandrply">
+                            <a href="#"><i class="fa fa-reply"></i> Reply  <span>1 </span> </a>
+                            <a href="#">...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>	
+        </div>
+    </div>  
+</div> -->

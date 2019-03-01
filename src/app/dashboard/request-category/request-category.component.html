@@ -1,0 +1,180 @@
+<section >
+    <div class="row dashboard-header" >
+            <div class="col-sm-12">
+                <h1  class="pull-left">{{ "Lead Categories" | translate }}</h1>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-4">
+                    <div class="row dashboard-header" >
+                            <div class="col-sm-12">
+                                <h3  class="pull-left">{{ "Main" | translate }}</h3>
+                                <div class="pull-right" style="margin-bottom:5px;" *ngIf = "permission.RequestCategory?.Add==true">
+                                    <a href="javascript:;" class="btn btn-primary btn-sm"  style="padding: 3px;" 
+                                        (click)="add()">{{ "Add New" | translate }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    <hr/>
+                <div class="table-responsive-sm">
+                    <table class="table table-middle table-striped table-hover">
+                        <thead>
+                            <tr class="ng-tns-c13-12">
+                                <td class="ng-tns-c13-12" >{{ "Name" | translate }}</td>
+                                <td class="ng-tns-c13-12">{{ "Action" | translate }}</td>
+                            </tr>
+                        </thead>
+                        <tbody class="ng-tns-c13-12">
+                            <tr class="ng-tns-c13-12" [class.active]="roots.selected?.id==item.id" *ngFor="let item of roots.data"  >
+                                <td class="ng-tns-c13-12" style="cursor: pointer" 
+                                    (click)="roots.selected=item;loadChilds(1,item.id)">{{item.name}}</td>
+                                <td>
+                                    <ul class="list-inline action-icon">
+                                        <li class="list-inline-item" *ngIf = "permission.RequestCategory?.Edit">
+                                            <a href="javascript:;"  (click)="edit(0,item)"  class="text-success" 
+                                                 title="Edit Category">
+                                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item" *ngIf = "permission.RequestCategory?.Delete">
+                                            <a href="javascript:;"
+                                                (click)="delete(0,item)" class="text-danger" 
+                                                title="Delete Category"><i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                  </div>
+
+                 
+            </div>
+            <div class="col-md-4">
+                    <div class="row dashboard-header" >
+                            <div class="col-sm-12">
+                                <h3  class="pull-left">{{ "Parents" | translate }}</h3>
+                                <div class="pull-right" style="margin-bottom:5px;" *ngIf = "permission.RequestCategory?.Add==true">
+                                    <a href="javascript:;" class="btn btn-primary btn-sm" style="padding: 3px;" 
+                                    (click)="add(1)">{{ "Add New" | translate }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                <div class="table-responsive-sm">
+                    <table class="table table-middle table-striped table-hover">
+                        <thead>
+                            <tr class="ng-tns-c13-12">
+                                <td class="ng-tns-c13-12" >{{ "Name" | translate }}</td>
+                                <td class="ng-tns-c13-12">{{ "Action" | translate }}</td>
+                            </tr>
+                        </thead>
+                        <tbody class="ng-tns-c13-12">
+                            <tr class="ng-tns-c13-12"  [class.active]="parents.selected?.id==item.id" *ngFor="let item of parents.data" >
+                                <td class="ng-tns-c13-12" style="cursor: pointer" 
+                                (click)="parents.selected=item;loadChilds(2,item.id)">{{item.name}}</td>
+                                <td>
+                                    <ul class="list-inline action-icon">
+                                        <li class="list-inline-item" *ngIf = "permission.RequestCategory?.Edit">
+                                            <a href="javascript:;"  (click)="edit(1,item)"  class="text-success" 
+                                                 title="Edit Category">
+                                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item" *ngIf = "permission.RequestCategory?.Delete">
+                                            <a href="javascript:;"
+                                                (click)="delete(1,item)" class="text-danger" 
+                                                title="Delete Category"><i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row dashboard-header" >
+                        <div class="col-sm-12">
+                            <h3  class="pull-left">{{ "Items" | translate }}</h3>
+                            <div class="pull-right" style="margin-bottom:5px;" *ngIf = "permission.RequestCategory?.Add==true">
+                                <a href="javascript:;" class="btn btn-primary btn-sm" style="padding: 3px;" 
+                                    (click)="add(2)">{{ "Add New" | translate }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                <div class="table-responsive-sm">
+                    <table class="table table-middle table-striped table-hover">
+                        <thead>
+                            <tr class="ng-tns-c13-12">
+                                <td class="ng-tns-c13-12">{{ "Name" | translate }}</td>
+                                <td class="ng-tns-c13-12">{{ "Action" | translate }}</td>
+                            </tr>
+                        </thead>
+                        <tbody class="ng-tns-c13-12">
+                            <tr class="ng-tns-c13-12"  *ngFor="let item of items.data" >
+                                <td class="ng-tns-c13-12">{{item.name}}</td>
+                                <td>
+                                    <ul class="list-inline action-icon">
+                                        <li class="list-inline-item" *ngIf = "permission.RequestCategory?.Edit">
+                                            <a href="javascript:;"  (click)="edit(2,item)"  class="text-success" 
+                                                 title="Edit Category">
+                                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item" *ngIf = "permission.RequestCategory?.Delete">
+                                            <a href="javascript:;"
+                                                (click)="delete(2,item)" class="text-danger" 
+                                                title="Delete Category"><i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+</section>
+
+<ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title"> {{ "Add/Edit Category" | translate }}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item" *ngFor="let lang of translate.getLangs()">
+                    <a class="nav-link" [class.active]="lang==translate.currentLang"  (click)="cLang=lang"  data-toggle="tab" 
+                        href="#{{lang}}">{{lang}}</a>
+                    </li>
+                </ul>
+            
+                <!-- Tab panes -->
+                <div class="tab-content" >
+                    <div class="tab-pane" [class.active]="trans.lang==cLang" id="{{trans.lang}}"  *ngFor="let trans of currentItem.name">
+                        <div class="form-group" >
+                            <label class="col-sm-3">{{ "Name" | translate }} {{trans.lang}}</label>
+                            <input type="text" name="{{trans.lang}}_name" placeholder="Name"  [(ngModel)]="trans.value" class="form-control col-sm-9">
+                        </div>
+                    </div>
+                </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-lg btn-square" (click)="save()"> {{ "Save" | translate }}</button>
+            <button type="button" class="btn btn-outline-dark btn-lg btn-square" (click)="c('Close click')">{{ "Close" | translate }}</button>
+        </div>
+</ng-template>
+        
+
+

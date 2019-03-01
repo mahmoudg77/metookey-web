@@ -1,0 +1,113 @@
+.map-container-2{
+    overflow:hidden;
+    padding-bottom:35.25%;
+    position:relative;
+    height:0;
+    }
+    .map-container-2 iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+    }
+    .contacusform{
+        margin-top: 50px;
+    }
+    .contacusform a{
+    color: #4F48F4;
+    }
+    .contacusform .col-md-4{
+        padding-right: 50px;
+    }
+    @media (max-width: 768px){
+        .contacusform .col-md-4{
+        padding-right: 15px;
+    }
+    }
+    .contacusform h4{
+        color: #413C45;
+        font-weight: bold;
+        margin-bottom: 30px;
+    
+    }
+    .contacusform span{
+        color: #4F48F4;
+    
+    }
+    .contacusform p{
+        color: #898989;
+        font-size: 12px;
+        
+    
+    }
+    .contacusform i{
+        margin-right: 10px;
+        float: left;
+        color: #4F48F4;
+    }
+    .contacusform .card{
+        background-color: #eeeeff;
+        border: 2px solid #BDBBFD;
+        padding: 20px;
+        border-radius: 0px;
+        margin-bottom:20px;
+    }
+    .contacusform .boald{
+        font-weight: bold;
+    }
+    .contacusform .Sectionlist{
+        margin-top: 30px;
+        margin-bottom:  30px;
+    }
+    .Sectionlist button{
+        background-color: #fff;
+        border: 2px solid #BDBBFD;
+        border-radius:  5px;
+        
+    }
+    .Sectionlist p{
+        margin-right: 20px;
+            margin-top: 5px;
+    }
+    .contacusform input{
+        border: 1px solid #BDBBFD;
+        border-radius: 5px;
+        font-size: 15px;
+        padding: 10px 10px;
+        margin-bottom: 10px;
+    }
+    .contacusform textarea{
+        width: 100%;
+        border: 1px solid #BDBBFD;
+        border-radius: 5px;
+        font-size: 15px;
+        padding: 10px 10px;
+        margin-bottom: 10px;
+    }
+    
+    .sendmsgform {
+        margin-bottom: 20px;
+    }
+    .sendmsgform button{
+        background-color: #BDBBFD;
+        color: #4F48F4 ;
+        border:1px solid #BDBBFD ;
+        border-radius: 5px;
+        padding: 5px 25px;
+        font-weight: bold;
+    }
+    .sendmsgform a{
+        color: #BDBBFD;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+    .sendmsgform i{
+        color: #BDBBFD;
+    }
+    .dropdown-menu{
+        width: 200px;
+        font-size: 13px;
+        box-shadow: 2px 2px 10px #ddd;
+    }

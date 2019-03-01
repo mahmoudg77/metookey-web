@@ -1,0 +1,385 @@
+        
+  <section class="myorder">
+    <div class="container">
+        <h1>{{ "Orders" | translate }} </h1>
+        <hr/>
+        <form action="" *ngIf="errors.length==0">
+        <!--------------------------------------Order Details---------------------------------------->	
+            <div class="orderdetailcard">
+                <div class="summrycard">
+                    <div class="container ">
+                        <div class="row justify-content-between">
+                            <div class="media order-header">
+                                <img src="{{env.mediaServer+itemDetails.image}}" alt="Product Image" 
+                                class="card-img-left rounded-circle img-thumbnail" >
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{itemDetails.name}}</h5>
+                                    <h5 class="price">{{itemDetails.offer_price}} {{ "L.E" | translate }}</h5>
+                                    <p>{{ "Requested Quantity" | translate }} 
+                                    <span> {{order.quantity}}</span> {{ "Total Cost" | translate }} {{ "item" | translate }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+        <!-- --------------------------------------shipping address ----------------------------------------- -->
+           <div  *ngIf="step==0">
+            <div class="orderdetailcard container">
+                <div class="summrycard">
+                    <h5 class="" >{{ "Add Your Shipping Address" | translate }}</h5>
+                </div>
+            </div>
+            <div id="shippingaddress">
+                <div class="container paymentmethuds">
+                    <div class="card" *ngIf="oldShippingAddress!=null">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <label >
+                                    <input type="radio" name="optShippingAddress" (click)="optShippingAddress=0"  
+                                    value="0" class="btn btn-link" value="0" [checked]="optShippingAddress==0">
+                                    {{ "Use Shipping Address" | translate }}:{{oldShippingAddress.city_name}}, {{oldShippingAddress.country_name}}</label>
+                            </h5>
+                        </div>
+                        <div *ngIf="optShippingAddress==0" >
+                        <div class="card-body">
+                                {{oldShippingAddress.city_name}}, {{oldShippingAddress.country_name}}, {{oldShippingAddress.area}}, {{oldShippingAddress.address}}, {{oldShippingAddress.apartment}}
+                                
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                        <h5 class="mb-0">
+                            <label >
+                                <input type="radio" name="optShippingAddress" (click)="optShippingAddress=1"   value="1"  class="btn btn-link" 
+                                    [checked]="optShippingAddress==1"> {{ "Add New Shipping Address" | translate }}
+                            </label>
+                        </h5>
+                        </div>
+                        <div *ngIf="optShippingAddress==1" >
+                            <div class="card-body">
+                                <label for="shippcountry" class="col-lg">{{ "Set Your Country" | translate }}</label>
+                                <select class="form-control" (change)="loadCities(newShippingAddress.country_id)"   
+                                    name="country_id" [(ngModel)]="newShippingAddress.country_id">
+                                        <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                                </select> 
+                                <label for="shippState" class="col-lg">{{ "Set Your Governorate" | translate }}</label>
+                                <select class="form-control"   [(ngModel)]="newShippingAddress.city_id"  name="city_id">
+                                        <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
+                                    </select> 
+                                <label for="shippArea" class="col-lg">{{ "Area" | translate }}</label>
+                                <input type="text" class="form-control" [(ngModel)]="newShippingAddress.area" name="area"/>
+
+                                <label for="shippcountry" class="col-lg">{{ "Street Name" | translate }}</label>
+                                <input type="text" id="shippStreet" [(ngModel)]="newShippingAddress.address" name="shippStreet" 
+                                    class="col-lg" placeholder="{{ 'Add Your Street Name' | translate }}">
+                                
+                                <label for="shippApartment" class="col-lg">{{ "Apartment Name" | translate }}</label>
+                                <input  class="col-lg" type="text" id="shippApartment" [(ngModel)]="newShippingAddress.apartment" 
+                                    name="shippApartment" placeholder="{{ 'Add Your Apartment Name' | translate }}">
+                                
+                                <label for="shippPostal">{{ "Postal Code" | translate }}</label>
+                                <input class="col-lg" type="text" id="shippPostal" [(ngModel)]="newShippingAddress.postalcode" 
+                                name="shippPostal" placeholder="12345">
+
+                                <label for="shippApartment" class="col-lg">{{ "Shipping/Address Note" | translate }}</label>
+                                <textarea  class="col-lg" type="text-aria" id="shippApartment" [(ngModel)]="newShippingAddress.notes" 
+                                name="shippApartment" placeholder="{{ 'Add Your Apartment Name' | translate }}"></textarea>
+                                <div>
+                                    <button class="btn btn-primary btn-block" (click)="saveShippingAddress()">{{ "Add Shipping Address" | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+        <!-- --------------------------------------Contact Details ----------------------------------------- -->
+           <div *ngIf="step==0">
+           <div class="orderdetailcard container ">
+                <div class="summrycard">
+                    <h5 class="" >{{ "Add Your Contacts" | translate }}</h5>
+                </div>
+            </div>
+            <div id="Contactadd">
+                <div class="container paymentmethuds">
+                    <div class="card" *ngIf="shared.getUser()!=null && shared.getUser().mobile!=null && shared.getUser().mobile!='' ">
+                        <div class="card-header" >
+                            <h5 class="mb-0">
+                                <label >
+                                    <input type="radio" name="optContact"  value="0"  (click)="optContact=0" class="btn btn-link" 
+                                     [checked]="optContact!=1">
+                                    {{ "Use Your Saved Contacts" | translate }} :<span class="label">{{shared.user.mobile}}</span>, 
+                                    <span class="label">{{shared.user.phone}}</span>
+                                </label>
+                            </h5>
+                        </div>
+                        <div  *ngIf="optContact==0">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <label >
+                                    <input type="radio" name="optContact" value="1" (click)="optContact=1"  class="btn btn-link collapsed" 
+                                        [checked]="optContact==1"> {{ "Add New Phone Contacts" | translate }}
+                                </label>
+                            </h5>
+                        </div>
+                        <div *ngIf="optContact==1">
+                            <div class="card-body" >
+                                <label for="shippcountry" class="col-lg">{{ "Mobile Number" | translate }}</label>
+                                    <div class="row" style="margin-right: 0px;">
+                                        <div class="dropdown col-3 ">
+                                            <button class="btn cuntrylist text-left" type="text" data-toggle="dropdown">
+                                                <img src="assets/images/flags.png"> +20
+                                                <span class="dropdown-toggle "></span>
+                                            </button>
+                                            <!-- <ul class="dropdown-menu">
+                                                <li><a href="#"><img src="assets/images/flags.png"> +20</a></li>
+                                                <li><a href="#"><img src="assets/images/flags.png"> +30</a></li>
+                                                <li><a href="#"><img src="assets/images/flags.png"> +60</a></li>
+                                            </ul> -->
+                                        </div>
+                                        <input type="text" id="mobilnum" name="MobileNumber" (blur)="sendVerificationCode()" 
+                                            [(ngModel)]="newContact.mobile" class="col-9" placeholder="{{ 'Mobile Number' | translate }}">
+                                    </div>
+                                    <div *ngIf="codeSent==true && global.settings.verify_mobile==1">
+                                            <span>{{ "received SMS" | translate }} <a href="javascript:;" (click)="sendVerificationCode()">{{ "Re-send" | translate }}</a></span>
+                                            <label for="shippcountry" class="col-lg">{{ "Verification Code" | translate }}</label>
+                                            <input type="text" id="verificationCode" name="verificationCode"  
+                                                [(ngModel)]="newContact.verificationCode" class="form-control"/>
+                                    </div>
+                                <label for="shippcountry" class="col-lg">{{ "Landline Number" | translate }}</label>
+                                    <div class="row" style=" margin-right: 0px;">
+                                        
+                                        <div class="dropdown col-3 ">
+                                            <button class="btn cuntrylist text-left" type="text" data-toggle="dropdown">
+                                                <img src="assets/images/flags.png"> +20
+                                                <span class="dropdown-toggle "></span>
+                                            </button>
+                                            <!-- <ul class="dropdown-menu col-3">
+                                                <li><a href="#"><img src="assets/images/flags.png"> +20</a></li>
+                                                <li><a href="#"><img src="assets/images/flags.png"> +30</a></li>
+                                                <li><a href="#"><img src="assets/images/flags.png"> +60</a></li>
+                                            </ul> -->
+                                        </div>
+                                        <input type="text" id="landcodnum" name="LandlineNumber"  [(ngModel)]="newContact.land_key"  
+                                            class="col-2 " placeholder="02">
+                                        <input type="text" id="landnum" name="LandlineNumber" [(ngModel)]="newContact.land_phone"  
+                                            class="col-7" placeholder="Landline Number">
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary btn-block" (click)="saveContact()">{{ "Add Contact" | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+            </div>
+        </div> 
+         <!-- -------------------------------payment methuds ------------------------------------------------------------ -->
+         <div  *ngIf="step==0">
+        <div class="orderdetailcard container">
+                <div class="summrycard">
+                    <h5 >{{ "Add Your Payment Method" | translate }}</h5>
+                </div>
+            </div>
+          <div id="whopayment">
+                <div class="container paymentmethuds">
+                    <div class="card" *ngIf="itemDetails?.payment_methods?.split(',').indexOf('1')>-1">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <label >
+                                    <input type="radio" name="payment_method_id" (click)="order.payment_method_id=1"   
+                                        value="1" class="btn btn-link"  data-toggle="collapse" data-target="#mathudOne" 
+                                        aria-expanded="false" aria-controls="mathudOne" [checked]="order.payment_method_id==1">
+                                        {{ "Cash on delivered" | translate }}
+                                </label>
+                            </h5>
+                        </div>
+                        <div id="mathudOne" class="collapse " aria-labelledby="headingOne"  data-parent="#whopayment">
+                        <div class="card-body">
+
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card" *ngIf="itemDetails?.payment_methods?.split(',').indexOf('2')>-1">
+                        <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <label >
+                            <input type="radio" name="payment_method_id" value="2" (click)="order.payment_method_id=2"  
+                                class="btn btn-link collapsed" data-toggle="collapse" data-target="#mathudTwo" aria-expanded="false" 
+                                aria-controls="mathudTwo"  [checked]="order.payment_method_id==2">
+                            
+                                {{ "Visa_MasterCard" | translate }} <i class="fa fa-cc-visa" style="color:navy;">  </i><span>  </span>
+                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                        </label>
+                        </h5>
+                        </div>
+                        <div id="mathudTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#whopayment">
+                        <div class="card-body">
+                            <!-- <label for="cname" class="col-lg">{{ "Name on Card" | translate }}</label>
+                            <input type="text"  [(ngModel)]="visaDetailds.cardname" id="cname" name="cardname" 
+                                class="col-lg form-control" placeholder="John More Doe">
+                            <label for="ccnum" class="col-lg">{{ "Credit card number" | translate }}</label>
+                            <input  class="col-lg cc-num" type="tel" [(ngModel)]="visaDetailds.cardNumber" name="cardnumber" 
+                                placeholder="1111-2222-3333-4444">
+                            <img style="position: absolute;right: 30px;height: 39px;margin-top: 1px;" *ngIf="getCCType()!=null" 
+                                src="assets/images/cc/{{getCCType()}}.png"/>
+                            <div class="row">
+                                <div  class="col-6">
+                                <label for="cExpired" class="col-lg">{{ "Expired Date" | translate }}</label>
+                            
+                                <input type="text" name="expireDate" class="cc-exp form-control" placeholder="00 / 0000" 
+                                    [(ngModel)]="visaDetailds.expireDate" />
+                                </div>
+                                <div class="col-6"> 
+                                    <label for="cvv" class="col-lg">CVV</label>
+                                    <input type="text" class="cc-cvc form-control" id="cvc"  name="cvc" placeholder="000" 
+                                        [(ngModel)]="visaDetailds.cvc">
+                                </div>
+                            </div> -->
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card" *ngIf="itemDetails?.payment_methods?.split(',').indexOf('3')>-1">
+                        <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <label >
+                            <input type="radio" name="payment_method_id" (click)="order.payment_method_id=3"  value="3" 
+                                class="btn btn-link collapsed" data-toggle="collapse" data-target="#mathudThree" 
+                                aria-expanded="false" aria-controls="mathudThree"  [checked]="order.payment_method_id==3">
+                            <img src="assets/images/paypal.png" alt="PayPal Logo" style="width: 100px;margin-left: 10px;float: right;">
+                            </label>
+                        </h5>
+                        </div>
+                        <div id="mathudThree"  aria-labelledby="headingThree" data-parent="#whopayment" *ngIf="order.payment_method_id==3">
+                        <div class="card-body">
+                            <!-- <label for="cname" class="col-lg">{{ "PayPal Email Address" | translate }}</label>
+                            <input type="email" id="paypalemail" name="cardname" class="col-lg paypalemail" [(ngModel)]="paypalemail"
+                             placeholder="PayPal Email Address" data-error="Opps, that email address is invalid"> -->
+                        </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>   
+        </div> 
+         
+        <!-- 	---------------------------<order summery>------------------------------ -->
+            <div class="ordertotaly" *ngIf="step==1">
+                <div class="container">
+                    <div class=" card  ">
+                        <div class="card-header">
+                            <h4>{{ "Your Order Details" | translate }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>{{ "Selected Quantity" | translate }} :</td>
+                                        <td class="text-right">{{order.quantity}} {{ "Items" | translate }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ "MeTooKey Price" | translate }} :</td>
+                                        <td class="text-right">{{itemDetails.offer_price|number}} {{ "L.E." | translate }}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>{{ "Order" | translate }} Shipping :</td>
+                                        <td class="text-right">{{itemDetails.shipping_cost|number}} L.E.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ "Tax" | translate }} :</td>
+                                        <td class="text-right">{{(itemDetails.tax*order.quantity)|number}} {{ "L.E." | translate }}</td>
+                                    </tr>
+                                    <tr class="finaltr">
+                                        <td><h5 class="price">{{ "Total (EGP)" | translate }} :</h5></td>
+                                        <td class="text-right price"><h5 class="price">{{((itemDetails.offer_price*order.quantity)+(itemDetails.tax*order.quantity)+itemDetails.shipping_cost)|number}} {{ "L.E." | translate }}</h5></td>
+                                    </tr>
+                                    <tr class="">
+                                        <td colspan="2"><small>{{itemDetails.order_note}}</small></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <ngx-braintree *ngIf="order.payment_method_id==2"
+                                [getClientToken]="getClientToken.bind(this)" 
+                                [createPurchase]="createPurchase.bind(this)" 
+                                [chargeAmount]="(itemDetails.insurance_value/CurrentRate)*order.quantity"
+                                (paymentStatus)="onPaymentStatus($event)"
+                                [buttonText]="'Pay Now '+(itemDetails.insurance_value*order.quantity) + ' L.E.'"
+                                [showCardholderName]="true"
+                                >
+                                <div class="ngxLoader"><img src="assets/images/loading.gif" style="width:100px"></div>
+                                <div class="ngxButtons">
+                                    <style>
+                                      .ngxButtons button {
+                                          background-color:  #8D38EB !important;
+                                          color: #ffffff;
+                                          border: none;
+                                          border-radius: 0px !important;
+                                          height: auto;
+                                          line-height: inherit;
+                                          font-size: x-large;
+                                          cursor: pointer !important;
+                                        
+                                      }
+                                
+                                     .ngxButtons button:disabled {
+                                          background-color: rgb(170, 114, 235);
+                                          color: #ffffff;
+                                          border: none;
+                                          border-radius: 0px !important;
+                                          height: auto;
+                                          line-height: inherit;
+                                          font-size: x-large;
+                                          cursor: not-allowed !important;
+                                      }
+                                    </style>
+                                     <div class="" role="group" style="width:100%;border-radius: 4px;overflow: hidden;">
+                                        <button  type="button" class="btn" (click)="step=0" style="width:20%;float:left"><i class="fa fa-arrow-left"></i></button> 
+                                        <button  type="button" class="btn" ngxPay style="width:80%;float:left">{{ "Pay Now"| translate }} {{(itemDetails.insurance_value*order.quantity)|number}} {{ "L.E." | translate }} <small>({{(itemDetails.insurance_value/CurrentRate)*order.quantity|number}} {{ "USD" | translate }})</small></button></div>
+                                    </div>
+                            </ngx-braintree>
+
+                            <div class="" role="group" style="width:100%;border-radius: 4px;overflow: hidden;">
+                                <button  type="button" class="btn" *ngIf="step==1 && order.payment_method_id!=2" (click)="step=0" style="display: block;width:20%;border-radius:0px;float:left"><i class="fa fa-arrow-left"></i></button> 
+                                <button type="submit" [disabled]="submitted" class="btn" *ngIf="order.payment_method_id==1" (click)="saveOrder()" style="display: block;width:80%;border-radius:0px;float:left">{{ "Send Order"| translate }} <i class="fa fa-spin fa-refresh" *ngIf="submitted"></i></button>
+                                <button type="submit" [disabled]="submitted" class="btn" *ngIf="order.payment_method_id==3" (click)="saveOrder()" style="display: block;width:80%;border-radius:0px;float:left">{{ "Pay Now"| translate }} {{(itemDetails.insurance_value*order.quantity)|number}} {{ "L.E." | translate }}  <small>({{(itemDetails.insurance_value/CurrentRate)*order.quantity|number}} {{ "USD" | translate }}) </small> <i class="fa fa-spin fa-refresh" *ngIf="submitted"></i></button>
+                                </div>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+
+            <button type="submit" *ngIf="step==0" (click)="nextStep()" class="nextbtn" >{{ "Next"| translate }} <small><i class="fa fa-arrow-right"></i></small></button>
+           
+            
+        <!-- 	---------------------------<deliverynote>------------------------------ -->
+            <div class="notedrlrvary" *ngIf="step==1">
+                <div class="container">
+                    <div class=" deliverynote card ">
+                        <div class="card-body">
+                            <img src="assets/images/rightlocationblack.png" alt="Location Icon" >
+                            <p> {{ "You will receive your" | translate }} 
+                                <span>{{ "MeTooKey" | translate }}</span> {{ "on time which" | translate }} 
+                                <span>{{ "Delivery Duration" | translate }}</span> 
+                            {{ "depends on MeTooKeyer’s" | translate }} <span>{{ "Shipping Option" | translate }}</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-danger" *ngFor="let e of errors;index as i;">
+            {{i+1}}- {{e}}
+        </div>
+    </div>
+    </section>

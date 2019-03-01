@@ -1,0 +1,223 @@
+<section class="invoice">
+<div class="alert alert-danger" *ngIf="payResult=='error'">
+    <strong>{{"Error" | translate}} : </strong> {{"The bank has declined your card. Please check your information and try again" | translate}}
+</div>
+<div class="alert alert-success" *ngIf="payResult=='success'">
+    <strong>{{"Success" | translate}} : </strong> {{"Thank you your payment has been accepted, Please retain this receipt for your records" | translate}}
+</div>
+<div class="alert alert-danger" *ngIf="notExists">
+    <strong>{{"Error" | translate}} : </strong> {{"This invoice not exists!" | translate}}
+</div>
+
+<div *ngIf="payResult!='error' && !notExists">
+
+
+<div class="Confirmation" >
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{"Order Confirmation" | translate}}</h2>
+            <p>{{"Order_Confirmation_desc1" | translate}} 
+                <a routerLink="/product/details/{{data.item_id}}">{{data.item_name}}</a> . {{"Order_Confirmation_desc2" | translate}}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="orderidandcode text-center">
+            <p>{{"Order ID" | translate}} :<a href="#"> #{{data.id}}</a></p>
+            <p>{{"MeTooKey Code" | translate}} :<a href="#"> #{{data.item_id}}</a></p>
+            <button (click)="print()">{{"Print Your Order Receipt" | translate}}</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================================Order Details and Product details================ -->
+<div class="ordersdetails">
+    <div class="summrycard">
+    <div class="container ">
+        <h2>{{"Your Order Details" | translate}}</h2>
+        <div class="row justify-content-between">
+        <div class="col-md-8  card carddetails  ">
+            <div class="ddd "> 
+                <img src="{{env.mediaServer+data.item_image}}" alt="Product Image" class="card-img-left rounded-circle" >
+                <div class="card-body ">
+                    <h5 class="card-title">{{data.item_name}}</h5>
+                    
+                    <h5 class="price">{{data.item_offer_price}} L.E.</h5>
+                    <p>{{"Requested Quantity" | translate}} <span> {{data.quantity}}</span> {{"item" | translate}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 newtable ">
+            <div class="card carddetails">
+                    <div class="sumrytotal card-body">
+                        <table class="table">
+                        <tbody>
+                            <tr>
+                            <td>{{"MeTooKey Price" | translate}} :</td>
+                            <td class="rittbl">{{(data.item_offer_price*data.quantity)|number}} {{"L.E" | translate}}</td>
+                            </tr>
+                            <tr>
+                            <td>{{"order-Shipping" | translate}} :</td>
+                            <td class="rittbl">{{data.item_shipping_cost|number}} {{"L.E" | translate}}</td>
+                            
+                            </tr>
+                            <tr>
+                            <td>{{"Tax" | translate}} :</td>
+                            <td class="rittbl">{{data.item_tax|number}} {{"L.E" | translate}}</td>
+                            
+                            </tr>
+                            <tr>
+                            <td><h5 class="price">{{"Total (EGP)" | translate}} :</h5></td>
+                            <td class="rittbl ">
+                                <h5 class="price">{{((data.item_offer_price*data.quantity)+data.item_shipping_cost+data.item_tax)|number}} 
+                                        {{"L.E" | translate}}</h5></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- ==================================Order Details and Product details================ -->
+    </div>
+    <div class="paymentcards">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 card cardborder">
+                    <div class="card-body">
+                        <h5 class="card-title">{{"Your Payment Method" | translate}}</h5>
+                        <div>
+                        {{data.payed_by_method}}
+                        <!-- <table class="table">
+                        <tbody>
+                            <tr>
+                            <td class="paymnttbl">Name On Card</td>
+                            <td COLSPAN="3">Fred May Fred May Fred</td>
+                            </tr>
+                            <tr>
+                            <td class="paymnttbl">Card Number</td>
+                            <td COLSPAN="3">1233 4566 7899 0122</td>
+                            
+                            </tr>
+                            <tr>
+                            <td class="paymnttbl">Expiration Date</td>
+                            <td>12 / 20 </td>
+                            <td class="paymnttbl">CC</td>
+                            <td>555</td>
+                            
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/visacard.png" alt="Payment Method Logo">
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6  ">
+                    <div class="card cardborder">
+                    <div class="card-body">
+                        <h5 class="card-title">{{"Your Shipping Address" | translate}}</h5>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                            <td class="paymnttbl">{{"Your Address" | translate}}</td>
+                            <td class="text-left">{{data.shipping_address_address}}</td>
+                            </tr>
+                            <tr>
+                            <td class="paymnttbl">{{"Postal Code" | translate}}</td>
+                            <td class="text-left">{{data.shipping_address_postalcode}}</td>
+                            
+                            </tr>
+                            <tr>
+                            <td class="paymnttbl ">{{"Shipping Note" | translate}}</td>
+                            <td class="text-left"><p>{{data.shipping_address_notes}}</p></td>
+                            
+                            </tr>
+                            
+                        </tbody>
+                        </table>
+                    
+                    </div>
+                    </div>
+                
+            </div>
+                <div class="col-lg-4 col-md-6 card cardborder">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{"Your Contacts" | translate}}</h5>
+                        <div>
+
+                        <table class="table">
+                        <tbody>
+                            <tr>
+                            <td class="paymnttbl">{{"Mobile No" | translate}}</td>
+                            <td COLSPAN="3"><img style="display: inline-block" src="assets/images/flags.png" alt="Flag"> 
+                                {{data.payer_mobile|phone}}</td>
+                            </tr>
+                            <tr>
+                            <td class="paymnttbl">{{"Landline No" | translate}}</td>
+                            <td COLSPAN="3"><img style="display: inline-block" src="assets/images/flags.png" alt="Flag"> 
+                                {{data.payer_phone|phone}}</td>
+                            
+                            </tr>
+                            
+                        </tbody>
+                        </table>
+                        </div>
+                        
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slider">
+    <div class="container">
+        <h3 class=" mb-3">{{"Check Your Orders With Me TooKey" | translate}} : </h3>
+        <div class="container-fluid summrycard" >
+            <div id="myCarousel" class="container carousel slide" data-ride="carousel">
+                <div class="row">
+                    <div class="col col-12">
+                        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">{{"Previous" | translate}}</span></a>   
+                               
+                            <div class="owl-carousel owl-theme">
+                                <div  class="item" *ngFor="let ord of recentOrders">
+                                    <div class="card cardforslider">
+                                        <div class="card-body slider-body">
+                                            <img src="{{env.mediaServer+ord.item_image}}" alt="Product Image" 
+                                                class="card-img-left rounded-circle img-thumbnail" >
+                                            <div class="details">
+                                                <h5 class="card-title">{{ord.item_name}}</h5>
+                                                <small class="card-subtitle  text-mutedt">{{"Sold By" | translate}} :
+                                                    <a href="#">{{ord.seller_name}}</a></small>
+                                                <p class="card-text">{{"Requested Quantity" | translate}} <span> 
+                                                    {{ord.quantity}}</span> {{"item" | translate}}</p>
+                                                <h5 class="price">{{ord.item_offer_price}} {{"L.E" | translate}}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                 
+                            </div> 
+                            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">{{"Next" | translate}}</span>
+                                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="underslider" >
+        <h6>Total Orders With MeTooKey: <a href="#">374 MeTooKeys .</a></h6>
+        </div> -->
+    </div>
+</div>
+</div>
+</section>

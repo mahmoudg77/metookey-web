@@ -1,0 +1,116 @@
+.btn-loading {
+    .fa-refresh {
+        display: none;
+    }
+    span {
+        display: inline-block;
+    }
+}
+.btn-submit {
+    .fa-refresh {
+        display: inline-block;
+    }
+    span {
+        display: none;
+    }
+}
+
+.loginone-wrapper{
+    background: #f7f7f7;
+    padding:70px 0;
+    min-height: 500px;
+    border-bottom: 2px solid #eee;
+    border-top: 2px solid #eee;
+}
+.login-form-wrapper-2{
+    margin: auto;
+    width: 450px;
+    
+}
+.login-inner-wrapper-2{
+    background: #fff;
+    padding: 0 0 20px;
+    box-shadow: 0px 1px 2px #ddd;
+}
+.login-inner-wrapper-2 h2{
+    background: #444;
+    padding: 20px;
+    color: #fff !important;
+    height: 100px;
+}
+.login-form{
+    //width: 370px;
+    margin: auto;
+}
+.login-form .form-group{
+    text-align: left !important;
+}
+.login-form .form-group label{
+    padding-left: 10px;
+    font-weight: bold;
+}
+.login-form .form-control{
+    border: 2px solid #953be8 ;
+    border-radius: 10px !important;
+}
+.login-form .custom-control {
+    text-align: left;    
+    margin-bottom: 2rem;
+}
+.login-form ul {
+    display: block;
+    list-style-type: disc;
+    font-size: 13px;
+    line-height: 35px;
+    padding-left: 20px;
+}
+.login-form .signUp{
+    color:#953be8 !important;
+    font-weight:bold !important;
+}
+.login-form .btn-login{
+    max-width: 230px;
+    margin: auto;
+    width: 100%;
+    border-radius: 15px;
+    color: #fff;
+    background: #953be8;
+    border-color: #953be8;
+    padding:10px;
+}
+.login-form .btn-login:hover, .login-form .btn-login:focus{
+    background: #721ebf;
+    border-color: #721ebf;
+}
+// .btn-primary:hover, .btn-primary:focus, .btn-primary.focus{
+//     border-color: #721ebf;
+//     background: #721ebf;
+// }
+.login-form .btn-facebook, .login-form .btn-google, .login-form .btn-twitter{
+    max-width: 230px;
+    width: 100%;
+    border-radius: 30px;
+    text-align: left !important;
+    padding: 6px;
+}
+.login-form .btn-facebook i, .login-form .btn-google i, .login-form .btn-twitter i{
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 29px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 10px;
+}
+.login-form .btn-facebook {background: #3b599f; }
+.login-form .btn-facebook i{color:#3b599f;}
+
+.login-form .btn-google{background:#e2483c;}
+.login-form .btn-google i{color:#e2483c !important;}
+.login-form .btn-twitter{background: #3c96d2;}
+input.ng-dirty.ng-invalid {
+    color: red !important;
+    border-color: red !important;
+  }
+
+ 

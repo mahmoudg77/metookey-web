@@ -1,0 +1,70 @@
+ <section>
+
+ <h1>{{ "Accounts" | translate }}</h1>
+ <hr/>
+ <div class="table-responsive-sm">
+     <table datatable [dtOptions]="dtOptions" width="100%" class="table table-middle table-striped table-hover">
+         <thead >
+             <tr class="ng-tns-c13-12">
+                 <td class="ng-tns-c13-12"> {{ "Name" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "Country" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "City" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "Mobile" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "Email" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "Metookeys" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "Categories" | translate }}</td>
+                 <td class="ng-tns-c13-12"> {{ "Action" | translate }}</td>
+             </tr>
+         </thead>
+         <tbody class="ng-tns-c13-12">
+             <tr class="ng-tns-c13-12" *ngFor="let acc of Accounts" >
+                 <td class="ng-tns-c13-12"><a [routerLink]="['/','dashboard','profile', acc.id]">{{acc.name}}</a></td>
+                 <td class="ng-tns-c13-12">{{acc.country_name}}</td>
+                 <td class="ng-tns-c13-12">{{acc.city_name}}</td>
+                 <td class="ng-tns-c13-12">{{acc.mobile}}</td>
+                 <td class="ng-tns-c13-12">{{acc.email}}</td>
+                 <td class="ng-tns-c13-12">{{acc.count_of_products}}</td>
+                 <td class="ng-tns-c13-12">{{acc.count_of_categories}}</td>
+                 <td>
+                        <!-- <div class="dropdown">
+                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-cog fa-lg"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Approved</a>
+                                <a class="dropdown-item" href="#">Rejected</a>
+                            </div>
+                        </div> -->
+
+                     <ul class="list-inline action-icon">
+                       
+                         <li class="list-inline-item" >
+                             <a href="javascript:;" *ngIf = "acc.approved == false" 
+                                 (click)="approvedAccount(acc)" class="text-danger" 
+                                 title="Approve Account">
+                                 <i class="fa fa-toggle-off" aria-hidden="true"></i>
+                             </a>
+                       
+                             <a href="javascript:;" *ngIf = "acc.approved == true || acc.approved==null" class="text-success" 
+                                 (click)="rejectAccount(acc)" title="Reject Account">
+                                 <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                             </a>
+                         </li>
+                         <li class="list-inline-item" *ngIf = "permission.User?.Edit">
+                            <a [routerLink]="['/',{outlets:{'modal':['user-edit',acc.id]}}]" href="javascript:;"  class="text-success" 
+                                title="Edit User">
+                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                            </a>
+                         </li>
+                     </ul>
+                 </td>
+             </tr> 
+              
+         </tbody>
+     </table>
+ </div>
+
+ </section>
+
+  

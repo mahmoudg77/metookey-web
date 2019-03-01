@@ -1,0 +1,40 @@
+
+<section class="container" style="padding:30px 0;">
+    <h1>{{ "All Notifications" | translate }} </h1>
+<hr/>
+<div class="table-responsive-sm">
+    <table datatable [dtOptions]="dtOptions" width="100%" class="table table-middle table-striped table-hover text-center">
+        <thead class="bg-prim-ary">
+                <tr>
+                    <td>
+                        {{ "All Notifications" | translate }} 
+                    </td>
+                </tr>
+
+        </thead>
+             <tr *ngFor="let notify of data">
+                <td>
+                    <div class="row notification-content" width="100%">
+                        <div class="col-2">
+                            <img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
+                        </div>
+                        <div class="col-8">
+                            <a hrfe="javascript:;" routerLink="{{notify.link}}">
+                                    
+                                    <strong>{{notify.sender_name}}</strong>
+                                        <br/>
+                                    {{notify.body}}
+                                    
+                            </a>
+                        </div>
+                        <div class="col-2 notify-right text-right">
+                            <span><i class="fa fa-plus"></i></span>
+                            <span>{{notify.created_at|date}}</span>
+                            <span>...</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+     </table>
+</div>
+</section>

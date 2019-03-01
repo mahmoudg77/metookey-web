@@ -1,0 +1,325 @@
+<div> 
+	<div class="app" dir="ltr" >
+
+    <div class="page-wrapper">
+		<header class="header" [class.fixed-header]="global.settings.fixed_header==1" *ngIf="!shared.asFrame" >
+			<div class="header-top">
+				<div class="container-fluid">
+					<div class="header-left ">
+                            <a href="javascript:;" routerLink="/contact-us">{{ "Contact Us" | translate }}</a>
+					</div><!-- End .header-left -->
+
+					<div class="header-right">
+                        <div class="header-dropdown">
+							<a href="javascript:;"><img src="assets/images/flags/{{translate.currentLang}}.png" 
+								alt="England flag">{{translate.currentLang}}</a>
+                            <div class="header-menu">
+                                <ul>
+									<li><a class="text-capitalize" routerLink="/lang/en"><img src="assets/images/flags/en.png"  
+										alt="English flag">English</a></li>
+									<li><a class="text-capitalize" routerLink="/lang/ar"><img src="assets/images/flags/ar.png" 
+										alt="Arabic flag">Arabic</a></li>
+                                </ul>
+                            </div><!-- End .header-menu -->
+                        </div><!-- End .header-dropown -->
+					</div><!-- End .header-right -->
+				</div><!-- End .container -->
+			</div><!-- End .header-top -->
+
+			<div class="header-middle">
+				<div class="container-fluid" style="height: 50px">
+					<div class="header-left">
+						<a [routerLink]="['/']" class="logo">
+							<img src="assets/images/logo.png" alt="MeToKeey Logo">
+						</a>
+					</div><!-- End .header-left -->
+					<search-form  style="margin: auto;" class="d-sm-none d-x-s-none d-lg-block"></search-form>
+                    <!-- End .headeer-center -->
+					<div class="header-right">
+						
+						<a  href="javascript:;" [routerLink]="[{outlets:{modal:['login']}}]" *ngIf="!shared.isLogin()" 
+							class="btn btn-primary btn-sm btnlogin text-capitalize">{{ "Log In" | translate }}</a>
+						<a  href="javascript:;"  [routerLink]="[{outlets:{modal:['register']}}]" *ngIf="!shared.isLogin() && global.settings.register_allow=='1'" 
+							class="btn btn-primary btn-sm btnsignup text-capitalize">{{ "Sign Up" | translate }}</a>
+						
+						<div class="dropdown compare-dropdown" *ngIf="shared.isLogin()">
+							<a href="#" class="dropdown-toggle bell" role="button" data-toggle="dropdown" 
+                               aria-haspopup="true" aria-expanded="false" data-display="static">
+							   <span class=""><i class="fa fa-bell fa-lg"></i></span>
+							</a>
+
+							<div class="dropdown-menu" >
+								<div class="dropdownmenu-wrapper">
+									<nav>
+										<div class="nav nav-tabs" id="nav-tab" role="tablist">
+										  <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" 
+										  	href="#nav-newproduct" role="tab" aria-controls="nav-home" aria-selected="true">
+											  <div class="notify-link text-center" style="margin-bottom:20px;">
+												<span class="notify-icon"><i class="fa fa-plus fa-lg"></i></span>
+												<p class="badge">0</p>
+											  </div>
+											  <div>{{ "Category Followers" | translate }}</div><!--index=1-->
+										</a>
+										<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-reminder" role="tab" aria-controls="nav-profile" 
+											aria-selected="false">
+											<div class="text-center" style="margin-bottom:20px;">
+												<span class="notify-icon"><i class="fa fa-bell fa-lg"></i></span>
+												<p class="badge">0</p>
+											</div>
+											<div>{{ "MeTookey Reminders" | translate }}</div> <!--index=0-->
+										</a>
+										<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-offerend" 
+											role="tab" aria-controls="nav-contact" 
+											aria-selected="false">
+											<div class="text-center" style="margin-bottom:20px;">
+											<span class="notify-icon"><i class="fa fa-percent fa-lg"></i></span>
+											<p class="badge">0</p>
+											</div>
+											<div>{{ "Offer Endings" | translate }}</div><!--index=3-->
+										</a>
+										<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-neworder" 
+											role="tab" aria-controls="nav-contact" 
+											aria-selected="false">
+											<div class="text-center" style="margin-bottom:20px;">
+											<span class="notify-icon"><i class="fa fa-flag"></i></span>
+											<p class="badge">0</p>
+											</div>
+											<div>{{ "Request MeTooKey" | translate }}</div><!--index=2-->
+										</a>
+										</div>
+									</nav>
+									<div class="tab-content" id="nav-tabContent">
+									<div class="tab-pane fade show active" id="nav-newproduct" role="tabpanel" 
+										aria-labelledby="nav-home-tab">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[1]">
+												<div class="row notification-content">
+														<div class="col-2">
+																<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
+															</div>
+															<div class="col-8">
+																<a hrfe="javascript:;" routerLink="{{notify.link}}">
+																	 
+																<strong>{{notify.sender_name}}</strong>
+																<br/>
+															   {{notify.body}}
+															
+																</a>
+															</div>
+															<div class="col-2 notify-right text-right">
+																<span><i class="fa fa-plus"></i></span>
+																<span>...</span>
+															</div>
+												</div>
+											</li>
+											 
+											<li class="" style="background: #440383;list-style: none">
+												<a href="javascript:;" routerLink="/notifications/2" class="btn-more">{{ "Notification" | translate }}</a>
+											</li>
+										</ul>
+									</div>
+									<div class="tab-pane fade" id="nav-reminder" role="tabpanel" aria-labelledby="nav-profile-tab">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[0]">
+												<div class="row notification-content">
+														<div class="col-2">
+																<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
+															</div>
+															<div class="col-8">
+																<a hrfe="javascript:;" routerLink="{{notify.link}}">
+																 
+																	<strong>{{notify.sender_name}}</strong>
+																	<br/>
+																   {{notify.body}}
+																
+																</a>
+															</div>
+															<div class="col-2 notify-right text-right">
+																<span><i class="fa fa-plus"></i></span>
+																<span>...</span>
+															</div>
+												</div>
+											</li>
+											 
+											<li class="" style="background: #440383;list-style: none">
+												<a href="javascript:;" routerLink="/notifications/1" class="btn-more">{{ "Notification" | translate }}</a>
+											</li>
+										</ul>
+									</div>
+									<div class="tab-pane fade" id="nav-offerend" role="tabpanel" aria-labelledby="nav-contact-tab">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[3]">
+												<div class="row notification-content">
+														<div class="col-2">
+																<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
+															</div>
+															<div class="col-8">
+																<a hrfe="javascript:;" routerLink="{{notify.link}}">
+																	 
+																<strong>{{notify.sender_name}}</strong>
+																<br/>
+															   {{notify.body}}
+															
+																</a>
+															</div>
+															<div class="col-2 notify-right text-right">
+																<span><i class="fa fa-plus"></i></span>
+																<span>...</span>
+															</div>
+															
+													</div>
+													
+												 
+											</li>
+											 
+											<li class="" style="background: #440383;list-style: none">
+												<a href="javascript:;" routerLink="/notifications/4" class="btn-more">{{ "Notification" | translate }}</a>
+											</li>
+										</ul>
+									</div>
+									<div class="tab-pane fade" id="nav-neworder" role="tabpanel" aria-labelledby="nav-contact-tab">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[2]">
+												<div class="row notification-content">
+													<div class="col-2">
+														<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
+													</div>
+													<div class="col-8">
+														<a hrfe="javascript:;" routerLink="{{notify.link}}">
+															 
+																<strong>{{notify.sender_name}}</strong>
+															 	<br/>
+																{{notify.body}}
+															 
+														</a>
+													</div>
+													<div class="col-2 notify-right text-right">
+														<span><i class="fa fa-plus"></i></span>
+														<span>...</span>
+													</div>
+												</div>
+											</li>
+											 
+											<li class="" style="background: #440383;list-style: none">
+												<a href="javascript:;" routerLink="/notifications/3" class="btn-more">{{ "Notification" | translate }}</a>
+											</li>
+										</ul>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-area" *ngIf="shared.isLogin()">
+							<div class="dropdown">
+								<button class="dropdown-toggle btn btn-link" type="button" id="dropdownMenuButton" 
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="{{shared.getUser()==null?'assets/umages/avat.jpg':env.mediaServer+shared.getUser().image}}" 
+									class="mr-3 mt--3 rounded-circle img-thumbnail" style="width:55px;height: 55px">
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li><a routerLink="/EditProfile" href="#"  
+										class="dropdown-item text-capitalize" style="font-size: 12px;">{{ "Edit profile" | translate }}</a></li>
+									<li *ngIf="shared.userHasRole('admin')"><a routerLink="/dashboard" href="#"  
+										class="dropdown-item text-capitalize" style="font-size: 12px;">{{ "Dashboard" | translate }}</a></li>
+									<li><a routerLink="/orders/my-orders" href="#"  
+										class="dropdown-item text-capitalize" style="font-size: 12px;">{{ "My Orders" | translate }}</a></li>
+									<li *ngIf="shared.userHasRole('metookeyer')"><a routerLink="/product/my-products" href="#"  
+										class="dropdown-item text-capitalize" style="font-size: 12px;">{{ "My Metookeys" | translate }}</a></li>
+									<li><a routerLink="/product/my-favorite" href="#"  
+										class="dropdown-item text-capitalize" style="font-size: 12px;">{{ "My Favorites" | translate }}</a></li>
+									<li><div class="dropdown-divider"></div></li>
+									<li><a href="javascript:;" (click)="logout()"
+										class="dropdown-item text-capitalize" style="font-size: 12px;">{{ "Logout" | translate }}</a></li>
+								</ul>
+							</div>
+						</div>
+						<a routerLink="/product/new" href="#" *ngIf="shared.isLogin() && shared.userHasRole('metookeyer')" 
+							class="btn btn-primary btn-sm btncreateMe text-capitalize" >{{ "Create MeTooKey" | translate }}</a>				
+					</div><!-- End .header-right -->
+				</div><!-- End .container -->
+				
+			</div>
+			<div class="">
+				<div class="col" style="border-top:1px solid #ddd" *ngIf="route.url!='/'" >
+					<!-- <breadcrumb prefix="Home" ></breadcrumb> -->
+					<bread-crumb></bread-crumb>
+				</div>
+			</div>
+		</header><!-- End .header -->
+
+		<main class="main" [class.fixed-header]="global.settings.fixed_header==1 && !shared.asFrame"  [class.home-main]="global.settings.fixed_header==1 && route.url=='/'">
+			<div class="conta-iner" style="min-height: 500px;overflow: hidden;">
+				<router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+				<router-outlet name="modal"></router-outlet>
+            </div>
+		</main><!-- End .main -->
+
+		<footer class="footer" *ngIf="!shared.asFrame">
+			<div class="footer-middle">
+				<div class="container">				
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="widget">
+								<h4 class="widget-title">{{ "Search-home-1" | translate }}</h4>
+								<p>{{ "Search-home-2" | translate }},
+									<br> {{ "Search-home-3" | translate }}</p>
+								<div class="social-icons">
+									<a href="#" class="social-icon" target="_blank"><i class="fa fa-facebook"></i></a>
+									<a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
+									<a href="#" class="social-icon" target="_blank"><i class="fa fa-google-plus"></i></a>
+									<a href="#" class="social-icon" target="_blank"><i class="fa fa-instagram"></i></a>
+								</div><!-- End .social-icons -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-lg-4 -->
+
+						<div class="col-lg-4">
+							<div class="widget widget-newsletter">
+								<h4 class="widget-title">{{ "About MeTooKee" | translate }}</h4>
+								<div class="row">
+									<div class="col">
+										<ul class="list-unstyled footer-list">
+												<!-- <i class="fa fa-angle-right"></i>  -->
+											<li><a href="#" class="">{{ "Who We Are" | translate }}</a></li>
+											<li><a href="#" class="">{{ "Careers" | translate }}</a></li>
+											<li><a href="#" class="">{{ "Invite Friends" | translate }}</a></li>
+										</ul>
+									</div><!-- End .col-md-6 -->
+
+									<div class="col">
+										<ul class="list-unstyled footer-list">
+											<li><a href="#" class="">{{ "Advertise With Us" | translate }}</a></li>
+											<li><a href="#" class="">{{ "Others Started" | translate }}</a></li>
+											<li><a href="#" class="">{{ "Follow Category" | translate }}</a></li>
+										</ul>
+									</div><!-- End .col-md-6 -->
+								</div><!-- End .row -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-lg-4 -->
+
+						<div class="col-lg-4">
+							<div class="widget widget-newsletter">
+								<h4 class="widget-title">{{ "Download Apps" | translate }}</h4>
+								<div class="row">
+									<div class="col-md-12">
+										<span><a href="{{global.settings.app_url_android}}"><i class="fa fa-android fa-4x"></i></a></span>
+										<span><a href="{{global.settings.app_url_ios}}"><i class="fa fa-apple fa-4x"></i></a></span>
+									</div><!-- End .col-md-6 -->
+								</div><!-- End .row -->
+							</div><!-- End .widget -->
+						</div>
+					</div><!-- End .row -->
+				</div><!-- End .container -->
+			</div><!-- End .footer-middle -->
+
+			<div class="container-flux">
+				<div class="footer-bottom">
+					<div class="footer-copyright text-center">All Rights Reserved.copyright. &copy;  2018 metookey.com | Terms Of Use | Privacy Policy</div>
+				</div><!-- End .footer-bottom -->
+			</div><!-- End .container -->
+		</footer><!-- End .footer -->
+	</div><!-- End .page-wrapper -->
+	
+</div>
+</div>
+ 

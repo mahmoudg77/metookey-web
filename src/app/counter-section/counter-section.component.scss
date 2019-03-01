@@ -1,0 +1,24 @@
+// component css goes here
+
+.counter-section{
+    background: #440184;
+    padding-top: 50px ;
+    padding-bottom: 50px ;
+    a,h1,p{
+        color: #fff;
+    }
+    h1{
+        font-weight: normal;
+        margin-bottom: 0;
+        font-size: 3rem;
+    }
+    p{
+        font-size: 1.1rem;
+    }
+    img {
+        display: inline-block;
+        //width: 70px;
+        height: 80px;
+    }
+
+}

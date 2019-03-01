@@ -1,0 +1,28 @@
+<div class="modal" [style.display]="display" (click)="closeModal()">
+  <div class="modal-dialog modal-{{size}}" role="document"  (click)="onDialogClick($event)">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row modal-header-content">
+          <div class="col col-xs-6">
+              <ng-content select="[modal-header-icon]"></ng-content>
+          </div>          
+          <div class="col col-xs-6">
+              <ng-content select="[modal-header-title]"></ng-content>
+              <ng-content select="[modal-header-slogan]"></ng-content>
+           </div>    
+        </div>
+
+          <button type="button" class="close" (click)="closeModal()" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <ng-content select="[modal-body]"></ng-content>
+      </div>
+      <div class="modal-footer">
+        <ng-content select="[modal-footer]"></ng-content>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop show"  (click)="closeModal()" ></div>

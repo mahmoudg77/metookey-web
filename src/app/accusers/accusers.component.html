@@ -1,0 +1,201 @@
+<section class="viewUsers">
+
+<div class="text-right"><a href="javascript:;" class="btn btn-primary btn-lg btn-square" 
+    (click)="open(content)">Add User <i class="fa fa-user-plus"></i></a>
+</div>
+<hr>
+<div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" 
+        class="table table-middle table-striped table-hover" style="width:100%">
+        <thead class="bg-success">
+            <tr class="ng-tns-c13-12">
+                <td class="ng-tns-c13-12">Name</td>
+                <td class="ng-tns-c13-12">Pass</td>
+                <td class="ng-tns-c13-12">Phone</td>
+                <td class="ng-tns-c13-12">Email</td>
+                <td class="ng-tns-c13-12">Acc Manager</td>
+
+                <td class="ng-tns-c13-12">Action</td>
+            </tr>
+        </thead>
+        <tbody class="ng-tns-c13-12">
+            <tr class="ng-tns-c13-12" *ngFor="let user of Users">
+                <td class="ng-tns-c13-12 text-left">{{user.name}}</td>
+                <td class="ng-tns-c13-12">{{user.userid}}</td>
+                <td class="ng-tns-c13-12">{{user.phone}}</td>
+                <td class="ng-tns-c13-12 text-left">{{user.email}}</td>
+                <td class="ng-tns-c13-12">
+                    <i *ngIf = "user.is_acc_manager == true" class="fa fa-check text-success" aria-hidden="true"></i>
+                    <i *ngIf = "user.is_acc_manager == false" class="fa fa-times text-danger"></i>
+                </td>
+
+                <td>
+                    <ul class="list-inline action-icon">
+                        <li class="list-inline-item" *ngIf = "permission.AccountUsers.Edit">
+                            <a href="javascript:;" (click)="open(content)" (click) = "editUser(user)">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item" *ngIf = "permission.AccountUsers.All">
+                            <a href="javascript:;"  (click)="open(contentUser)" (click) = "viewUser(user)">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item" *ngIf = "permission.AccountUsers.Delete">
+                                <a href="javascript:;"  (click) = "deleteUser(user)"
+                                title="Delete Account"><i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr> 
+        </tbody>
+    </table>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss" >
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">User : <strong class="text-danger">{{CurrentUser.name}}</strong></h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="formNewAcount" name="formNewAcount" autocomplete="off" ngNativeValidate>
+                <input type="hidden" name="id" [(ngModel)]="CurrentUser.id"/>
+                <div class="form-group row">
+                    <label class="col-sm-4">Name :</label>
+                    <input type="text" name="name" required [(ngModel)]="CurrentUser.name" placeholder="Enter Name" 
+                        class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4">Phone :</label>
+                    <input type="text" name="phone" required [(ngModel)]="CurrentUser.phone" placeholder="Enter Phone" 
+                        class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4">Email :</label>
+                    <input type="email" name="email" [(ngModel)]="CurrentUser.email" placeholder="Enter Email" 
+                        class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4">Username :</label>
+                    <input type="text" name="userid" required [(ngModel)]="CurrentUser.userid" placeholder="Enter Username" 
+                        class="form-control col-sm-8" autocomplete="off" onfocus="this.value=''">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4">Password :</label>
+                    <input type="password" name="pass" required [(ngModel)]="CurrentUser.pass" placeholder="Enter Password" 
+                        class="form-control col-sm-8" autocomplete="off" onfocus="this.value=''">
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-sm-4">Facebook :</label>
+                    <input type="text" name="facebook" [(ngModel)]="CurrentUser.facebook" placeholder="Enter Facebook Link" 
+                        class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4">Twitter :</label>
+                    <input type="text" name="twitter" [(ngModel)]="CurrentUser.twitter" placeholder="Enter Twitter Link" 
+                        class="form-control col-sm-8">
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4">Mobile Serial :</label>
+                    <input type="text" name="mobile_serial" [(ngModel)]="CurrentUser.mobile_serial" 
+                        placeholder="Enter Mobile Serial" class="form-control col-sm-8">
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="is_acc_manager"
+                        [(ngModel)]="CurrentUser.is_acc_manager" data-md-icheck (change)="isAccManager($event)"> IsAcc Manager 
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="active"
+                        [(ngModel)]="CurrentUser.active" data-md-icheck (change)="isActive($event)"> Active 
+                    </label>
+                </div>
+                <hr>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-success btn-lg btn-square"  (click)="saveUser()"  style="margin:0 10px;">Save</button>
+                    <button type="button" class="btn btn-outline-dark btn-lg btn-square" (click)="c('Close click')" 
+                        (click) = "addUser()">Close</button>
+                </div>
+            </form>
+        </div>
+
+</ng-template>
+
+<ng-template #contentUser let-c="close" let-d="dismiss" >
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">View User : <strong class="text-danger">{{CurrentUser.name}}</strong> </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-sm-4">Name :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.name}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Phone :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.phone}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Email :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.email}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Username :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.userid}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Password :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.pass}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Facebook :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.facebook}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Twitter :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.twitter}}</span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4">Mobile Serial :</label>
+            <span class="form-control col-sm-6">{{CurrentUser.mobile_serial}}</span>
+        </div>
+        <div class="form-group row">
+            <!-- <table class="table ">
+                <tr>
+                    <td>Is Manager</td>
+                    <td>
+                        <span *ngIf = "CurrentUser.is_acc_manager == true" class="badge badge-success">Manger</span>
+                        <span *ngIf = "CurrentUser.is_acc_manager == false" class="badge badge-danger">Not Manger</span>
+                    </td>
+                    <td>Active</td>
+                    <td></td>
+                </tr>
+            </table> -->
+            <label class="col-sm-3">Manager :</label>
+            <div class="col-sm-3">
+                <span *ngIf = "CurrentUser.is_acc_manager == true" class="badge badge-success">Manger</span>
+                <span *ngIf = "CurrentUser.is_acc_manager == false" class="badge badge-danger">Not Manger</span>
+            </div>
+            
+            <label class="col-sm-3">Active :</label>
+            <div class="col-sm-3">
+                <span *ngIf = "CurrentUser.active == true" class="badge badge-success">Active</span>
+                <span *ngIf = "CurrentUser.active == false" class="badge badge-danger">Not Active</span>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark btn-lg btn-square" (click)="c('Close click')" (click) = "addUser()">Close</button>
+    </div>
+</ng-template>
+</section>
+    

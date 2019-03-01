@@ -1,0 +1,474 @@
+<!-- <div class="row background-search" [ngStyle]="{'background' : 'url(./assets/images/bk-search.jpg)','background-repeat' : 'no-repeat' , 'background-size' : 'cover'}"> -->
+
+<div class="row background-search">
+    <div class="col col-sm-6 align-middle text-center">
+        <img src="assets/images/create.png" class="img-responsive center-block" 
+            alt="Accomplish Your Business Deals" width="160" style="display: inline-flex;"/>
+    </div>
+    <div class="col col-sm-6 text-center align-middle" style="margin: auto;">
+        <h2>{{ "Create Your MeTooKey" | translate }}</h2>
+        <p>{{ "Create_Your_MeTooKey_desc1" | translate }} <br> {{ "Create_Your_MeTooKey_desc2" | translate }}
+        </p>
+    </div>
+</div>
+<div class="wizerd-metookey">
+    <div class="progress-bar-header">
+        <div class="container text-center">
+            <ul class="checkout-progress-bar">
+                <li [className]="step>1 ? 'active' : 'inactive'"><span>{{ "MeTooKey Preferences" | translate }}</span></li>
+                <li [className]="step>2 ? 'active' : 'inactive'"><span>{{ "Pricing Plan" | translate }}</span></li>
+                <li [className]="step>3 ? 'active' : 'inactive'"><span>{{ "Shipping" | translate }}</span></li>
+                <li [className]="step>4 ? 'active' : 'inactive'"><span>{{ "Stock Images" | translate }}</span></li>
+                <li [className]="step>5 ? 'active' : 'inactive'"><span>{{ "Total Cost" | translate }}</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="container chk-block-content product-create">
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <ng-template matStepLabel>{{ "MeTooKey Preferences" | translate }}</ng-template>
+            <div class="media">
+                <i class="fa fa-cog"></i>
+                <div class="media-body">
+                    <h2 class="mt-0">{{ "MeTooKey Preferences" | translate }}</h2>
+                    <strong>{{ "MeTooKey_Preferences_desc" | translate }}</strong>
+                </div>
+            </div>
+            <form class="step-1" [formGroup]="firstFormGroup">
+                <div class="form-group row">
+                    <div class="col-12 col-sm-6 row left-form">
+                        <label for="inputPassword" class="col-sm-4 col-form-label">{{ "MeTooKey Country" | translate }}</label>
+                        <div class="col-sm-8">
+                            <div class="custom-select color-primary square">
+                                <select class="form-control" (change)="loadCities(currentItem.country_id)" 
+                                    formControlName="Ctrl_country_id" name="country_id" [(ngModel)]="currentItem.country_id">
+                                    <option value="">{{ "Default select" | translate }}</option>
+                                    <option *ngFor="let country of lookup.countries" value="{{country.id}}">{{country.name}}</option>
+                                </select> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p >{{ "MeTooKey_Country_desc" | translate }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-sm-6 row left-form">
+                        <label for="inputPassword" class="col-sm-4 col-form-label">{{ "MeTooKey State" | translate }}</label>
+                        <div class="col-sm-8">
+                            <div class="custom-select color-primary square">
+                                <select class="form-control" [(ngModel)]="currentItem.city_id" name="city_id" 
+                                    formControlName="Ctrl_city_id">
+                                    <option value="">{{ "Default select" | translate }}</option>
+                                    <option *ngFor="let city of lookup.cities" value="{{city.id}}">{{city.name}}</option>
+                                </select> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p >{{ "MeTooKey_State_desc" | translate }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-sm-6 row left-form">
+                        <label for="inputPassword" class="col-sm-4 col-form-label">{{ "MeTooKey Type" | translate }}</label>
+                        <div class="col-sm-8">
+                            <div class="custom-select color-primary square">
+                                <select class="form-control" [(ngModel)]="currentItem.metokey_type_id" 
+                                    formControlName="Ctrl_metokey_type_id" name="metokey_type_id">
+                                    <option value="">{{ "Default select" | translate }}</option>
+                                    <option *ngFor="let type of lookup.productTypes" value="{{type.id}}">{{type.name}}</option>
+                                </select> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey_Type_desc" | translate }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-sm-6 row left-form">
+                        <label for="inputPassword" class="col-sm-4 col-form-label">{{ "MeTooKey Title" | translate }}</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="name" maxlength="100" 
+                                formControlName="Ctrl_name" [(ngModel)]="currentItem.name">
+                            <span class="step-span">{{100-currentItem.name?.length}} {{ "Characters Left" | translate }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey_Title_desc" | translate }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-sm-6 row left-form">
+                        <label for="description" class="col-sm-4 col-form-label">{{ "MeTooKey_description" | translate }}</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="description" maxlength="100" 
+                                formControlName="Ctrl_description" [(ngModel)]="currentItem.description">
+                            <span class="step-span">{{100-currentItem.description?.length}} Characters Left</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey_description_desc" | translate }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-sm-6 row left-form">
+                        <label  class="col-sm-4 col-form-label">{{ "Select Category" | translate }}</label>
+                        <div class="col-sm-8">
+                            <div class="input-group select-cat">
+                                <div class="form-control" >
+                                    <label class="badge badge-info" *ngFor="let cat of selectedCats;let i=index;">{{cat.name}} <a href="javascript:;" (click)="selectedCats.splice(i,1)" class="close">&times;</a></label>
+                                </div>
+                                <span><a href="javascript:;" (click)="catSelector.open()" style="text-decoration: none">+</a></span>
+                            </div>
+                            <cat-select [(selected)]="selectedCats" #catSelector></cat-select>
+                            <!-- <cat-select [(selected)]="currentItem.selectedCats" #catSelector></cat-select> -->
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "Select_Category_create_desc" | translate }}</p>
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <div class="col-xs btn-createpro-mobile">
+                        <button type="button" class="btn btn-primary btn-lg btn-arrow" [disabled]="!firstFormGroup.valid || !customValidate(1)" 
+                        (click)="GoTOStep1()" matStepperNext><i class="fa fa-long-arrow-right"></i> {{ "Save And Continue" | translate }} </button>
+                    </div>
+                    
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+            <ng-template matStepLabel>{{ "Pricing Plan" | translate }}</ng-template>
+            <div class="media">
+                <i class="fa fa-cog"></i>
+                <div class="media-body">
+                    <h2 class="mt-0">{{ "Pricing Plan" | translate }}</h2>
+                    <strong>{{ "Pricing Plan_desc" | translate }}</strong>
+                </div>
+            </div>
+            <form class="step-2" >
+                <div class="row step-2-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-form-label">{{ "Total Parties" | translate }}</label>
+                            <div class="row" style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <input type="number" class="form-control " name="quantity"  
+                                    formControlName="Ctrl_quantity" [(ngModel)]="currentItem.quantity" >
+                                <span class="col col-xs-3 span-deposit ">{{ "Deal Parties" | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "Total Parties_desc" | translate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row step-2-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-form-label">{{ "MeTooKey Original Price" | translate }}</label>
+                            <div class="row" style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <input type="number" class="form-control "  name="original_price" 
+                                    formControlName="Ctrl_original_price" [(ngModel)]="currentItem.original_price">
+                                <span class="col col-xs-3 span-deposit ">{{ "EGP" | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey Original Price_desc" | translate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row step-2-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-form-label">{{ "MeTooKey Current Price" | translate }}</label>
+                            <div class="row" style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <input type="number" class="form-control "  name="offer_price" 
+                                    [class.text-danger]="currentItem.offer_price>currentItem.original_price"
+                                    formControlName="Ctrl_offer_price" [(ngModel)]="currentItem.offer_price">
+                                <span class="col col-xs-3 span-deposit ">{{ "EGP" | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey Current Price_desc" | translate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row step-2-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-form-label">{{ "MeTooKey Deposit" | translate }}</label>
+                            <div class="row form--inline" style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <input type="number" class="form-control"  name="insurance_value" 
+                                    formControlName="Ctrl_insurance_value" [(ngModel)]="currentItem.insurance_value"> 
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey Deposit_desc" | translate }}
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="row step-2-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-form-label">{{ "Total MeTooKey Duration" | translate }} : </label> 
+                                <select [(ngModel)]="interval" name="interval" >
+                                <option *ngFor="let intr of intervals" (click)="intervalText=intr.name" [value]="intr.value">{{intr.name}}</option>
+                                </select>
+                            <div class="row form-group" style="padding: 2px 15px;" >
+                                <input type="number" class="form-control "  disabled="true"
+                                    value="{{shared.dateDiff(interval,currentItem.date_end,currentItem.date_start)|number:'1.0-0' }}">
+                                <span class="col col-xs-3 span-deposit">{{intervalText}}</span>
+                            </div>
+                            <div class="row form-group " style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <span class="span-deposit " style="width:60px;">{{ "From" | translate }} <i class="fa fa-calendar"></i></span>
+                                <input type="date" class="form-control "  name="date_start" (ngModelChange)="currentItem.date_start = $event"  
+                                    formControlName="Ctrl_date_start" value="{{currentItem.date_start|date:'yyyy-MM-dd'}}"   [ngModel]="currentItem.date_start|date:'yyyy-MM-dd'">
+                            </div>
+                            <div class="row form-group " style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <span class="span-deposit " style="width:60px;">{{ "To" | translate }} <i class="fa fa-calendar"></i></span>
+                                <input type="date" class="form-control " [class.text-danger]="currentItem.date_end<currentItem.date_start" name="date_end" (ngModelChange)="currentItem.date_end = $event"   
+                                    formControlName="Ctrl_date_end" value="{{currentItem.date_end|date:'yyyy-MM-dd'}}" [ngModel]="currentItem.date_end|date:'yyyy-MM-dd'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "Total MeTooKey Duration_desc" | translate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row step-2-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-form-label">{{ "MeTooKey Tax" | translate }} </label>
+                            <div class="row" style="padding: 2px 15px;" [formGroup]="secondFormGroup">
+                                <input type="text" class="form-control "  name="tax" formControlName="Ctrl_tax" [(ngModel)]="currentItem.tax">
+                                <span class="col col-xs-3 span-deposit ">{{ "EGP" | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "MeTooKey Tax_desc" | translate }}
+                        </p>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="form-group text-right btn-createpro-mobile">
+                    <button type="submit" class="btn btn-primary btn-lg" matStepperPrevious style="margin: 0 10px 0 0;">
+                            <i class="fa fa-long-arrow-left"></i> {{ "Go Back" | translate }}</button>
+                    <button type="submit" class="btn btn-primary btn-lg" matStepperNext [disabled]="!secondFormGroup.valid || !customValidate(2)" 
+                        (click)="GoTOStep2()"><i class="fa fa-long-arrow-right"></i> {{ "Save And Continue" | translate }}</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+            <ng-template matStepLabel>{{ "Shipping&Features" | translate }}</ng-template>
+            <div class="media">
+                <i class="fa fa-cog"></i>
+                <div class="media-body">
+                    <h2 class="mt-0">{{ "Shipping&metookey&Features" | translate }}</h2>
+                    <strong>{{ "Shipping&Features_desc" | translate }}</strong>
+                </div>
+            </div>
+            <form class="step-3">
+                <div class="row step-3-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label class="col-form-label">{{ "Product Features" | translate }}</label>
+                            <div class="row" style="padding: 2px 15px;">
+                                <label *ngFor="let fet of featuresArray; let i=index"  style="height: auto;" 
+                                class="form-control col-12"><a class="close" (click)="featuresArray.splice(i,1)">&times;</a> {{fet}} </label>
+                                <input type="text" class="form-control col-12" name="" #addfeature >
+                                <a class="col-12" href="javascript:;" (click)="featuresArray.push(addfeature.value);addfeature.value='';">
+                                    <i href="javascript:;" class="fa fa-plus-circle" style="color:#cda1fa;"></i> 
+                                    {{ "Add Features" | translate }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 d-none d-sm-block">
+                        <p>{{ "Product Features_desc" | translate }}</p>
+                    </div>
+                </div>
+
+                <div class="row step-3-row">
+                    <div class="col col-sm-6">
+                        <div class="form-group Product_Features">
+                            <label class="col-form-label">{{ "Shipping_lbl" | translate }}</label>
+                            <div class="row form-check form-inline Product_Features_formInline" style="margin-bottom:10px;">
+                                <label class="form-check-label lable-deposit">
+                                    <input type="radio" value="1" class="form-check-input" name="shipping" [checked]="shipping==1" 
+                                     (click)="shipping=1">{{ "Shipping_lbl_desc" | translate }}</label>
+                            </div>
+                            
+                            <textarea [disabled]="shipping==0" [(ngModel)]="currentItem.shipping_option" name="shipping_option" 
+                                class="form-control col-6" rows="5" 
+                                    placeholder="Add your shipping details" id="comment">{{currentItem.shipping_option}}</textarea>
+
+                            <div class="form-group" style="padding-left: 20px;">
+                                <label for="inputPassword" class="col-form-label">{{ "Shipping Cost" | translate }}</label>
+                                <div class="row" style="padding: 2px 15px;">
+                                    <input  [disabled]="shipping==0"  [(ngModel)]="currentItem.shipping_cost" 
+                                       type="text" class="form-control" name="shipping_cost">
+                                    <span class="col col-xs-3 span-deposit">{{ "EGP" | translate }}</span>
+                                </div>
+                            </div>
+
+                            <div class="row form-check form-inline Product_Features_formInline">
+                                <label class="form-check-label lable-deposit">
+                                    <input type="radio" value="0"  class="form-check-input" [checked]="shipping==0"  
+                                    (click)="shipping=0;currentItem.shipping_cost=0;currentItem.shipping_option=''" 
+                                     name="shipping"> {{ "There is no shipping option" | translate }} 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-12 col-sm-6 d-none d-sm-block">
+                            <p>{{ "Shipping_lbl_desc2" | translate }}
+                            </p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group text-right btn-createpro-mobile">
+                        <button type="submit" class="btn btn-primary btn-lg" matStepperPrevious style="margin: 0 10px 0 0;">
+                                <i class="fa fa-long-arrow-left"></i> {{ "Go Back" | translate }}</button>
+                        <button type="submit" class="btn btn-primary btn-lg" matStepperNext (click)="GoTOStep3()" 
+                        [disabled]="!thirdFormGroup.valid || !customValidate(3)">
+                        <i class="fa fa-long-arrow-right"></i> {{ "Save And Continue" | translate }}</button>
+                    </div>
+            </form>
+         </mat-step>
+
+        <mat-step [stepControl]="fourFormGroup">
+            <ng-template matStepLabel>{{ "Stock Images" | translate }}</ng-template>
+            <div class="media">
+                <i class="fa fa-cog"></i>
+                <div class="media-body">
+                    <h2 class="mt-0">{{ "Stock Images_stock" | translate }}</h2>
+                    <strong>{{ "Stock Images_add" | translate }}</strong>
+                </div>
+            </div>
+            <form class="step-4" >
+                <h4>{{ "Stock Images_choose" | translate }}</h4>
+                <div class="row">
+                    <div class="col col-sm-6">
+                        <div  class="row" style="height: 200px;">
+                            <div  class="col col-6">
+                                <label  class="img-upload"><input  type="file" (change)="onFileChange($event,0)" ></label>
+                            </div>
+                            <div  class="col col-6">
+                                <div  class="row">
+                                    <div  class="col col-6" style="height: 95px;">
+                                        <label  class="img-upload"><input  type="file" (change)="onFileChange($event,1)"></label>
+                                    </div>
+                                    <div  class="col col-6">
+                                        <label  class="img-upload"><input  type="file" (change)="onFileChange($event,2)"></label>
+                                    </div>
+                                </div>
+                                <div  class="row">
+                                    <div  class="col col-6" style="height: 95px;">
+                                        <label  class="img-upload" style="margin-top: 10px;" (change)="onFileChange($event,3)">
+                                            <input  type="file"></label>
+                                    </div>
+                                    <div  class="col col-6">
+                                        <label  class="img-upload" style="margin-top: 10px;" (change)="onFileChange($event,4)">
+                                            <input  type="file"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6">
+                        <h2>{{ "Open Graph Image" | translate }} ({{"facebook post desgin" | translate }})</h2>
+                            <label  style="width: 300px;height: 150px;" class="img-upload"><input  type="file" 
+                                (change)="onOGImageChange($event)" ></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group text-right btn-createpro-mobile">
+                    <button type="submit" class="btn btn-primary btn-lg" matStepperPrevious style="margin: 0 10px 0 0;">
+                            <i class="fa fa-long-arrow-left"></i> {{ "Go Back" | translate }}</button>
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="!customValidate(4)" matStepperNext (click)="GoTOStep5()">
+                        <i class="fa fa-long-arrow-right" ></i> {{ "Save And Continue" | translate }}</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step >
+            <ng-template matStepLabel>{{ "Total Cost" | translate }}</ng-template>
+            <div class="media">
+                <i class="fa fa-cog"></i>
+                <div class="media-body">
+                    <h2 class="mt-0">{{ "Total Cost" | translate }}</h2>
+                    <strong>{{ "Total Cost_desc1" | translate }}</strong>
+                </div>
+            </div>
+            <form class="step-4" >
+                <div class="form-group">
+                    <label for="inputPassword" class="col-form-label">{{ "MeTooKey Cost" | translate }}</label>
+                    <div class="row" style="padding: 2px 15px;">
+                        <input type="text" disabled class="form-control col-4" name="" 
+                        value="{{currentItem.offer_price*currentItem.quantity}}">
+                        <span class="col col-xs-3 span-deposit">{{ "EGP" | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-form-label">{{ "Shipping Cost" | translate }}</label>
+                    <div class="row" style="padding: 2px 15px;">
+                        <input type="text"disabled class="form-control col-4" name=""  value="{{currentItem.shipping_cost}}">
+                        <span class="col col-xs-3 span-deposit">{{ "EGP" | translate }}</span>
+                    </div>
+                </div>
+                <div class="form-group cost_paymentMethods">
+                    <label for="inputPassword" class="col-form-label">{{ "Payment Method" | translate }}</label>
+                    <div class="row" style="padding: 2px 15px;">
+                        <div *ngFor="let opt of paymentMethods" class="custom-control custom-checkbox col-sm-2">
+                            <input type="checkbox"  value="{{opt.id}}" id="{{opt.name}}" class="custom-control-input" 
+                            [checked]="selectedPMthods.indexOf(opt.id.toString())>-1" (click)="toggleSelectPMethod(opt.id)">
+                            <label class="custom-control-label" for="{{opt.name}}" >{{opt.name}}</label>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label for="" class="col-form-label">{{ "Order Notes" | translate }} </label>
+                    <div class="row" style="padding: 2px 15px;">
+                        <input type="text" class="form-control "  name="order_note"  [(ngModel)]="currentItem.order_note">
+                    </div>
+                </div>
+                    
+                 <div class="form-group" >
+                    <label for="inputPassword" class="col-form-label">{{ "Product Tags" | translate }}</label>
+                    <div class="row" style="padding: 2px 15px;" [formGroup]="form">
+                            <ngx-input-tag [tagSuggestions]="tagSuggestions" style="background-color: #fff;" formControlName="tags"></ngx-input-tag>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div  class="custom-control custom-checkbox col-sm-12" >
+                        <input type="checkbox" id="agree" name="agree" class="custom-control-input" [(ngModel)]="agree" [checked]="agree==true">
+                        <label class="custom-control-label col-form-label" for="agree" >{{ "Total Cost_desc2" | translate }}</label>
+                    </div>
+                </div>
+                
+                <hr/>
+                <div class="form-group text-right btn-createpro-mobile">
+                        <button type="submit" class="btn btn-primary btn-lg" matStepperPrevious style="margin: 0 10px 0 0;">
+                                <i class="fa fa-long-arrow-left"></i> {{ "Go Back" | translate }}</button>
+                        <button type="submit" class="btn btn-primary btn-lg" [disabled]="!customValidate(5)"  (click)="saveItem()">
+                            <i class="fa fa-long-arrow-right"></i> {{ "Submit" | translate }} </button>
+                    </div>
+                </form>
+        </mat-step>
+            
+</mat-horizontal-stepper>
+</div>
+
+</div>

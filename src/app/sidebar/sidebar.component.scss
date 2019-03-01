@@ -1,0 +1,69 @@
+// component css goes here
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #423c46;
+    position: relative;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .sidebar a {
+    display: block;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+  }
+   
+  .sidebar a.active {
+    background-color: #440184;
+    color: white;
+  }
+  .sidebar a.active::after{
+    // content: "";
+    // position: absolute;
+    // width: 0;
+    // height: 0;
+    // margin-left: -0.5em;
+    // bottom: -2em;
+    // left: 50%;
+    // box-sizing: border-box;
+    
+    // border: 1em solid black;
+    // border-color: transparent transparent #bada55 #bada55;
+    
+    // transform-origin: 0 0;
+    // transform: rotate(-45deg);
+    
+    // box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.4);
+  }
+  
+  .sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }

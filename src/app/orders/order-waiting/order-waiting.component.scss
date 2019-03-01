@@ -1,0 +1,17 @@
+// component css goes here
+
+.btn-group{
+    background: #460B7F;
+    border-color: #460B7F;
+
+}
+.btn-group a.active,.btn-group a:hover{
+    background: #9D2DD7;
+    border-color: #9D2DD7;
+    .fa-check{
+        display:inline;
+        } 
+} 
+.btn-group a .fa-check{
+    display:none;
+}

@@ -1,0 +1,52 @@
+<section >
+    <div class="row dashboard-header" >
+            <div class="col-sm-12">
+                <h1  class="pull-left">{{ "Contact-us Sections" | translate }}</h1>
+                <div class="pull-right" style="margin-bottom:10px;" *ngIf = "permission.Section?.Add==true">
+                    <a href="javascript:;" class="btn btn-primary btn-sm" 
+                    [routerLink]="['/',{outlets:{'modal':['section-edit']}}]">{{ "Add New" | translate }}</a>
+                </div>
+            </div>
+        </div>
+        <hr/>
+<div class="table-responsive-sm">
+  <table datatable [dtOptions]="dtOptions" class="table table-middle table-striped table-hover" width="100%">
+      <thead>
+          <tr class="ng-tns-c13-12">
+              <td class="ng-tns-c13-12">{{ "Name" | translate }}</td>
+              <td class="ng-tns-c13-12">{{ "Email" | translate }}</td>
+
+              <td class="ng-tns-c13-12">{{ "Action" | translate }}</td>
+          </tr>
+      </thead>
+      <tbody class="ng-tns-c13-12">
+          <tr class="ng-tns-c13-12" *ngFor="let item of data" >
+              <td class="ng-tns-c13-12">{{item.name}}</td>
+              <td class="ng-tns-c13-12">{{item.contact_email}}</td>
+              <td>
+                  <ul class="list-inline action-icon">
+                      
+                      <li class="list-inline-item" *ngIf = "permission.Section?.Edit">
+                          <a [routerLink]="['/',{outlets:{'modal':['section-edit',item.id]}}]" href="javascript:;"   
+                            class="text-success" title="Edit Item">
+                              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                          </a>
+                        
+                      </li>
+                      <li class="list-inline-item" *ngIf = "permission.Section?.Delete">
+                          <a href="javascript:;" (click)="deleteItem(item)" class="text-danger" 
+                              title="Delete Item"><i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                          </a>
+                      </li>
+                     
+                  </ul>
+              </td>
+          </tr> 
+           
+      </tbody>
+  </table>
+</div>
+  
+
+  
+</section>

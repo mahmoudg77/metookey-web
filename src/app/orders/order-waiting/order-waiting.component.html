@@ -1,0 +1,57 @@
+<section class="myorder">
+<div class="container">
+    <h1>{{ "Orders" | translate }} </h1>
+    <hr/>
+    <div class="table-responsive-sm">
+    <div class="btn-group" role="group" >
+        <a href="javascript:;" routerLink="../cobone" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Waiting Delivered Cobone" | translate }}</a>
+        <a href="javascript:;" routerLink="../cash" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Waiting Paying Cash" | translate }}</a>
+        <a href="javascript:;" routerLink="../offer" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Waiting Offer End" | translate }}</a>
+        <a href="javascript:;" routerLink="../receive" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Waitng Receive Metookey" | translate }}</a>
+        <a href="javascript:;" routerLink="../canceled" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Canceled" | translate }}</a>
+        <a href="javascript:;" routerLink="../received" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Received" | translate }}</a>
+        <a href="javascript:;" routerLink="../not-received" [queryParams]="params" routerLinkActive="active" class="btn btn-primary"><i class="fa fa-check"></i> {{ "Not Recived Metookey" | translate }}</a>
+    </div>
+    </div>
+    <hr/>
+    <div class="table-responsive-sm">
+        <table datatable [dtOptions]="dtOptions" width="100%" class="table table-middle table-striped table-hover text-center">
+            <thead class="bg-prim-ary">
+                <tr>
+                    <th>{{ "Order No" | translate }}.#</th>
+                    <th>{{ "Metookey No" | translate }}.#</th>
+                    <th>{{ "Metookey Name" | translate }}</th>
+                    <th>{{ "Price" | translate }}</th>
+                    <th>{{ "Quantity" | translate }}</th>
+                    <th>{{ "Deposit value" | translate }}</th>
+                    <th>{{ "Order Date" | translate }}</th>
+                    <th>{{ "Status" | translate }}</th>
+                    <th *ngIf="scope!='my-orders'">{{ "Action" | translate }}</th>
+                </tr>
+            </thead>  
+                <tbody>
+                <tr *ngFor="let item of data" >
+                    <td><a href="javascript:;" routerLink="/invoice/{{item.id}}" >#{{item.id}}</a></td>
+                    <td><a href="javascript:;" routerLink="/product/details/{{item.item_id}}" >#{{item.item_id}}</a></td>
+                    <td style="min-width: 220px;" class="text-left"><a href="javascript:;" routerLink="/product/details/{{item.item_id}}" >{{item.item_name}}</a></td>
+                    <td>{{item.item_offer_price}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.insurance_value}} </td>
+                    <td>{{item.created_at | date}}</td>
+                    <td><span class="badge badge-{{statusClass(item.order_state)}}">{{item.order_state}}</span></td>
+                    <td style="min-width: 200px;" *ngIf="scope!='my-orders'">
+                        <ul class="list-inline action-icon">
+                            <li class="list-inline-item"  *ngIf="nextStatus!=''">
+                                <a  href="javascript:;" (click)="changeState(item,nextStatus)" class="text-success" title="Change status">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+    </div>   
+</div>    
+</section>
+

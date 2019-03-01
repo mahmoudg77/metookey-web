@@ -1,0 +1,60 @@
+
+<section >
+    <div class="row dashboard-header" >
+        <div class="col-sm-12">
+            <h1  class="pull-left">{{ "Settings" | translate }}</h1>
+            <button class="btn btn-primary pull-right" type="button" (click)="saveSettings()">{{ "Save Setting" | translate }}</button>
+        </div>
+     </div>
+    <hr/>
+<div class="row">
+    <div class="col col-12" *ngFor="let group of settings">
+
+        <h2>{{group[0].setting_group}}</h2>
+    <div class="col col-12" *ngFor="let setting of group">
+       <div class="row form-group" *ngIf="setting.setting_type!=3" >
+            <label class="col-sm-2">{{setting.setting_name}}</label>
+            
+            <input type="text" *ngIf="setting.setting_type==1" placeholder="{{setting.setting_name}}"  [(ngModel)]="setting.setting_value" class="form-control col-sm-12">
+            
+            <textarea *ngIf="setting.setting_type==2"  [(ngModel)]="setting.setting_value" class="form-control col-sm-12"></textarea>
+          
+            <select  *ngIf="setting.setting_type==4"  [(ngModel)]="setting.setting_value" class="form-control col-sm-12">
+                <option *ngFor="let opt of setting.data" [value]="opt.id">{{opt.name}}</option>
+            </select>
+
+            <div *ngIf="setting.setting_type==5" class="col-sm-12">
+                    <div class="row">
+                    <label *ngFor="let opt of setting.data" class="custom-control custom-radio col-sm-3">
+                        <input class="custom-control-input"   [(ngModel)]="setting.setting_value" value="{{opt.id}}" name="{{setting.setting_key}}" id="{{setting.setting_key}}"  type="radio" >
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">{{opt.name}}</span>
+                    </label>
+                    </div>
+
+<!-- 
+                <div *ngFor="let opt of setting.data" class="custom-control custom-checkbox col-sm-3">
+                    <input type="radio" name="{{setting.setting_key}}"  [(ngModel)]="setting.setting_value"  value="{{opt.id}}" class="custom-control-input" [checked]="setting.setting_value==1">
+                    <label class="custom-control-label" >{{opt.name}}</label>
+                </div> -->
+            </div>
+
+            <div *ngIf="setting.setting_type==6" class="col-sm-12">
+                    <div class="row">
+                    <div *ngFor="let opt of setting.data" class="custom-control custom-checkbox col-sm-3">
+                        <input type="checkbox"  value="{{opt.id}}" id="{{opt.name}}" class="custom-control-input" [checked]="setting.selected.indexOf(opt.id.toString())>-1" (click)="toggleSelect(setting,opt.id.toString())">
+                        <label class="custom-control-label" for="{{opt.name}}" >{{opt.name}}</label>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row form-group" *ngIf="setting.setting_type==3" >
+            <div *ngIf="setting.setting_type==3" class="custom-control custom-checkbox col-md-4 col-xs-12">
+                <input type="checkbox" [id]="setting.setting_key" class="custom-control-input" (click)="setting.setting_value=(setting.setting_value==1)?0:1" [checked]="setting.setting_value=='1'">
+                <label class="custom-control-label" for="{{setting.setting_key}}" >{{setting.setting_name}}</label>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</section>
