@@ -7,14 +7,14 @@ export const environment = {
     production: false,
     // apiUrl:'/api/v1',
     // mediaServer:'/media',
-    apiUrl:'http://localhost:38360',
-    mediaServer:'http://localhost:38360',
+    // apiUrl:'http://localhost:38360',
+    // mediaServer:'http://localhost:38360',
     //  apiUrl:'http://web-egy.com/api',
     //  mediaServer:'http://web-egy.com',
     // apiUrl:'http://api.me2key.com/api',
     // mediaServer:'http://api.me2key.com',
-    // apiUrl:'https://me2key.com/api/v1',
-    // mediaServer:'https://me2key.com/media',
+    apiUrl:'https://me2key.com/api/v1',
+    mediaServer:'https://me2key.com/media',
     apiKey:'Wnmbyz22xi7prd7uTL6h7ZVzG28NHaWoU7FWXeQ4cWUFnxRzxuQFvH6yJc3Hb8wZkNbjj3a5kSCQPGew',
     
     firebase: {

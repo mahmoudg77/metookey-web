@@ -71,7 +71,8 @@
             </div>
             <div class="col-sm-7">
                 <div class="input-group">
-                    <input type="text" class="form-control" style="font-size: 1.6rem" [(ngModel)]="email" placeholder="Send Request ..." name="txtRequestText" [(ngModel)]=textRequest>
+                    <input type="text" class="form-control" style="font-size: 1.6rem" [(ngModel)]="email" 
+                    placeholder="{{ 'Send Request'| translate}}" name="txtRequestText" [(ngModel)]=textRequest>
                     <div class="input-group-btn">
                         <button class="btn btn-default" (click)="sendRequest()" type="submit">
                                 {{ "Submit" | translate }}

@@ -22,33 +22,33 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="">{{"Choose Product" | translate}}</label>
-                    <select class="custom-select color-primary square"  [(ngModel)]="parent_id" (change)="loadCategories(parent_id)">   
-                    <option *ngFor="let cat of parents" value="{{cat.id}}">{{cat.name}}</option>
-                </select>
-                </div>
-                <div class="form-group">
                     <label class="">{{"Choose Features" | translate}}</label>
                     <select class="custom-select color-primary square"  [(ngModel)]="data.category_id" >                     
-                    <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
-                </select>
-            </div>
+                        <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
+                    </select>
+                </div>
+                
+                <div class=" form-group">
+                    <label class="">{{"Your Search" | translate}}</label>
+                    <input type="text" class="form-control"  [(ngModel)]="data.requestText" 
+                    placeholder="{{'Write Down Your Search Here' | translate}}"/>
+                </div>
             </div>
             <div class="col-sm-6">
-                <div class=" form-group">
-                        <label class="">{{"Your Search" | translate}}</label>
-                        <input type="text" class="form-control"  [(ngModel)]="data.requestText" 
-                        placeholder="{{'Write Down Your Search Here' | translate}}"/>
-                </div>
-           
                 <div class="form-group">
                     <label class="">{{"From Price" | translate}}</label>
                     <input type="number" OnlyNumber="true" class="form-control"  [(ngModel)]="data.price_from" placeholder="{{'From Price' | translate}}">
-                    </div>
+                </div>
                 <div class="form-group">
                     <label class="">{{"To Price" | translate}}</label>
                     <input type="number" OnlyNumber="true" class="form-control" [(ngModel)]="data.price_to" placeholder="{{'To Price' | translate}}">
-                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="">{{"Choose Product" | translate}}</label>
+                    <select class="custom-select color-primary square"  [(ngModel)]="parent_id" (change)="loadCategories(parent_id)">   
+                        <option *ngFor="let cat of parents" value="{{cat.id}}">{{cat.name}}</option>
+                    </select>
+                </div>
             </div>
 
             <div class="w-100"></div>

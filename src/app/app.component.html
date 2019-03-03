@@ -36,7 +36,6 @@
 					<search-form  style="margin: auto;" class="d-sm-none d-x-s-none d-lg-block"></search-form>
                     <!-- End .headeer-center -->
 					<div class="header-right">
-						
 						<a  href="javascript:;" [routerLink]="[{outlets:{modal:['login']}}]" *ngIf="!shared.isLogin()" 
 							class="btn btn-primary btn-sm btnlogin text-capitalize">{{ "Log In" | translate }}</a>
 						<a  href="javascript:;"  [routerLink]="[{outlets:{modal:['register']}}]" *ngIf="!shared.isLogin() && global.settings.register_allow=='1'" 
