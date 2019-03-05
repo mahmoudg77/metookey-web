@@ -14,6 +14,7 @@ import { CurrencyService } from 'app/services/currency.service';
 import { NgxBraintreeComponent } from 'ngx-braintree';
 import { Guid } from 'guid-typescript';
 import { delay } from 'q';
+import { TranslateService } from '@ngx-translate/core';
 
 
 declare var $:any;
@@ -78,6 +79,7 @@ export class NewOrderMobileComponent  implements OnInit{
     errors:string[]=[];
     @ViewChild(NgxBraintreeComponent)braintree:NgxBraintreeComponent;
     submitted: boolean;
+    lang: any;
     constructor(
         public shared:SharedService,
         private call:CallapiService,
@@ -88,7 +90,8 @@ export class NewOrderMobileComponent  implements OnInit{
         private paypal :PaypalService,
         private http:HttpClient,
         private currency:CurrencyService,
-        private auth:AuthService
+        private auth:AuthService,
+        private translate :TranslateService,
     ){
 
        shared.asFrame=true;
@@ -101,6 +104,12 @@ export class NewOrderMobileComponent  implements OnInit{
             this.route.queryParams.subscribe(params=>{
                 this.order.item_id=+params['item_id']||0;
                 this.order.quantity=+params['qty']||1;
+
+                     this.lang = params['lang'];
+                    //this.hasAccess();
+                    this.changeLang(this.lang);
+               
+
                 this.currency.getCurrancyPrice('EGP').subscribe(
                     next=>{
                         this.CurrentRate=next.rates.EGP;
@@ -164,6 +173,15 @@ export class NewOrderMobileComponent  implements OnInit{
 
            
    
+    }
+    changeLang(curr:string): any {
+             this.translate.use(curr);
+    
+            localStorage.setItem('lang',curr);
+
+            $("#layout").prop("href",this.shared.getCssStyle());
+    
+         
     }
 
     loadItemDetails(){

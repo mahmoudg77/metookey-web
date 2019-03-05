@@ -37,7 +37,7 @@
                         <div class="float-right"><span class="progress-right">{{orders}}</span></div>
                         <!-- <progress value="{{orders}}" max="{{total}}"></progress> -->
                         <input disabled type="range" [min]="0" [max]="total" [step]="1" [value]="orders" 
-                        [ngStyle]="{'background-image':'-webkit-gradient( linear, left top, right top, color-stop('+(orders/total)+', #b97ef3), color-stop('+(orders/total)+', #C5C5C5) )'}">
+                        [ngStyle]="{'background-image':'-webkit-gradient( linear, '+(translate.currentLang=='ar'?'right':'left')+' top, '+(translate.currentLang=='ar'?'left':'right')+' top, color-stop('+(orders/total)+', #b97ef3), color-stop('+(orders/total)+', #C5C5C5) )'}">
                         </div>
                 </div>
             </div>

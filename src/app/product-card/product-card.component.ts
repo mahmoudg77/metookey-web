@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     moduleId: module.id,
@@ -8,6 +9,7 @@ import { environment } from 'environments/environment';
     styleUrls: ['product-card.component.scss']
 })
 export class ProductCardComponent {
+    
     public imageUrl=environment.mediaServer;
 
     @Input() id: number=0;
@@ -20,7 +22,8 @@ export class ProductCardComponent {
     @Input() bprice:number=42.90;
     @Input() total:number=150;
     @Input() orders:number=115;
-    
-
+     constructor(public translate:TranslateService){
+        
+    }
 
 }
