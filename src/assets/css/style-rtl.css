@@ -8992,7 +8992,10 @@
 
 /*my work ali*/
 html{direction:rtl}
-body{direction:rtl}
+body{
+  direction:rtl;
+  font-family: kacst !important;
+}
 
 
 
