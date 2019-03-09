@@ -4,6 +4,7 @@
   src: url('../fonts/KacstTitle.ttf');
 }
 
+.footer .widget-title{font-family: kacst !important}
 
 .original_price{
     text-decoration: line-through;
@@ -560,6 +561,8 @@ a {
 .footer-bottom{
   padding: 1.8rem 10px !important;
 }
+
+/*start mobile size*/
 @media screen and (max-width: 991px){
   .header-search {
       display: none !important;
@@ -639,7 +642,19 @@ a {
   .img-owl {max-width: 100px !important;width: 100%;float: left;}
   #carousel-custom-dots{display: none;}
   /*end section product*/
+
+  /*start section product details tabs*/
+  .nav-tabs{display: block !important;}
+  .nav.nav-tabs .nav-item{display: contents !important;}
+  .product-nav .nav.nav-tabs .nav-item .nav-link{
+    border-radius:0 !important; 
+    text-align: center;
+    border-bottom: 1px solid #fff !important;
+  }
+  /* .header-middle{height: 115px !important;} */
+  /*end section product details tabs*/
 }
+/*end mobile size*/
 
 .pro-user-title{
   height: 30px !important;
