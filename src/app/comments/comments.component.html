@@ -51,7 +51,8 @@
             <div class="row addcomment">     
             <div class="commenttxt">
                 <div class="media" *ngFor="let comment of sliderResponse.data">
-                    <img class="mr-3 rounded-circle" (error)="$event.target.src='assets/images/profile.png'" src="{{env.mediaServer+comment.acc_image}}" alt="Generic placeholder image">
+                    <img class="mr-3 rounded-circle" (error)="$event.target.src='assets/images/profile.png'" 
+                        src="{{env.mediaServer+comment.acc_image}}" alt="Generic placeholder image">
                     <div class="media-body">
                         <div class="row">
                             <h5 class="mt-0 col-sm">{{comment.name}}
@@ -78,7 +79,7 @@
                                 <h5 class="mt-0 col-sm">{{child.name}}  </h5>
                                 <span class="col-sm text-md-right"><i class="fa fa-calendar"></i>  {{child.created_at|timeAgo}} 
                                     <i class="fa fa-clock"></i> {{comment.created_at|date:'hh:mm a'}}</span> 
-                                </div>
+                            </div>
                             <p>{{child.comment}}</p>
                             <!-- <div class="likeandrply">
                                     <a href="javascript:;" (click)="newComment(child.id,comment)" >
@@ -93,7 +94,8 @@
                                 {{"Load More Replies" | translate}} <i class="fa fa-caret-down"></i> </a>
                         </div>
                         <div class="media  mt-3" *ngIf="newReply.subid==comment.id">
-                            <img class="mr-3 rounded-circle userimg" (error)="$event.target.src='assets/images/profile.png'" src="{{env.mediaServer+shared.getUser().image}}" >
+                            <img class="mr-3 rounded-circle userimg" (error)="$event.target.src='assets/images/profile.png'" 
+                                src="{{env.mediaServer+shared.getUser().image}}" >
                             <div class="media-body  ">
                                 <textarea [(ngModel)]="newReply.comment" rows="1" class="inputtxt" name="comment"  
                                     placeholder="{{'Add Your Reply Here' | translate}}"></textarea>
@@ -105,14 +107,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="text-center">
-                    <a class="btn btn-link" href="javascript:;" (click)="loadMore()">
-                        {{"Load More Comments" | translate}} <i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col col-xs-12 text-center">
+                        <a class="btn btn-link" href="javascript:;" (click)="loadMore()">
+                            {{"Load More Comments" | translate}} <i class="fa fa-caret-down"></i></a>
+                    </div>
                 </div>
             </div>
-         </div>
-    </div>
+            </div>
 </div>
 <!-- 
 <div class="comments">

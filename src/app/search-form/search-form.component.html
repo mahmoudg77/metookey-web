@@ -20,7 +20,9 @@
                         </div>
                     </div><!-- End .header-dropown -->
 
-                    <input autocomplete="off" (input)="searchBySelected()" attr.list="broducts_{{rundomID}}" (keyup)="autoCompete()" [(ngModel)]="q" type="search" class="form-control" name="q" id="q" placeholder="I'm looking for MeTooKey ..." required>
+                    <input autocomplete="off" (input)="searchBySelected()" attr.list="broducts_{{rundomID}}" (keyup)="autoCompete()" [(ngModel)]="q" 
+                        type="search" class="form-control" name="q" id="q" placeholder="{{'looking for MeTooKey' | translate}}" required>
+
                     <ul  class="autocomplete-list" id="broducts_{{rundomID}}"  *ngIf="products.length>0 && q!=''" >
                             <li *ngFor="let name of products" ><a href="javascript:;" (click)="q=name;onSubmit();products=[]" >{{name}}</a></li>
                     </ul>
