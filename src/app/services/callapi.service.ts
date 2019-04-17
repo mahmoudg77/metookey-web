@@ -73,7 +73,7 @@ export class CallapiService {
     )
   }
 
-    postRequest(url:string,pars:any,success_callbak:any,error_callback:any=null){
+    postRequest(url:string,pars:any,success_callbak:any=null,error_callback:any=null){
     //var token= this.shared.getToken()||'';
 
     let headers:HttpHeaders= new HttpHeaders({"APP_KEY":environment.apiKey});
@@ -88,13 +88,13 @@ export class CallapiService {
                 next=>{
                     if (next.type == "1") {
                         
-                        success_callbak(next.data);              
+                      if(success_callbak!=null) success_callbak(next.data);              
                     } else {
-                      if(error_callback!=undefined) error_callback(next.message);
+                      if(error_callback!=null) error_callback(next.message);
                     }
                 },
                 error=>{
-                   if(error_callback!=undefined)  error_callback(error.statusText);
+                   if(error_callback!=null)  error_callback(error.statusText);
                   this.errorHandling(error);
                     
                 }

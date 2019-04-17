@@ -1,4 +1,5 @@
-import { AuthService } from './../../services/auth.service';
+import { FirebaseMessagesService } from './../../services/firebase-messages.service';
+import { FirebaseMessaging } from 'angularfire2';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { CallapiService } from '../../services/callapi.service';
 import { SharedService } from '../../services/shared.service';
@@ -6,11 +7,10 @@ import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
 import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 
-import { NotificationServiceService } from 'app/services/notification-service.service';
+// import { NotificationServiceService } from 'app/services/notification-service.service';
 import { SocialAuthService } from 'app/services/social-auth.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { GeneralModalService } from 'app/services/general-modal.service';
+
 declare var $:any;
 @Component({
   selector: 'ms-loginone-session',
@@ -40,15 +40,14 @@ export class LoginoneComponent {
   submitted :boolean=false;
   remember:boolean;
   form: FormGroup;
-  
+ 
   constructor(private router: Router, private title: Title,
     private shared: SharedService, 
     private call: CallapiService,
-    private notify:NotificationServiceService,
+    // private notify:NotificationServiceService,
     private social:SocialAuthService,
-    // public activeModal:NgbActiveModal,
-    // private modal:GeneralModalService,
-    // private ngzone:NgZone
+    private messagingService: FirebaseMessagesService
+
     ) {
       this.form=new FormGroup(
         {
@@ -73,51 +72,40 @@ export class LoginoneComponent {
       console.error("Form invalid !!")
       return;
     }
-    //if(this.username=="admin" && this.password=="admin"){
-    //this.loginButton = "btn-submit";
     this.isWaiting = true;
-    // localStorage.setItem('token',null);
-    // this.cookie.set('token',null);
+
     this.call.login(this.username, this.password
       ,next=>{
         this.shared.setUser(next.account);
         this.shared.setToken(next.token,this.remember);
         this.shared.roles=next.roles;
-        // this.cookie.set('token',next.token);
-        // if(this.remember) localStorage.setItem("token", next.token);
-        this.isWaiting = false;
-        //this.router.navigate([{outlets: {modal: null}}]);
-        this.notify.start();
-        // this.activeModal.close();
+        
+        
+        //this.notify.start();
+        
         this.shared.closeModal();
+        
+        this.isWaiting = false;
+        this.messagingService.getPermission()
+          this.messagingService.receiveMessage()
+          this.messagingService.currentMessage.next(payload=>{
+            //console.log(payload);
+            this.shared.success(payload.body);
+            // this.shared.notify(payload.body,payload.notification.title,next=>{
+            //   this.route.navigateByUrl(payload.data.link);
+            //   }
+            // );
+          })
         },
         err=>{
           this.isWaiting =false;
-          //this.shared.error("Usernamr Or Password Not Found !");
          
           this.shared.translate("Usernamr Or Password Not Found !").subscribe(v=>{
             this.errorMessage=v;
           });
         }
         );
-      //   },
-      //   error => {
-      //     console.log(error);
-      //     this.loginButton = "btn-loading";
-      //     this.isLoginButton = false;
-      //   },
-      //   () => {
-      //     console.log("Done");
-      //   }
-      // )
-    // if( ['admin','user','sales'].includes(this.username)){
-
-    //     this.shared.setUser({name:this.username});
-    //     this.shared.setToken("asdasdqweqweasd");
-    //     this.router.navigate(['/dashboard']);
-    //   }else
-    //     this.errorMessage="Invalid Username or Password !";
-  }
+      }
 
 
   resetMessage() {
@@ -125,6 +113,7 @@ export class LoginoneComponent {
   }
 
   public socialSignIn(socialPlatform : string) {
+    this.isWaiting = true;
     this.social.loginWithNetwork(socialPlatform).then(response=>{
       response.user.getIdToken(true).then((idToken) =>{
         this.call.postRequest("/User/FirebaseOAuth?network=" + socialPlatform + "&AccessToken=" + idToken,{},
@@ -134,13 +123,30 @@ export class LoginoneComponent {
             this.shared.roles=next.roles;
             //this.activeModal.close();
             this.shared.closeModal();
+            
+            this.messagingService.getPermission()
+            this.messagingService.receiveMessage()
+            this.messagingService.currentMessage.next(payload=>{
+              //console.log(payload);
+              this.shared.success(payload.body);
+              // this.shared.notify(payload.body,payload.notification.title,next=>{
+                //   this.route.navigateByUrl(payload.data.link);
+                //   }
+                // );
+              })
+              this.isWaiting = false;
+
           }
         );
       },err=>{
           console.error(err);
+          this.isWaiting = false;
+
       });
      });
   }
+
+  
 }
 
 

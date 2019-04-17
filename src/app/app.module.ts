@@ -1,3 +1,4 @@
+import { FirebaseMessagesService } from './services/firebase-messages.service';
 import { NewOrderMobileComponent } from './new-order-mobile/new-order-mobile.component';
 import { CounterSectionModule } from './counter-section/counter-section.module';
 import { DialogModalModule } from './dialog-modal/dialog-modal.module';
@@ -91,6 +92,9 @@ import { GeneralModalService } from './services/general-modal.service';
 import { NewArrivalsModule } from './new-arrivals/new-arrivals.module';
 import { ShareButtonsModule } from './share-buttons/share-buttons.module';
 import { NgxBraintreeModule } from 'ngx-braintree';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AsyncPipe } from '@angular/common';
 // import { PageTitleService } from './core/page-title/page-title.service';
 
 /********** Custom option for ngx-translate ******/
@@ -162,6 +166,8 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		BreadcrumbModule,
 		CounterSectionModule,
 		NgxBraintreeModule,
+		AngularFireDatabaseModule,
+    AngularFireMessagingModule,
 	],
 	declarations: [
 		MetookeyAppComponent, 
@@ -199,7 +205,9 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		AdminGuard,
 		MetookeyerGuard,
 		WindowService,
-		GeneralModalService
+		GeneralModalService,
+		FirebaseMessagesService,
+		AsyncPipe
 	],
 	exports: [
 		//ItemChartComponent

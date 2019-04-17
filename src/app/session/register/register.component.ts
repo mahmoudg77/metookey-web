@@ -2,7 +2,7 @@ import { LoginoneComponent } from './../loginone/loginone.component';
 import { WindowService } from './../../services/window.service';
 import { GlobalData } from 'app/services/global-data';
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone, ViewChild } from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 
 
@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SocialAuthService } from 'app/services/social-auth.service';
 import { NotificationServiceService } from 'app/services/notification-service.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { RecaptchaComponent } from 'ng-recaptcha';
 
 declare var $:any;
 declare var grecaptcha:any;
@@ -52,6 +53,9 @@ export class RegisterComponent  implements OnInit{
   isWaiting: boolean = false;
   submitted :boolean=false;
   //@ViewChild(ReCaptcha2Component) recaptchaDiv:ReCaptcha2Component;
+
+  @ViewChild(RecaptchaComponent) my_recaptcha:RecaptchaComponent
+
   constructor(
       private title: Title, 
       private call:CallapiService, 
@@ -79,7 +83,7 @@ export class RegisterComponent  implements OnInit{
                             }
                           );
   }
-
+  
   register() {
     this.submitted = true;
 
@@ -91,11 +95,11 @@ export class RegisterComponent  implements OnInit{
     //Recaptcha validation
     //this.model.recaptcha= $("[name='g-recaptcha-response']").val();
     //this.recaptchaDiv.siteKey=this.global.settings.recaptcha_site_key;
-    if(this.form.controls['recaptcha'].value==''||this.form.controls['recaptcha']==null || this.form.controls['recaptcha']==undefined){
-      this.recaptcha_error="You must check i'm not robot !";
-      this.loadRecaptcha();
-      return;
-    }
+    // if(this.form.controls['recaptcha'].value==''||this.form.controls['recaptcha']==null || this.form.controls['recaptcha']==undefined){
+    //   this.recaptcha_error="You must check i'm not robot !";
+    //   this.loadRecaptcha();
+    //   return;
+    // }
     //Validation
     // console.error(this.model.password_strength);
     // return;
@@ -139,17 +143,22 @@ export class RegisterComponent  implements OnInit{
   }
 
   loadRecaptcha(): void {
-    this.windowRef=this.win.windowRef;
-    console.log(grecaptcha);
-    this.windowRef.recaptchaVerifier = grecaptcha.render('recaptcha', {
-      sitekey : this.global.settings.recaptcha_site_key,
-      theme : 'light',  
-      callback: (response) =>{
-         this.form.controls['recaptcha'].setValue(response);
-       }
-    });
+    // this.windowRef=this.win.windowRef;
+    // //console.log(grecaptcha);
+    // this.windowRef.recaptchaVerifier = grecaptcha.render('recaptcha', {
+    //   sitekey : this.global.settings.recaptcha_site_key,
+    //   theme : 'light',  
+    //   callback: (response) =>{
+    //      this.form.controls['recaptcha'].setValue(response);
+    //    }
+    // });
     
-    grecaptcha.reset();
+    // grecaptcha.reset();
+    try{
+      this.my_recaptcha.reset();
+    }catch(ex){
+
+    }
   }
 
   

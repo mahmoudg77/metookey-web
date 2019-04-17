@@ -109,19 +109,26 @@
                         </label>
                         <div *ngIf="form.controls['cpassword'].valid && this.model.password!=this.model.cpassword && (form.controls['cpassword'].dirty || form.controls['cpassword'].touched)"
                         class="text-danger">
-                        <span *ngIf="form.controls['agree'].errors.required">
+                        <span *ngIf="form.controls['agree'].errors!=null">
                                 {{ "You must click to agree our terms and policy!" | translate }}
                         </span>                        
                     </div>
                     </div>
-                    <div class="" >
+                    <div class="" [formGroup]="form" >
                         <!-- <re-captcha [siteKey]="global.settings.recaptcha_site_key"
                             formControlName="recaptcha">
                         </re-captcha> -->
-                        <div  id="recaptcha" ></div>
+                        <!-- <div  id="recaptcha" ></div>
                         <span *ngIf="recaptcha_error!=''" class="text-danger">
                                 {{recaptcha_error}}
-                        </span> 
+                        </span>  -->
+                        <re-captcha #recaptcha name="captcha" formControlName="recaptcha"></re-captcha>
+                        <div *ngIf="form.controls['recaptcha'].invalid "
+                        class="text-danger">
+                           <span *ngIf="form.controls['recaptcha'].errors.required" class="text-danger">
+                              {{ "You must verify human checker!" | translate }}
+                           </span> 
+                      </div>
                     </div>
                    <div class="form-group">
                         <ul>

@@ -1,3 +1,4 @@
+import { ItemPricePlanModule } from './../../item-price-plan/item-price-plan.module';
 import { RouterModule } from '@angular/router';
 import { DirectivesModule } from './../../core/directive/directives.module';
 import { CommentsModule } from './../../comments/comments.module';
@@ -26,7 +27,8 @@ import { ShareButtonsModule } from 'app/share-buttons/share-buttons.module';
         RouterModule,
         TranslateModule,  
         JwSocialButtonsModule ,
-        ShareButtonsModule
+        ShareButtonsModule,
+        ItemPricePlanModule
     ],
     declarations: [
         ProductDetailsComponent,

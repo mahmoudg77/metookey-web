@@ -304,7 +304,7 @@
                                     </div>
                                     <div>
                                         <button class="btn btn-flowers btn-block btn-request text-uppercase" (click)="reminder()">
-                                            <i class="fa {{MyInteractions.interested?'fa-bell-slash-o':'fa-bell-o'}} fa-lg"></i> {{MyInteractions.interested?'Stop Reminder':'Reminder me'}}</button>
+                                            <i class="fa {{MyInteractions.interested?'fa-bell-slash-o':'fa-bell-o'}} fa-lg"></i> {{(MyInteractions.interested?'Stop Reminder':'Reminder me')|translate}}</button>
                                     </div>
                         </div>
                         </div>
@@ -344,7 +344,8 @@
                         <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" 
                         aria-labelledby="product-tab-Features">
                             <div class="product-desc-content">
-                                    <item-chart></item-chart>
+                                    <!-- <item-chart></item-chart> -->
+                                    <item-price-plan></item-price-plan>
                                 <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.</p> -->
                                 <ul>
                                     <li *ngFor="let line of currentItem.features?.split('|')"><i class="icon-ok"></i>{{line}}</li>

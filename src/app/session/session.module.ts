@@ -16,8 +16,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { SessionRoutes } from './session.routing';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { DialogModalModule } from 'app/dialog-modal/dialog-modal.module';
+import { environment } from 'environments/environment.prod';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+
 
 @NgModule({
   imports: [
@@ -30,7 +33,8 @@ import { DialogModalModule } from 'app/dialog-modal/dialog-modal.module';
     ReactiveFormsModule,
     PasswordStrengthMeterModule,
     RecaptchaModule,
-    DialogModalModule
+    DialogModalModule,
+    RecaptchaFormsModule
     
   ],
   declarations: [ 
@@ -44,6 +48,14 @@ import { DialogModalModule } from 'app/dialog-modal/dialog-modal.module';
     NotFoundComponent,
     NewpasswordComponent,
     //LoginComponent
+  ],
+  providers:[
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: "6Lc77YQUAAAAAF_R5BmIcw3tCVIqsuKi4cNm-uGN",//6LdLDJcUAAAAAODI97mdVSHYnq5lRZXoXm1iea-k
+      } as RecaptchaSettings,
+    },
   ]
 })
 

@@ -10,6 +10,7 @@ import { Component, OnInit, AfterViewChecked, AfterViewInit, ViewChild, ElementR
 import { Location } from '@angular/common';
 import { SEOServiceService } from 'app/services/seoservice.service';
 import { ItemChartComponent } from 'app/item-chart/item-chart.component';
+import { ItemPricePlanComponent } from 'app/item-price-plan/item-price-plan.component';
 
 declare var $:any;
 @Component({
@@ -22,7 +23,7 @@ export class ProductDetailsComponent implements OnInit,OnChanges{
     CurrentProfile: any={};
    
     @ViewChild(CommentsComponent) comment: CommentsComponent;
-    @ViewChild(ItemChartComponent) chart: ItemChartComponent;
+    @ViewChild(ItemPricePlanComponent) chart: ItemPricePlanComponent;
     @ViewChild('carousel') prodCarousel : ElementRef;
 
     currentItem:any={parent_comment_od:null};

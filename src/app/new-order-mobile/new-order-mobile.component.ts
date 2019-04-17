@@ -105,7 +105,7 @@ export class NewOrderMobileComponent  implements OnInit{
                 this.order.item_id=+params['item_id']||0;
                 this.order.quantity=+params['qty']||1;
 
-                     this.lang = params['lang'];
+                     this.lang = params['lang']||'en';
                     //this.hasAccess();
                     this.changeLang(this.lang);
                
@@ -147,16 +147,16 @@ export class NewOrderMobileComponent  implements OnInit{
                         
                         this.loadItemDetails();
                         this.loadOldShippingAddress();
-                        var d=new Date();
-                        var start=d.getFullYear();
-                        this.yearRange=[];
-                        for(var i=0; i<=10;i++)this.yearRange.push(start+i);
+                        // var d=new Date();
+                        // var start=d.getFullYear();
+                        // this.yearRange=[];
+                        // for(var i=0; i<=10;i++)this.yearRange.push(start+i);
                 
-                        Payment.formatCardNumber(document.querySelector('input.cc-num'));
-                        Payment.formatCardExpiry(document.querySelector('input.cc-exp'));
-                        Payment.formatCardCVC(document.querySelector('input.cc-cvc'));
+                        // Payment.formatCardNumber(document.querySelector('input.cc-num'));
+                        // Payment.formatCardExpiry(document.querySelector('input.cc-exp'));
+                        // Payment.formatCardCVC(document.querySelector('input.cc-cvc'));
                         
-                        $(".cc-num").click(function(){$(this).removeClass('alert-danger');});
+                        // $(".cc-num").click(function(){$(this).removeClass('alert-danger');});
                         },
                         error=>{
                             this.shared.setToken(null);
@@ -175,7 +175,8 @@ export class NewOrderMobileComponent  implements OnInit{
    
     }
     changeLang(curr:string): any {
-             this.translate.use(curr);
+
+            this.translate.use(curr);
     
             localStorage.setItem('lang',curr);
 

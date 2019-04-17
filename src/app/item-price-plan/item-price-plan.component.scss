@@ -1,0 +1,63 @@
+.price-plan{
+  background:#e9e6e6;;
+  text-align: center;
+  padding: 20px;
+}
+  .price-offer{
+    color: #953be8;
+    h1{
+      color: inherit;
+        padding: 20px 0px;
+        font-size: 4.5rem;
+        }
+  }
+  table{
+    margin: auto;
+    color: #953be8;
+  }
+    .price-time{
+      color: #953be8;
+      span{
+        border-radius: 5px;
+        background:#953be8;
+        color:#fff;
+        padding:10px;
+        font-size:20px;
+      }
+    }
+      
+   
+    .dots{
+      font-size:20px;
+      color: #953be8;
+      padding: 0px 10px;
+      font-weight: bold;
+    }
+
+  .price-lines{
+    color: #4527eb;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    margin: auto;
+    padding: 20px;
+      p{
+        margin-bottom: 0px;
+      }
+      .line{
+        padding:10px;
+        .badge{
+          background: #452dec;
+          color: #fff;
+          border-radius: 6px;
+        }
+      }
+  }
+  .progress{
+    width: 230px;
+    margin: auto;
+    height: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }

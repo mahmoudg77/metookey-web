@@ -127,16 +127,16 @@ export class NewOrderComponent  implements OnInit{
         
         this.loadItemDetails();
         this.loadOldShippingAddress();
-        var d=new Date();
-        var start=d.getFullYear();
-        this.yearRange=[];
-        for(var i=0; i<=10;i++)this.yearRange.push(start+i);
+        // var d=new Date();
+        // var start=d.getFullYear();
+        // this.yearRange=[];
+        // for(var i=0; i<=10;i++)this.yearRange.push(start+i);
 
-        Payment.formatCardNumber(document.querySelector('input.cc-num'));
-        Payment.formatCardExpiry(document.querySelector('input.cc-exp'));
-        Payment.formatCardCVC(document.querySelector('input.cc-cvc'));
+        // Payment.formatCardNumber(document.querySelector('input.cc-num'));
+        // Payment.formatCardExpiry(document.querySelector('input.cc-exp'));
+        // Payment.formatCardCVC(document.querySelector('input.cc-cvc'));
         
-        $(".cc-num").click(function(){$(this).removeClass('alert-danger');});
+        // $(".cc-num").click(function(){$(this).removeClass('alert-danger');});
     }
 
     loadItemDetails(){

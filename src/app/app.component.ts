@@ -1,3 +1,4 @@
+import { FirebaseMessagesService } from './services/firebase-messages.service';
 import { AuthService } from './services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { BreadcrumbService } from 'ng5-breadcrumb';
@@ -11,8 +12,10 @@ import { GlobalData } from './services/global-data';
 import { environment } from 'environments/environment';
 import { NotificationServiceService } from './services/notification-service.service';
 import { SEOServiceService } from './services/seoservice.service';
-import { Guid } from 'guid-typescript';
+
+
 declare var FB:any;
+declare var $:any;
 @Component({
   selector: 'metookey-app',
   templateUrl: 'app.component.html',
@@ -20,7 +23,7 @@ declare var FB:any;
   encapsulation: ViewEncapsulation.None
 })
 export class MetookeyAppComponent implements OnInit{
-   
+ 
   private _router: Subscription;
     header: string;
     currentLang = 'en';
@@ -46,6 +49,7 @@ export class MetookeyAppComponent implements OnInit{
     public innerWidth: any;
     public global=GlobalData;//.settings
   public env=environment;
+  message: any;
   constructor( public translate: TranslateService, 
     public shared: SharedService, 
     public route: Router,
@@ -56,7 +60,9 @@ export class MetookeyAppComponent implements OnInit{
     public notifyService:NotificationServiceService,
     private seo:SEOServiceService,
     public auth:AuthService,
-    private router:ActivatedRoute
+    private router:ActivatedRoute,
+    private messagingService: FirebaseMessagesService
+
     ) {
 
     translate.addLangs(['en', 'ar']);
@@ -109,7 +115,24 @@ export class MetookeyAppComponent implements OnInit{
     // }
     // )
    
-         this.auth.checkLogin();
+
+         this.auth.checkLogin(
+           next=>{
+             console.log(window.location.href);
+             if(window.location.href.indexOf('/create-order-mobile')>0) return;
+
+            this.messagingService.getPermission()
+            this.messagingService.receiveMessage()
+            this.messagingService.currentMessage.next(payload=>{
+              //console.log(payload);
+              this.shared.success(payload.body);
+              // this.shared.notify(payload.body,payload.notification.title,next=>{
+              //   this.route.navigateByUrl(payload.data.link);
+              //   }
+              // );
+            })
+           }
+         );
     //Load global data
     
 
@@ -117,7 +140,22 @@ export class MetookeyAppComponent implements OnInit{
 
      $("#layout").prop("href",this.shared.getCssStyle());
 
-      
+    //  firebase.initializeApp(environment.firebase);
+
+    //  this.fb.onMessage(
+    //    data =>{
+    //      this.route.navigateByUrl(data.route);
+    //    }
+    //  );
+
+    //  this.fb.onTokenRefresh(
+    //   (token: string) => {
+    //     if(this.auth.getIfLoggedIn())
+    //         this.saveNewDeviceID(token);
+    //  });
+  
+
+    
   }
 
   logout() {
@@ -143,6 +181,16 @@ export class MetookeyAppComponent implements OnInit{
 
 }
 
-
+saveNewDeviceID(device_id:string,fnNext:any=null,fnError:any=null) {
+  this.call.postRequest("/User/SaveNewDeviceID?device_id="+device_id,"",
+          next => { 
+                      if(fnNext) fnNext(next);
+                  },
+          error=>
+                  {
+                    if(fnError) fnError(error);
+                }
+      );
+}
 
 }

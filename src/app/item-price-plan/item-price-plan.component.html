@@ -1,0 +1,51 @@
+<div class="price-plan">
+    <div class="price-offer"><h1><strong>{{calculateOff(orders)|number:'1.0-0'}}%</strong> <small> {{"off"|translate}}</small></h1></div>
+    <table>
+        <tr>
+        <td class="price-time">
+            <span>{{day}}</span>
+        </td>
+        <td class="dots">:</td>
+        <td class="price-time">
+            <span>{{hour}}</span>
+        </td>
+        <td class="dots">:</td>
+        <td class="price-time">
+            <span>{{minute}}</span>
+        </td>
+        <td class="dots">:</td>
+        <td class="price-time">
+            <span>{{second}}</span>
+        </td>
+    </tr>
+    <tr>
+            <td>
+                 {{"Days"|translate}} 
+            </td>
+            <td></td>
+            <td>
+                    {{"Hours"|translate}} 
+               </td>
+               <td></td>
+               <td>
+                    {{"Minutes"|translate}} 
+               </td>
+               <td></td>
+               <td>
+                    {{"Seconds"|translate}} 
+               </td>
+               
+        </tr>
+    </table>
+    <div class="col col-xs-12 col-md-6 col-lg-5 price-lines">
+        <p>{{"Hurry Up! Only"|translate}} <strong>{{quantity-orders}}</strong> {{"Is Left In Store"|translate}} ...
+        </p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{'width':(orders*100/quantity) +'%'}" [attr.aria-valuenow]="orders*100/quantity" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <div class="line" *ngFor="let plan of plans"><span class="badge">{{plan.off|number:'1.0-0'}}% {{"off"|translate}}</span> {{"offer ends on achieve"|translate}} <strong>{{plan.count|number:'1.0-0'}} {{"orders"|translate}}</strong></div>
+        <!-- <div class="line"><span class="badge">40% OFF</span> offer ends on achieve <strong>80 orders</strong></div>
+        <div class="line"><span class="badge">40% OFF</span> offer ends on achieve <strong>80 orders</strong></div>-->
+    </div>
+</div>

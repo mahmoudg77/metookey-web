@@ -51,16 +51,16 @@
 								<div class="dropdownmenu-wrapper">
 									<nav>
 										<div class="nav nav-tabs" id="nav-tab" role="tablist">
-										  <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" 
+										  <!-- <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" 
 										  	href="#nav-newproduct" role="tab" aria-controls="nav-home" aria-selected="true">
 											  <div class="notify-link text-center" style="margin-bottom:20px;">
 												<span class="notify-icon"><i class="fa fa-plus fa-lg"></i></span>
 												<p class="badge">0</p>
 											  </div>
-											  <div>{{ "Category Followers" | translate }}</div><!--index=1-->
-										</a>
-										<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-reminder" role="tab" aria-controls="nav-profile" 
-											aria-selected="false">
+											  <div>{{ "Category Followers" | translate }}</div>
+										</a> -->
+										<a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-reminder" role="tab" aria-controls="nav-profile" 
+											aria-selected="true">
 											<div class="text-center" style="margin-bottom:20px;">
 												<span class="notify-icon"><i class="fa fa-bell fa-lg"></i></span>
 												<p class="badge">0</p>
@@ -78,7 +78,7 @@
 										</a>
 										<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-neworder" 
 											role="tab" aria-controls="nav-contact" 
-											aria-selected="false">
+											aria-selected="false"  *ngIf="shared.userHasRole('metookeyer')">
 											<div class="text-center" style="margin-bottom:20px;">
 											<span class="notify-icon"><i class="fa fa-flag"></i></span>
 											<p class="badge">0</p>
@@ -88,7 +88,7 @@
 										</div>
 									</nav>
 									<div class="tab-content" id="nav-tabContent">
-									<div class="tab-pane fade show active" id="nav-newproduct" role="tabpanel" 
+									<!-- <div class="tab-pane fade show active" id="nav-newproduct" role="tabpanel" 
 										aria-labelledby="nav-home-tab">
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[1]">
@@ -116,8 +116,8 @@
 												<a href="javascript:;" routerLink="/notifications/2" class="btn-more">{{ "Notification" | translate }}</a>
 											</li>
 										</ul>
-									</div>
-									<div class="tab-pane fade" id="nav-reminder" role="tabpanel" aria-labelledby="nav-profile-tab">
+									</div> -->
+									<div class="tab-pane fade" id="nav-reminder active" role="tabpanel" aria-labelledby="nav-profile-tab">
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[0]">
 												<div class="row notification-content">
@@ -176,7 +176,7 @@
 											</li>
 										</ul>
 									</div>
-									<div class="tab-pane fade" id="nav-neworder" role="tabpanel" aria-labelledby="nav-contact-tab">
+									<div class="tab-pane fade" id="nav-neworder" role="tabpanel" aria-labelledby="nav-contact-tab" *ngIf="shared.userHasRole('metookeyer')">
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[2]">
 												<div class="row notification-content">
