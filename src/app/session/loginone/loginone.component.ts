@@ -1,5 +1,4 @@
-import { FirebaseMessagesService } from './../../services/firebase-messages.service';
-import { FirebaseMessaging } from 'angularfire2';
+// import { FirebaseMessagesService } from './../../services/firebase-messages.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { CallapiService } from '../../services/callapi.service';
 import { SharedService } from '../../services/shared.service';
@@ -7,7 +6,7 @@ import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
 import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 
-// import { NotificationServiceService } from 'app/services/notification-service.service';
+import { NotificationServiceService } from 'app/services/notification-service.service';
 import { SocialAuthService } from 'app/services/social-auth.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -44,9 +43,9 @@ export class LoginoneComponent {
   constructor(private router: Router, private title: Title,
     private shared: SharedService, 
     private call: CallapiService,
-    // private notify:NotificationServiceService,
+    private notify:NotificationServiceService,
     private social:SocialAuthService,
-    private messagingService: FirebaseMessagesService
+    // private messagingService: FirebaseMessagesService
 
     ) {
       this.form=new FormGroup(
@@ -81,21 +80,16 @@ export class LoginoneComponent {
         this.shared.roles=next.roles;
         
         
-        //this.notify.start();
+        this.notify.start();
         
         this.shared.closeModal();
         
         this.isWaiting = false;
-        this.messagingService.getPermission()
-          this.messagingService.receiveMessage()
-          this.messagingService.currentMessage.next(payload=>{
-            //console.log(payload);
-            this.shared.success(payload.body);
-            // this.shared.notify(payload.body,payload.notification.title,next=>{
-            //   this.route.navigateByUrl(payload.data.link);
-            //   }
-            // );
-          })
+        // this.messagingService.getPermission()
+        //   this.messagingService.receiveMessage()
+        //   this.messagingService.currentMessage.next(payload=>{
+        //     this.shared.success(payload.body);
+        //   })
         },
         err=>{
           this.isWaiting =false;
@@ -124,16 +118,13 @@ export class LoginoneComponent {
             //this.activeModal.close();
             this.shared.closeModal();
             
-            this.messagingService.getPermission()
-            this.messagingService.receiveMessage()
-            this.messagingService.currentMessage.next(payload=>{
-              //console.log(payload);
-              this.shared.success(payload.body);
-              // this.shared.notify(payload.body,payload.notification.title,next=>{
-                //   this.route.navigateByUrl(payload.data.link);
-                //   }
-                // );
-              })
+            // this.messagingService.getPermission()
+            // this.messagingService.receiveMessage()
+            // this.messagingService.currentMessage.next(payload=>{
+            //   this.shared.success(payload.body);
+             
+            //   })
+            this.notify.start();
               this.isWaiting = false;
 
           }

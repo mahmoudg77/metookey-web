@@ -42,6 +42,7 @@ export class CustomerLeadsComponent implements OnInit {
                 this.loaded=true;
                 if(next.data=="0001-01-01T00:00:00"){
                     this.allow=true;
+                    this.shared.setLeadSent("0");
                 }
                 else{
                     this.allow=false;
@@ -109,6 +110,7 @@ export class CustomerLeadsComponent implements OnInit {
                 this.shared.success("Save success");
                 this.data={};
                 this.loadWaitingTime();
+                this.shared.setLeadSent("1");
             },
             error=>{
                 this.shared.error(error);

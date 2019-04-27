@@ -1,4 +1,4 @@
-import { FirebaseMessagesService } from './services/firebase-messages.service';
+// import { FirebaseMessagesService } from './services/firebase-messages.service';
 import { NewOrderMobileComponent } from './new-order-mobile/new-order-mobile.component';
 import { CounterSectionModule } from './counter-section/counter-section.module';
 import { DialogModalModule } from './dialog-modal/dialog-modal.module';
@@ -206,7 +206,7 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		MetookeyerGuard,
 		WindowService,
 		GeneralModalService,
-		FirebaseMessagesService,
+		// FirebaseMessagesService,
 		AsyncPipe
 	],
 	exports: [

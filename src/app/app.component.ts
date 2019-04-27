@@ -1,4 +1,4 @@
-import { FirebaseMessagesService } from './services/firebase-messages.service';
+// import { FirebaseMessagesService } from './services/firebase-messages.service';
 import { AuthService } from './services/auth.service';
 import { Meta } from '@angular/platform-browser';
 import { BreadcrumbService } from 'ng5-breadcrumb';
@@ -61,7 +61,7 @@ export class MetookeyAppComponent implements OnInit{
     private seo:SEOServiceService,
     public auth:AuthService,
     private router:ActivatedRoute,
-    private messagingService: FirebaseMessagesService
+    // private messagingService: FirebaseMessagesService
 
     ) {
 
@@ -121,16 +121,16 @@ export class MetookeyAppComponent implements OnInit{
              console.log(window.location.href);
              if(window.location.href.indexOf('/create-order-mobile')>0) return;
 
-            this.messagingService.getPermission()
-            this.messagingService.receiveMessage()
-            this.messagingService.currentMessage.next(payload=>{
-              //console.log(payload);
-              this.shared.success(payload.body);
-              // this.shared.notify(payload.body,payload.notification.title,next=>{
-              //   this.route.navigateByUrl(payload.data.link);
-              //   }
-              // );
-            })
+            // this.messagingService.getPermission()
+            // this.messagingService.receiveMessage()
+            // this.messagingService.currentMessage.next(payload=>{
+            //   //console.log(payload);
+            //   this.shared.success(payload.body);
+            //   // this.shared.notify(payload.body,payload.notification.title,next=>{
+            //   //   this.route.navigateByUrl(payload.data.link);
+            //   //   }
+            //   // );
+            // })
            }
          );
     //Load global data

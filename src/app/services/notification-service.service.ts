@@ -56,7 +56,10 @@ export class NotificationServiceService {
     )
   }
   getInbox(index:number=0){
-    if(this.shared.isLogin())
+    if(!this.shared.isLogin()) {
+      this.is_started=false;
+      return;
+    }
     this.call.postRequest("/Notifications/Inbox?notify_type_id="+(index+1),"",
       next=>{
         next.forEach(item => {

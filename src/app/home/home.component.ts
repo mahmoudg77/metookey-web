@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { LoginoneComponent } from './../session/loginone/loginone.component';
 import { ActivatedRoute } from '@angular/router';
 import { MyToasterService } from 'app/services/my-toaster.service';
@@ -34,9 +35,21 @@ export class HomeComponent implements OnInit{
     public global=GlobalData;//.settings
     categories: any[];
     
+    roots:any[];
+    parents:any[];
+    req_categories:any[];
+    root_id:number;
+    parent_id:number;
+    data:any={};
+    waitingTime: any;
+    allow:boolean=true;
+    lastDate: any;
+    loaded:boolean=false;
+
+
     constructor(private pageTitleService: Title, 
                 private route: Router, 
-                private shared: SharedService,
+                public shared: SharedService,
                 private call:CallapiService,
                 private translate:TranslateService,
                 private seo:SEOServiceService,
@@ -52,6 +65,7 @@ export class HomeComponent implements OnInit{
 
       this.pageTitleService.setTitle("Home");
         
+
       this.shared.translate('site_desc').subscribe(value=>{
           this.seo.metaTag('description',value);
           this.seo.metaTag('og:description',value);
@@ -69,6 +83,13 @@ export class HomeComponent implements OnInit{
         this.seo.metaTag('og:url',window.location.href);
         this.seo.metaTag('og:locale',this.translate.currentLang);
 
+
+        this.req_loadRoots();
+        if(this.shared.isLogin()) {
+            this.req_loadWaitingTime();
+        }else{
+         this.loaded=true;
+        }
        
       this.loadCategories();
     //   console.log(addthis);
@@ -154,4 +175,88 @@ export class HomeComponent implements OnInit{
         })
         
       }
+
+      req_loadWaitingTime(){
+        this.call.postRequest("/Requests/LastDate","",
+            next=>{
+                this.lastDate=next;
+                this.loaded=true;
+                if(next.data=="0001-01-01T00:00:00"){
+                    this.allow=true;
+                    this.shared.setLeadSent("0");
+                }
+                else{
+                    this.allow=false;
+                    this.req_calcWaitingTime();
+                }
+                //this.waitingTime=next.data;
+                
+            },
+            error=>{
+                this.loaded=true;
+            }
+        );
+    }
+    req_calcWaitingTime(){
+        var d=new Date();
+        //console.log(d,this.lastDate);
+        //console.log(new Date(new Date(this.lastDate).getTime() +(24*60*60000)));
+
+        var total=this.shared.dateDiff("s",new Date(new Date(this.lastDate).getTime() +(24*60*60000)),d.toString());
+        //total+=24*60*60;
+      //console.log(total);
+      //var h=Math.floor((total % (60 * 60))
+        var v=total / (60 * 60);
+        var h=Math.floor(v);
+        v=(v-h)*60;
+        var m=Math.floor(v);
+        v=(v-m)*60;
+        var s=Math.floor(v);
+         var format:DecimalPipe=new DecimalPipe("en");
+        this.waitingTime=  format.transform(h,'2.0') + " : " + format.transform(m,'2.0') +" : " + format.transform(s,'2.0') ;
+        if(total<=0){
+            this.allow=true;
+            this.shared.setLeadSent("0");
+            return;
+        }
+        setTimeout(()=>{
+            this. req_calcWaitingTime();
+        },1000);
+    }
+    req_loadRoots(){
+        this.call.postRequest("/RequestCategory/All?parent_id="+0,{length:1000},
+        next=>{
+            this.roots=next.data;
+        }
+        );
+    }
+    req_loadParents(parent_id:number){
+        this.call.postRequest("/RequestCategory/All?parent_id="+parent_id,{length:1000},
+        next=>{
+            this.parents=next.data;
+        }
+        );
+    }
+    req_loadCategories(parent_id:number){
+        this.call.postRequest("/RequestCategory/All?parent_id="+parent_id,{length:1000},
+        next=>{
+            this.req_categories=next.data;
+        }
+        );
+    }
+
+    req_sendRequest()
+    {
+            this.call.postRequest("/Requests/Add" , this.data,
+            response=>{
+                this.shared.success("Save success");
+                this.data={};
+                this. req_loadWaitingTime();
+                this.shared.setLeadSent("1");
+            },
+            error=>{
+                this.shared.error(error);
+            });
+        
+    }
 }

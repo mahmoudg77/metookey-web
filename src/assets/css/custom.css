@@ -175,7 +175,7 @@ a {
  /*start section category-select*/
 .category-select{
   background:#D09FFB;
-  padding: 20px;
+  /*padding: 20px;*/
   position: relative;
 }
 .category-select li>a, .cat-bottom{color: #fff;}
@@ -735,7 +735,7 @@ a {
     border-color: #9D2DD7; }
 
     .home-header{
-      background: url(assets/images/bk-search.jpg) no-repeat;
+      background: url(/assets/images/bk-search.jpg) no-repeat;
       background-size: auto auto;
       padding-top: 20px;
       padding-bottom: 20px;

@@ -2,8 +2,9 @@ import { CallapiService } from './callapi.service';
 import { Injectable }          from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth }     from 'angularfire2/auth';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
+import 'firebase/messaging';
 import 'rxjs/add/operator/take';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { SharedService } from './shared.service';
@@ -27,8 +28,8 @@ export class FirebaseMessagesService {
     this.afAuth.authState.take(1).subscribe(user => {
       if (!user) return;
       this.call.postRequest("/User/SaveNewDeviceID?device_id="+token,"",null);
-      const data = { [user.uid]: token }
-      this.db.object('fcmTokens/').update(data)
+      //const data = { [user.uid]: token }
+      //this.db.object('fcmTokens/').update(data)
 
     })
   }

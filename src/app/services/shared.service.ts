@@ -69,6 +69,14 @@ export class SharedService {
   setLocale(value: any) {
     this.locale = value;
   }
+  isLeadSent():boolean{
+    if(localStorage.getItem("leadSent")=="1") return true;
+
+    return false;
+  }
+  setLeadSent(val:string) {
+    localStorage.setItem("leadSent",val);
+  }
   getToken() {
      let token=this.cookie.get(TOKEN_COOCKIE_NAME) || localStorage.getItem(TOKEN_STORAGE_NAME) || null;
      if(token==null) return null;

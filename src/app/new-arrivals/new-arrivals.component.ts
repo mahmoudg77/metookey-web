@@ -49,7 +49,33 @@ back(){
 }
 
 jQueryLoad(){
+    var $this=this;
     $(function(){
+        var res={};
+
+     
+        if($this.shared.isLeadSent()){
+            res={
+                0:{
+                    items:1
+                },
+                1000:{
+                    items:2
+                },
+                1200:{
+                    items:4
+                }
+            }
+        } else{
+            res={
+                0:{
+                    items:1
+                },
+                1000:{
+                    items:2
+                }
+            }
+        }
       var slider= $("#newarrival_slider .owl-carousel").owlCarousel(
         {
             loop:true,
@@ -59,14 +85,7 @@ jQueryLoad(){
             autoplay:true,
             responsiveClass:true,
             dotsContainer: '#carousel-custom-dots',
-            responsive:{
-                0:{
-                    items:1
-                },
-                1000:{
-                    items:2
-                }
-            }
+            responsive:res
         }
     );
     $("#newarrival_slider .owl-next").click(function(){slider.trigger('next.owl');});

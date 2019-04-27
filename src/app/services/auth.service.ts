@@ -1,5 +1,3 @@
-import { FirebaseMessagesService } from './firebase-messages.service';
-import { Observable } from 'rxjs';
 import { CallapiService } from './callapi.service';
 import { Injectable } from '@angular/core';
 import { SharedService } from './shared.service';
@@ -31,13 +29,13 @@ export class AuthService {
           this.shared.setUser(next.account);
           this.shared.roles=next.roles;
           //this.shared.setToken(next.token);
-          //this.notifyService.start();
+          this.notifyService.start();
          if(next_fn!=null) next_fn(next);
         },
         error=>{
           this.shared.setToken(null);
           if(error_fn!=null) error_fn(error);
-          //this.notifyService.stop();
+          this.notifyService.stop();
         }
       )
       }

@@ -103,8 +103,10 @@ export class CallapiService {
 
     errorHandling(error:any){
       if(error.status==403){
-        if(this.shared.isLogin()) this.shared.clearToken();
-        this.route.navigate([{outlets:{modal:['login']}}]);
+        if(this.shared.isLogin()){
+          this.shared.clearToken();
+          this.route.navigate([{outlets:{modal:['login']}}]);
+        } 
       }else if(error.status==401){
         this.shared.error("You are not allowed to perform this action");
       }else if(error.status==500){

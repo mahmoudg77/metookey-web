@@ -8,5 +8,289 @@
     margin-right: 3.5rem;
 }
 
+// component css goes here
+.color_primary_bold{
+    color:#9365bf;
+}
+.background-search{
+    padding:20px 0;
+    background: #953be8;
+    color: #fff;
+}
+.background-search h2{
+    color:#fff;
+}
+.media{
+    color:#52158e;
+    margin-bottom: 20px;
+}
+.media h2{
+    color:#52158e;
+    margin-bottom: 0;
+}
+.media i{
+    font-size: 50px;
+    margin: 0 15px 0 0;
+}
+/*start wizerd all*/
+form{
+    padding:0 60px;
+    margin-top: 40px;
+}
+input[type=text],input[type=date], input[type=number], select{
+    border:solid 2px #ce9ffb !important;
+    border-radius: 8px;
+    height: 35px !important;
+    font-size: 1.3rem;
+    color: #999;
+}
+.step-1 .color-primary{
+    border: 1px solid #ce9ffb !important;  
+    background-color: #fff;
+}
+.btn-arrow i{margin-right: 10px;}
+.wizerd-metookey{
+    background-color:#f4f4f4;
+}
+.col-form-label{
+    color:#953be8;
+    font-weight: bold;
+    font-size: 13px;
+}
+.left-form{
+    pa-dding:0 60px;
+}
 
+/*end wizerd all*/
+
+/*start wizerd step-1*/
+.step-1 .form-group{
+    margin-bottom: 20px;
+    height: 100px;
+    overflow: hidden;
+}
+.step-1 p{
+    font-size: 12px;
+}
+.step-1 .step-span{
+    font-size: 11px !important;
+    padding: 0 15px !important;
+}
+.step-1 .custom-select select{
+    height: 29px !important;
+    font-size: 13px !important;
+    padding: 0 13px !important;
+}
+// .select-cat span{
+//     border: 1px solid #ce9ffb;
+//     border-radius: 0px 10px 10px 0px;
+//     text-align: center;
+//     //line-height: 31px;
+//     font-size: 15px;
+//     padding: 0 10px;
+//     background: #ce9ffb;
+//     color: #450285;
+//     font-weight: bold;
+// }
+
+.select-cat .form-control{
+    height: auto;
+    padding: 2px 5px;
+    label{
+        margin-right:2px ;
+        padding:3px auto;
+    }
+}
+ 
+
+
+/*end wizerd step-1*/
+
+/*start wizerd step-2*/
+.step-2 input[type=text],.step-2 input[type=date],.step-2 input[type=number], .step-2 select{
+    width: 110px;
+    height: 25px !important;
+    border-radius: 5px;
+}
+.step-2 .col-form-label{
+    font-size: 14px;
+}
+.step-2 .lable-deposit, .step-2 .span-deposit{
+    margin-right: 10px;
+    color: #440184;
+    font-weight: bold;
+    font-size: 12px;
+}
+.step-2 input[type=date] {
+    padding-top: 10PX !important;
+    min-width: 170px !important;
+}
+// .step-2 .lable-deposit{color:#440184;}
+// .step-2 .span-deposit{
+//     color: #953be8;
+//     font-weight: bold;
+//     font-size: 12px;
+// }
+.step-2 .form-check {
+    margin-bottom: 10px;
+}
+.step-2 .step-2-row{
+    margin-bottom: 30px;
+}
+.step-2-row span i{
+    margin: 0 6px;
+}
+/*end wizerd step-2*/
+
+/*start wizerd step-3*/
+.step-3 {
+    font-size: 13px;
+}
+.step-3 input[type=text],.step-3 input[type=date]{
+    width: 110px;
+    height: 25px !important;
+    border-radius: 5px;
+}
+.step-3 .step-3-row{
+    margin-bottom: 30px;
+}
+.step-3 textarea{
+    max-width:370px;
+    width:100%;
+    margin-left: 20px;
+}
+.step-3 textarea::-webkit-input-placeholder{
+    font-size: 12px;
+}
+.step-3 .lable-deposit{
+    margin-right: 10px;
+    color: #888;
+    font-size: 12px;
+}
+/*end wizerd step-3*/
+
+
+
+.btn-primary{
+    background: #440184 !important;
+    border-color: #440184 !important;
+    border-radius: 5px !important;
+}
+
+@media(max-width:560px){
+    wizard-step{
+        .btn.btn-primary{
+            margin: 0.2rem 0;
+        }
+    }
+}
+.custom-select {
+    background: url('/assets/images/15xvbd5.png')    no-repeat 100% 0;
+    height: 32px;
+    overflow: hidden;
+    /*width: 240px;*/
+    padding: 0 10px;
+    background-size: auto 100%;
+ }
+ 
+ .custom-select select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 29px;
+    padding: 5px; /* If you add too much padding here, the options won't show in IE */
+    width: calc(100% + 20px);
+ }
+ 
+ 
+ .custom-select.slate select {
+    border: 1px solid #ccc;
+    font-size: 16px;
+    height: 34px;
+    width: calc(100% + 20px);
+ }
+ 
+ /* -------------------- Rounded Corners */
+ .square {
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+ }
+ .semi-square {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+ }
+ .color-primary   { border:1px solid #953be8; }
+ .color-primary select   { color: #953be8; }
+ 
+//  .custom-select.color-primary:hover{
+//      background-color: #52158e;
+//  }
+ .custom-select.color-primary:hover select{
+    color: #777 !important;
+    backg-round: #52158e;
+}
+// .custom-select:hover select, .custom-select:focus select{
+//     background: #953be8 !important;
+// }
+input[type=date]{
+    padding-top: 2px;
+    min-width: 150px;
+}
+ 
+
+    .img-upload{
+        display: table;
+        color: #86228a;
+        border-radius: 5px;
+        width:100%;
+        height: 100%;
+        background: #f5eff5 url('/assets/images/img-upload.png') no-repeat 50% 50%;
+        background-size: 100% 100%;
+        cursor: pointer;
+        input[type="file"] {
+            display: none;
+        }
+    }
+    
+    .ngx-input-tag[_ngcontent-c5]{
+        padding: 2px 80px 0px 4px !important;
+    }
+    .ngx-input-tag__btn[_ngcontent-c5]{
+        font-size: 21px !important;
+    }
+    .progress-bar-header{padding: 30px 0;background-color: #fff;}
+    .checkout-progress-bar li > span {font-size: 1.5rem !important;}
+    .checkout-progress-bar li.active::before, .checkout-progress-bar li.active > span::before {
+        background-color: #953be8 !important;
+    }
+    .chk-block-content{padding:50px 0 0 0;}
+    ::ng-deep .mat-horizontal-stepper-header-container {display: none !important;}
+      .select-cat .form-control {
+        height: 35px;
+        padding: 2px 5px;
+        border-radius: 15px 0 0 15px;
+        border-color: #ce9ffb;
+    }
+    .select-cat span {
+        border: 1px solid #ce9ffb;
+        border-radius: 0px 15px 15px 0px;
+        text-align: center;
+        font-size: 15px;
+        padding: 0 15px;
+        background: #ce9ffb;
+        color: #450285;
+        font-weight: bold;
+        line-height: 30px;
+    } 
+    .timer{
+        color: #a12cde;
+        font-size: 6rem;
+    }
+    .find_your_price h1{
+        color: #1f1f1f;
+        text-shadow: none;
+    }
+    
 
