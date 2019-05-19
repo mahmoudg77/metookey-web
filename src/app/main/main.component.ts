@@ -6,7 +6,7 @@ import { BreadcrumbService} from 'ng5-breadcrumb';
 import { TranslateService} from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import {MediaChange, ObservableMedia} from "@angular/flex-layout";
+//import {MediaChange, ObservableMedia} from "@angular/flex-layout";
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'rxjs/add/operator/filter';
 import { Title } from '@angular/platform-browser';
@@ -62,7 +62,7 @@ export class MainComponent implements OnInit, OnDestroy{
      }
 
     constructor(public menuItems: MenuItems, private breadcrumbService: BreadcrumbService, private pageTitleService: Title, 
-        public translate: TranslateService, private router: Router, private media: ObservableMedia,private shared:SharedService,private call:CallapiService) {
+        public translate: TranslateService, private router: Router,private shared:SharedService,private call:CallapiService) {
         const browserLang: string = translate.getBrowserLang();
         translate.use(browserLang.match(/en|ar/) ? browserLang : 'en');
         
@@ -110,25 +110,25 @@ export class MainComponent implements OnInit, OnDestroy{
             }
         }
         
-        if (this.media.isActive('xs') || this.media.isActive('sm')){
-            this._mode = 'over';
-            this._closeOnClickOutside = true;
-            this._showBackdrop = true;
-            this._opened = false;
-            this.sidebarClosed = false;
+        // if (this.media.isActive('xs') || this.media.isActive('sm')){
+        //     this._mode = 'over';
+        //     this._closeOnClickOutside = true;
+        //     this._showBackdrop = true;
+        //     this._opened = false;
+        //     this.sidebarClosed = false;
         
-        }
+        // }
         
-        this._mediaSubscription = this.media.asObservable().subscribe((change: MediaChange) => {
-            let isMobile = (change.mqAlias == 'xs') || (change.mqAlias == 'sm');
+        // this._mediaSubscription = this.media.asObservable().subscribe((change: MediaChange) => {
+        //     let isMobile = (change.mqAlias == 'xs') || (change.mqAlias == 'sm');
 
-            this.isMobile = isMobile;
-            this._mode = (isMobile) ? 'over' : 'push';
-            this._closeOnClickOutside = (isMobile) ? true : false;
-            this._showBackdrop = (isMobile) ? true : false;
-            this._opened = !isMobile;
-            this.sidebarClosed = false;
-        });
+        //     this.isMobile = isMobile;
+        //     this._mode = (isMobile) ? 'over' : 'push';
+        //     this._closeOnClickOutside = (isMobile) ? true : false;
+        //     this._showBackdrop = (isMobile) ? true : false;
+        //     this._opened = !isMobile;
+        //     this.sidebarClosed = false;
+        // });
 
         this._routerEventsSubscription = this.router.events.subscribe((event) => {
           if (event instanceof NavigationEnd && this.isMobile) {

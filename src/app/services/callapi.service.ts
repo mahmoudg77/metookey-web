@@ -105,8 +105,8 @@ export class CallapiService {
       if(error.status==403){
         if(this.shared.isLogin()){
           this.shared.clearToken();
-          this.route.navigate([{outlets:{modal:['login']}}]);
         } 
+        this.route.navigate([{outlets:{modal:['login']}}]);
       }else if(error.status==401){
         this.shared.error("You are not allowed to perform this action");
       }else if(error.status==500){
@@ -123,7 +123,10 @@ export class CallapiService {
     loadSettings(){
       this.postRequest("/Setting/General","",
         next=>{
-          GlobalData.settings=next;
+          //Object.assign(GlobalData.settings,next);
+          Object.keys(next).forEach(key=>{
+            GlobalData.settings[key]=next[key];
+          })
           this.loadCategories();
         });
     }

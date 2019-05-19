@@ -7,7 +7,9 @@ import { Location } from '@angular/common';
 import { Guid } from "guid-typescript";
 import { TranslateService } from '@ngx-translate/core';
 import { MyToasterService } from './my-toaster.service';
-
+import { MyStroageService } from './my-stroage.service';
+import { EncrDecrService } from './encr-decr.service';
+//import {SimpleCrypto} from "simple-crypto-js";
 declare var $:any;
 
 const TOKEN_COOCKIE_NAME:string="MetookeyToken";
@@ -55,7 +57,7 @@ export class SharedService {
               private location:Location,
               private translator:TranslateService,
               private toaster:MyToasterService,
-             
+             private encript:EncrDecrService
 
     ) {
     // if(this.locale==undefined){
@@ -107,8 +109,11 @@ export class SharedService {
 
   
   userHasRole(role:string):boolean{
-    if(this.roles==null) return false;
-    return this.roles.filter(a=>a==role).length>0;
+    const strRoles=localStorage.getItem("roles");
+
+    var roles=this.encript.decr(strRoles).split(",");
+    if(roles==null) return false;
+    return roles.filter(a=>a==role).length>0;
   }
 
   getTime() {
@@ -175,7 +180,7 @@ export class SharedService {
 }
 
 appUrl(){
-  return window.location.protocol+"//"+ window.location.hostname+(window.location.port!='80'?':'+window.location.port:'');
+  return window.location.protocol+"//"+ window.location.hostname+(window.location.port!=''?':'+window.location.port:'');
 }
 
 translate(key:string){

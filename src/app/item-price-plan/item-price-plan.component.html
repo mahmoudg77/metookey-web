@@ -1,5 +1,21 @@
 <div class="price-plan">
-    <div class="price-offer"><h1><strong>{{calculateOff(orders)|number:'1.0-0'}}%</strong> <small> {{"off"|translate}}</small></h1></div>
+    <div class="price-offer row" >
+        <!-- <h1>
+            <strong>{{calculateOff(orders)|number:'1.0-0'}}%</strong> 
+            <small> {{"off"|translate}}</small>
+        </h1> -->
+        <div class="col">
+            <div class="float-right progress-circle p{{(orders/quantity)*100|number:'1.0-0'}}" >
+            <span>{{calculateOff(orders)|number:'1.0-0'}}%</span>
+        <div class="left-half-clipper">
+            <div class="first50-bar"></div>
+            <div class="value-bar"></div>
+        </div>
+    </div></div>
+        <div class="col" ><h1 class="text-left"><small> {{"off"|translate}}</small></h1></div>
+        
+        
+    </div>
     <table>
         <tr>
         <td class="price-time">

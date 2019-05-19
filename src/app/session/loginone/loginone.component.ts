@@ -9,6 +9,7 @@ import { Title } from '@angular/platform-browser';
 import { NotificationServiceService } from 'app/services/notification-service.service';
 import { SocialAuthService } from 'app/services/social-auth.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { EncrDecrService } from 'app/services/encr-decr.service';
 
 declare var $:any;
 @Component({
@@ -45,6 +46,7 @@ export class LoginoneComponent {
     private call: CallapiService,
     private notify:NotificationServiceService,
     private social:SocialAuthService,
+    private encript:EncrDecrService
     // private messagingService: FirebaseMessagesService
 
     ) {
@@ -78,7 +80,9 @@ export class LoginoneComponent {
         this.shared.setUser(next.account);
         this.shared.setToken(next.token,this.remember);
         this.shared.roles=next.roles;
-        
+        if(next.roles)
+        localStorage.setItem("roles",this.encript.encr(next.roles.join(',')))
+
         
         this.notify.start();
         
@@ -115,6 +119,8 @@ export class LoginoneComponent {
             this.shared.setUser(next.account);
             this.shared.setToken(next.token);
             this.shared.roles=next.roles;
+            if(next.roles)
+            localStorage.setItem("roles",this.encript.encr(next.roles.join(',')))
             //this.activeModal.close();
             this.shared.closeModal();
             

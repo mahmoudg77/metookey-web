@@ -47,6 +47,10 @@ export class HomeComponent implements OnInit{
     loaded:boolean=false;
 
 
+    newArrivals:any[];
+    start:number=0;
+    length:number=2;
+
     constructor(private pageTitleService: Title, 
                 private route: Router, 
                 public shared: SharedService,
@@ -77,7 +81,6 @@ export class HomeComponent implements OnInit{
             this.seo.titleTag(value);
             this.seo.metaTag('og:title',value);
         });
-        this.seo.metaTag('fb:app_id',GlobalData.settings.facebook_appid);
 
         this.seo.metaTag('og:image',this.shared.appUrl()+'/assets/images/logo.png');
         this.seo.metaTag('og:url',window.location.href);
@@ -93,6 +96,7 @@ export class HomeComponent implements OnInit{
        
       this.loadCategories();
     //   console.log(addthis);
+    this.loadNewArrivals();
          
     }
     
@@ -247,6 +251,11 @@ export class HomeComponent implements OnInit{
 
     req_sendRequest()
     {
+        if(!this.shared.isLogin()){
+            //this.shared.clearToken();
+            this.route.navigate([{outlets:{modal:['login']}}]);
+            return;
+        } 
             this.call.postRequest("/Requests/Add" , this.data,
             response=>{
                 this.shared.success("Save success");
@@ -255,8 +264,79 @@ export class HomeComponent implements OnInit{
                 this.shared.setLeadSent("1");
             },
             error=>{
-                this.shared.error(error);
+                //this.shared.error(error);
             });
         
     }
+
+    loadNewArrivals(){
+        this.call.postRequest("/item/all",{length:10},
+        next=>{
+            this.newArrivals=next.data
+            // for (let index = 0; index < next.data.length; index++) {
+            //     //this.newArrivals[index]=next.data[index];  
+                
+            // }
+            this.ngzone.runOutsideAngular(()=>{
+    
+                this.newArrivaljQueryLoad(); 
+            })
+        });
+    }
+    next(){
+        if((this.start+this.length)>=10) return;
+            this.start+=this.length;
+    }
+    back(){
+       if(this.start<this.length) return;
+            this.start-=this.length;
+            
+    }
+    
+    newArrivaljQueryLoad(){
+        var $this=this;
+        $(function(){
+            var res={};
+    
+         
+            if(!$this.allow){
+                res={
+                    0:{
+                        items:1
+                    },
+                    1000:{
+                        items:2
+                    },
+                    1200:{
+                        items:4
+                    }
+                }
+            } else{
+                res={
+                    0:{
+                        items:1
+                    },
+                    1000:{
+                        items:2
+                    }
+                }
+            }
+          var slider= $("#newarrival_slider .owl-carousel").owlCarousel(
+            {
+                loop:true,
+                margin:10,
+                nav:false,        
+                dots: true,
+                autoplay:true,
+                responsiveClass:true,
+                dotsContainer: '#carousel-custom-dots',
+                responsive:res
+            }
+        );
+        $("#newarrival_slider .owl-next").click(function(){slider.trigger('next.owl');});
+        $("#newarrival_slider .owl-prev").click(function(){slider.trigger('prev.owl');});
+      
+        })
+        
+      }
 }

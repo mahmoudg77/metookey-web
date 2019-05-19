@@ -104,7 +104,8 @@ export class ItemPricePlanComponent implements OnInit {
         }
         //var format:DecimalPipe=new DecimalPipe("en");
 
-        return (total*index/this.quantity)*100/this.price;
+        return (total)*100/this.price;
+        //return (total*index/this.quantity)*100/this.price;
     }
     // calculatePrice(index){
     //    var off = this.calculateOff(index);

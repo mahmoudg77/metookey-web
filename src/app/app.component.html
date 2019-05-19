@@ -44,8 +44,10 @@
 						<div class="dropdown compare-dropdown" *ngIf="shared.isLogin()">
 							<a href="#" class="dropdown-toggle bell" role="button" data-toggle="dropdown" 
                                aria-haspopup="true" aria-expanded="false" data-display="static">
-							   <span class=""><i class="fa fa-bell fa-lg"></i></span>
-							</a>
+								 <span class=""><i class="fa fa-bell fa-lg"></i></span>
+								 <p class="badge">{{notifyService.count[0]+notifyService.count[1]+notifyService.count[2]+notifyService.count[3]}}</p>
+								
+								</a>
 
 							<div class="dropdown-menu" >
 								<div class="dropdownmenu-wrapper">
@@ -63,7 +65,7 @@
 											aria-selected="true">
 											<div class="text-center" style="margin-bottom:20px;">
 												<span class="notify-icon"><i class="fa fa-bell fa-lg"></i></span>
-												<p class="badge">0</p>
+												<p class="badge">{{notifyService.count[0]}}</p>
 											</div>
 											<div>{{ "MeTookey Reminders" | translate }}</div> <!--index=0-->
 										</a>
@@ -72,7 +74,7 @@
 											aria-selected="false">
 											<div class="text-center" style="margin-bottom:20px;">
 											<span class="notify-icon"><i class="fa fa-percent fa-lg"></i></span>
-											<p class="badge">0</p>
+											<p class="badge">{{notifyService.count[3]}}</p>
 											</div>
 											<div>{{ "Offer Endings" | translate }}</div><!--index=3-->
 										</a>
@@ -81,7 +83,7 @@
 											aria-selected="false"  *ngIf="shared.userHasRole('metookeyer')">
 											<div class="text-center" style="margin-bottom:20px;">
 											<span class="notify-icon"><i class="fa fa-flag"></i></span>
-											<p class="badge">0</p>
+											<p class="badge">{{notifyService.count[2]}}</p>
 											</div>
 											<div>{{ "Request MeTooKey" | translate }}</div><!--index=2-->
 										</a>
@@ -91,12 +93,12 @@
 									<!-- <div class="tab-pane fade show active" id="nav-newproduct" role="tabpanel" 
 										aria-labelledby="nav-home-tab">
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[1]">
+											<li class="list-group-item"  [class.un-seend]="!notify.seen_at"  *ngFor="let notify of notifyService.inbox[1]">
 												<div class="row notification-content">
 														<div class="col-2">
 																<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
 															</div>
-															<div class="col-8">
+															<div class="col-8"  (click)="notifyService.seen(notify)">
 																<a hrfe="javascript:;" routerLink="{{notify.link}}">
 																	 
 																<strong>{{notify.sender_name}}</strong>
@@ -117,14 +119,14 @@
 											</li>
 										</ul>
 									</div> -->
-									<div class="tab-pane fade" id="nav-reminder active" role="tabpanel" aria-labelledby="nav-profile-tab">
+									<div class="tab-pane fade show active" id="nav-reminder" role="tabpanel" aria-labelledby="nav-profile-tab">
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[0]">
+											<li class="list-group-item" [class.un-seend]="!notify.seen_at"  *ngFor="let notify of notifyService.inbox[0]">
 												<div class="row notification-content">
 														<div class="col-2">
 																<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
 															</div>
-															<div class="col-8">
+															<div class="col-8"  (click)="notifyService.seen(notify)">
 																<a hrfe="javascript:;" routerLink="{{notify.link}}">
 																 
 																	<strong>{{notify.sender_name}}</strong>
@@ -134,8 +136,10 @@
 																</a>
 															</div>
 															<div class="col-2 notify-right text-right">
-																<span><i class="fa fa-plus"></i></span>
-																<span>...</span>
+																<span>{{notify.created_at|date:"yyyy-MM-dd"}}
+																	<!-- <i class="fa fa-plus"></i> -->
+																</span>
+																<span>{{notify.created_at|date:"h:mm a"}}</span>
 															</div>
 												</div>
 											</li>
@@ -147,12 +151,12 @@
 									</div>
 									<div class="tab-pane fade" id="nav-offerend" role="tabpanel" aria-labelledby="nav-contact-tab">
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[3]">
+											<li class="list-group-item" [class.un-seend]="!notify.seen_at" *ngFor="let notify of notifyService.inbox[3]">
 												<div class="row notification-content">
 														<div class="col-2">
 																<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
 															</div>
-															<div class="col-8">
+															<div class="col-8"  (click)="notifyService.seen(notify)">
 																<a hrfe="javascript:;" routerLink="{{notify.link}}">
 																	 
 																<strong>{{notify.sender_name}}</strong>
@@ -162,8 +166,8 @@
 																</a>
 															</div>
 															<div class="col-2 notify-right text-right">
-																<span><i class="fa fa-plus"></i></span>
-																<span>...</span>
+																<!-- <span><i class="fa fa-plus"></i></span>
+																<span>...</span> -->
 															</div>
 															
 													</div>
@@ -178,12 +182,12 @@
 									</div>
 									<div class="tab-pane fade" id="nav-neworder" role="tabpanel" aria-labelledby="nav-contact-tab" *ngIf="shared.userHasRole('metookeyer')">
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item" *ngFor="let notify of notifyService.inbox[2]">
+											<li class="list-group-item" [class.un-seend]="!notify.seen_at"  *ngFor="let notify of notifyService.inbox[2]">
 												<div class="row notification-content">
 													<div class="col-2">
 														<img src="{{env.mediaServer}}{{notify.sender_image}}" class="img-responsive img-rounded" alt="">
 													</div>
-													<div class="col-8">
+													<div class="col-8"  (click)="notifyService.seen(notify)">
 														<a hrfe="javascript:;" routerLink="{{notify.link}}">
 															 
 																<strong>{{notify.sender_name}}</strong>
@@ -193,8 +197,8 @@
 														</a>
 													</div>
 													<div class="col-2 notify-right text-right">
-														<span><i class="fa fa-plus"></i></span>
-														<span>...</span>
+														<!-- <span><i class="fa fa-plus"></i></span> -->
+														<!-- <span>...</span> -->
 													</div>
 												</div>
 											</li>

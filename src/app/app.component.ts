@@ -154,6 +154,7 @@ export class MetookeyAppComponent implements OnInit{
     //         this.saveNewDeviceID(token);
     //  });
   
+    this.seo.metaTag('fb:app_id',GlobalData.settings.facebook_appid);
 
     
   }

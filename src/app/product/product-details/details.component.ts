@@ -289,9 +289,10 @@ export class ProductDetailsComponent implements OnInit,OnChanges{
             })
             this.seo.metaTag('keywords',this.currentItem.tags);
             this.seo.metaTag('description',this.currentItem.description);
-            this.seo.metaTag('og:image',this.shared.appUrl()+this.env.mediaServer+ this.ogImage.large);
+            this.seo.metaTag('og:image',this.shared.appUrl()+ this.env.mediaServer+ (this.ogImage.large!=""?this.ogImage.large:this.itemImages[0].large));
             this.seo.metaTag('og:url',window.location.href);
             this.seo.metaTag('og:description',this.currentItem.description);
+            this.seo.metaTag('product:price:amount',this.currentItem.offer_price);
         })
        
     }

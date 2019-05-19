@@ -3,7 +3,7 @@ import { PipesModule } from 'app/core/pipes/pipes.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderRoutes } from './orders-routing';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 // Angular Imports
 import { NgModule, Component } from '@angular/core';
@@ -30,6 +30,7 @@ import { NgxBraintreeModule } from 'ngx-braintree'
     ModalModule,
     TranslateModule,
     NgxBraintreeModule,
+    
     ],
     declarations: [
         NewOrderComponent,
@@ -43,6 +44,9 @@ import { NgxBraintreeModule } from 'ngx-braintree'
         MyOrdersComponent,
         OrderDetailsComponent,
         OrderWaitingComponent
+    ],
+    providers:[
+        DatePipe
     ]
 })
 export class OrdersModule {

@@ -16,7 +16,7 @@ import { AccountsModule } from '../accounts/accounts.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DirectivesModule } from '../core/directive/directives.module';
 
@@ -77,6 +77,10 @@ import { TranslationEditorModule } from './translation-editor/translation-editor
   entryComponents:[
    
 
+  ],
+  providers:[
+    
+		DatePipe
   ]
 })
 //

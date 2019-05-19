@@ -91,8 +91,8 @@
  .notify-right span:last-child{
     padding: 0px 10px;
     font-size: 13px;
-    font-weight: bold;
-    margin-top: -9px;
+    // font-weight: bold;
+    // margin-top: -9px;
  }
 
  .notify-link .notify-icon:first-child{
@@ -185,4 +185,8 @@
  }
  .btncreateMe{
      border-radius: 10px !important;
+ }
+
+ .un-seend{
+     background: #f4ebfc;
  }

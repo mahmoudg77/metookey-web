@@ -21,6 +21,7 @@ export class AdminGuard implements CanActivate,CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     let status= this.shared.userHasRole('admin');
+    //console.log("roles",this.shared.roles);
    if(!status)this.myRoute.navigate(['/']);
    return status;
  }

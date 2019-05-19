@@ -163,6 +163,10 @@ export class OrderWaitingComponent implements OnInit{
             { data: 'quantity',title:'Quantity'},
             { data: 'insurance_value',title:'Deposit Value'},
             { data: 'created_at',title:'Order Date'},
+            { data: 'payer_first_name',title:'First Name'},
+            { data: 'payer_last_name',title:'Last Name'},
+            { data: 'payer_mobile',title:'Mobile'},
+            { data: 'payer_email',title:'Email'},
             { data: 'order_state',title:'Status'},
           ]
         }

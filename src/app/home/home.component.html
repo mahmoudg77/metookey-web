@@ -12,10 +12,36 @@
     
                 </div>
                 
-                <div [class.col-md-6]="!shared.isLeadSent()" class="col sidebar-home">
-                    <new-arrivals></new-arrivals>
+                <div [class.col-md-6]="allow" class="col sidebar-home">
+                    <div id="newarrival_slider"  class="row  owl-theme">
+                        <div class="col-sm-12">
+                        <div class="widget-posts-slider owl-carousel">
+                                <product-card  class="item" *ngFor="let item of newArrivals"
+                                    [id]="item.id"
+                                    [image]="item.image"
+                                    [time]="item.date_start"
+                                    [tags]="item.categories"
+                                    [rate]="item.rate_total_summary"
+                                    [title]="item.name"
+                                    [price]="item.offer_price"
+                                    [bprice]="item.original_price"
+                                    [total]="item.quantity"
+                                    [orders]="item.orders_count"
+                                ></product-card>  
+                        </div>
+                
+               
+                     <div class="owl-dots text-center w-100 d-md-block d-none">
+                        <a href="javascript:;" class="owl-prev arrivals-arrow"><i class="fa fa-chevron-left"></i></a>
+                        <span id='carousel-custom-dots' class=""></span>
+                            <!-- <button role="button" *ngFor="let x of []|range:(10/2)" class="owl-dot "><span></span></button> -->
+                        <a href="javascript:;" class="owl-next arrivals-arrow"><i class="fa fa-chevron-right"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-6" *ngIf="!shared.isLeadSent()">
+             
+            </div>
+                </div>
+                <div class="col-md-6" *ngIf="allow">
                     <div class="col find_your_price  ">
                             <div class="row align-items-center  " style="min-height:370px" >
                             <div class="col">

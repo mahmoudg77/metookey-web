@@ -2,6 +2,7 @@ import { CallapiService } from './../services/callapi.service';
 import { SharedService } from 'app/services/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { Router } from '@angular/router';
 declare var $:any;
 @Component({
     moduleId: module.id,
@@ -23,6 +24,7 @@ export class CustomerLeadsComponent implements OnInit {
     constructor(
         public shared:SharedService,
         private call:CallapiService,
+        private router:Router
     ){
 
     }
@@ -105,6 +107,11 @@ export class CustomerLeadsComponent implements OnInit {
 
     sendRequest()
     {
+        if(!this.shared.isLogin()){
+            //this.shared.clearToken();
+            this.router.navigate([{outlets:{modal:['login']}}]);
+            return;
+        } 
             this.call.postRequest("/Requests/Add" , this.data,
             response=>{
                 this.shared.success("Save success");
@@ -113,8 +120,9 @@ export class CustomerLeadsComponent implements OnInit {
                 this.shared.setLeadSent("1");
             },
             error=>{
-                this.shared.error(error);
-            });
+               
+            }
+            );
         
     }
   

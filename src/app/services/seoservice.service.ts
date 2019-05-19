@@ -15,11 +15,11 @@ export class SEOServiceService {
   }
 
   metaTag(name:string,content: string) {
-    this.meta.removeTag('name="' + name + '"');
-    this.meta.addTag({ name: name, content: content });
+    this.meta.removeTag('property="' + name + '"');
+    this.meta.addTag({ property: name, content: content });
   }
   getMetaContent(name:string) {
-   return this.meta.getTag('name="' + name + '"').content;
+   return this.meta.getTag('property="' + name + '"').content;
   }
 
 

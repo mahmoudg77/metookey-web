@@ -1,3 +1,4 @@
+import { MyStroageService } from './services/my-stroage.service';
 // import { FirebaseMessagesService } from './services/firebase-messages.service';
 import { NewOrderMobileComponent } from './new-order-mobile/new-order-mobile.component';
 import { CounterSectionModule } from './counter-section/counter-section.module';
@@ -41,7 +42,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
-import { FlexLayoutModule } from '@angular/flex-layout';
+//import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -94,7 +95,8 @@ import { ShareButtonsModule } from './share-buttons/share-buttons.module';
 import { NgxBraintreeModule } from 'ngx-braintree';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { FacebookModule } from 'ngx-facebook';
 // import { PageTitleService } from './core/page-title/page-title.service';
 
 /********** Custom option for ngx-translate ******/
@@ -114,7 +116,7 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		ReactiveFormsModule,
 		SidebarModule.forRoot(),
 		RouterModule.forRoot(AppRoutes,{ enableTracing: false,onSameUrlNavigation: 'reload',scrollPositionRestoration: 'enabled' }),
-		FlexLayoutModule,
+		// FlexLayoutModule,
 		Ng5BreadcrumbModule.forRoot(),
 		AgmCoreModule.forRoot({apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk'}),
         PerfectScrollbarModule,
@@ -167,7 +169,8 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		CounterSectionModule,
 		NgxBraintreeModule,
 		AngularFireDatabaseModule,
-    AngularFireMessagingModule,
+		AngularFireMessagingModule,
+		FacebookModule.forRoot()
 	],
 	declarations: [
 		MetookeyAppComponent, 
@@ -207,7 +210,9 @@ const perfectScrollbarConfig: PerfectScrollbarConfigInterface = {
 		WindowService,
 		GeneralModalService,
 		// FirebaseMessagesService,
-		AsyncPipe
+		AsyncPipe,
+		MyStroageService,
+		DatePipe
 	],
 	exports: [
 		//ItemChartComponent

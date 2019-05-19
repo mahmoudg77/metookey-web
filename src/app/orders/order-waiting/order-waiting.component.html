@@ -14,7 +14,7 @@
     </div>
     </div>
     <hr/>
-    <div class="table-responsive-sm">
+    <div class="table-responsive-sm" style="overflow: auto;">
         <table datatable [dtOptions]="dtOptions" width="100%" class="table table-middle table-striped table-hover text-center">
             <thead class="bg-prim-ary">
                 <tr>
@@ -25,6 +25,10 @@
                     <th>{{ "Quantity" | translate }}</th>
                     <th>{{ "Deposit value" | translate }}</th>
                     <th>{{ "Order Date" | translate }}</th>
+                    <th>{{ "First Name" | translate }}</th>
+                    <th>{{ "Last Name" | translate }}</th>
+                    <th>{{ "Mobile" | translate }}</th>
+                    <th>{{ "Email" | translate }}</th>
                     <th>{{ "Status" | translate }}</th>
                     <th *ngIf="scope!='my-orders'">{{ "Action" | translate }}</th>
                 </tr>
@@ -37,7 +41,11 @@
                     <td>{{item.item_offer_price}}</td>
                     <td>{{item.quantity}}</td>
                     <td>{{item.insurance_value}} </td>
-                    <td>{{item.created_at | date}}</td>
+                    <td>{{item.created_at|date}}</td>
+                    <td>{{item.payer_first_name}}</td>
+                    <td>{{item.payer_last_name}}</td>
+                    <td>{{item.payer_mobile}}</td>
+                    <td>{{item.payer_email}}</td>
                     <td><span class="badge badge-{{statusClass(item.order_state)}}">{{item.order_state}}</span></td>
                     <td style="min-width: 200px;" *ngIf="scope!='my-orders'">
                         <ul class="list-inline action-icon">

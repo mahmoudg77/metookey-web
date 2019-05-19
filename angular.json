@@ -35,7 +35,8 @@
               "node_modules/ng2-tree/styles.css",
               "src/assets/css/style.css",
               "src/assets/css/custom.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/css/css-circular-prog-bar.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -53,6 +54,7 @@
               "node_modules/owl.carousel/dist/owl.carousel.min.js",
               "src/assets/js/jquery.elevatezoom.min.js",
               "node_modules/payment/dist/payment.js",
+              "node_modules/crypto-js/crypto-js.js",
               "src/assets/js/main.js"
              
             ]

@@ -17,6 +17,7 @@ import { SocialAuthService } from 'app/services/social-auth.service';
 import { NotificationServiceService } from 'app/services/notification-service.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { RecaptchaComponent } from 'ng-recaptcha';
+import { EncrDecrService } from 'app/services/encr-decr.service';
 
 declare var $:any;
 declare var grecaptcha:any;
@@ -68,7 +69,8 @@ export class RegisterComponent  implements OnInit{
       private translate:TranslateService,
       private social:SocialAuthService,
       private win:WindowService,
-      private notify:NotificationServiceService
+      private notify:NotificationServiceService,
+      private encript:EncrDecrService
   ) { 
 
     this.form=new FormGroup(
@@ -114,6 +116,9 @@ export class RegisterComponent  implements OnInit{
       this.shared.setUser(next);
       this.shared.setToken(next.token);
       this.shared.roles=next.roles;
+      if(!next.roles)
+      localStorage.setItem("roles",this.encript.encr(next.roles.join(',')))
+
       this.isWaiting = false;
       this.notify.start();
       this.shared.closeModal();
@@ -187,6 +192,8 @@ export class RegisterComponent  implements OnInit{
             this.shared.setUser(next.account);
             this.shared.setToken(next.token);
             this.shared.roles=next.roles;
+            if(!next.roles)
+            localStorage.setItem("roles",this.encript.encr(next.roles.join(',')))
             this.notify.start();
             this.shared.closeModal();
 
